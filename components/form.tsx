@@ -2,13 +2,14 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
+import axios from "axios";
 
 
 export const Form = () => {
     const [todoList, setTodoList] = useState<Todo[]>([]);
 
     const [formValue, setFormValue] = useState({
-        description: "",
+        todo: "",
         id: "",
         isComplete: false,
         isEdit: false
@@ -24,9 +25,14 @@ export const Form = () => {
         });
     };
 
+    const post = (data: any) => {
+        const response = axios.post('/api', data)
+    }
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         formValue.id = uuidv4();
+        post(formValue)
         setTodoList([...todoList, formValue]);
         const resetForm = event.target as HTMLFormElement;
         resetForm.reset();
@@ -40,7 +46,7 @@ export const Form = () => {
 
 
             <input
-                name="description"
+                name="todo"
                 type="text"
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"

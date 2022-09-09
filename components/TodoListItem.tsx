@@ -10,7 +10,7 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
     const [todoList, setTodoList] = useState<Todo[]>([]);
 
     const [formValue, setFormValue] = useState({
-        description: props.description,
+        todo: props.todo,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,7 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
             todoList.map((todo: Todo) => {
                 if (todo.id === props.id) {
                     const tempTodo = { ...todo };
-                    tempTodo.description = formValue.description;
+                    tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
                     return tempTodo;
                 }
@@ -92,11 +92,11 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
                             type="text"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                             onChange={handleChange}
-                            value={formValue.description}
+                            value={formValue.todo}
                         />
                         : <p
                             className="mb-3 font-normal text-center text-black">
-                            {props.description}
+                            {props.todo}
                         </p>
                     }
 

@@ -10,11 +10,11 @@ const schema = new Schema({
         required: true
     },
     isComplete: {
-        type: 'string',
+        type: 'boolean',
         required: true
     },
     isEdit: {
-        type: 'string',
+        type: 'boolean',
         required: true
     },
 

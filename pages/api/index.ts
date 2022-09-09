@@ -23,19 +23,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (req.method === 'GET') {
         console.log('GET')
-        console.log(req.body)
-        // try {
-        //     const user = req.query.id
-        //     return Todo.find()
-        //         .then((result) => res.send(result))
-        //         .catch((error) => console.log(error))
-        // }
-        // catch (error) { console.log(error) }
+        try {
+            return Todo.find()
+                .then((result) => res.send(result))
+                .catch((error) => console.log(error))
+        }
+        catch (error) { console.log(error) }
         }
         
     if (req.method === 'POST') {
         const newEntry = createNewTodo(req.body)
         newEntry.save()
+        console.log('New Todo added to database')
         res.status(201).json(newEntry)
         }
         

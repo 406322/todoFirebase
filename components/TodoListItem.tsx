@@ -3,6 +3,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { GrEdit } from 'react-icons/gr';
 import { BiSave } from 'react-icons/bi';
 import { useState } from "react";
+import axios from "axios";
 
 
 export const TodoListItem = ({ props }: { props: Todo }) => {
@@ -23,9 +24,14 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
         });
     };
 
+    const deleteTodo = () => {
+        const response = axios.delete('/api', { data: { id: props.id } })
+    }
+
     const handleDelete = () => {
-        const newState = todoList.filter((todo: Todo) => todo.id !== props.id);
-        setTodoList(newState);
+        deleteTodo()
+        // const newState = todoList.filter((todo: Todo) => todo.id !== props.id);
+        // setTodoList(newState);
     };
 
     const handleEdit = () => {

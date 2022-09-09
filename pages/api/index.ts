@@ -22,7 +22,6 @@ const createNewTodo = (data: any) => {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === 'GET') {
-        console.log('GET')
         try {
             return Todo.find()
                 .then((result) => res.send(result))
@@ -32,11 +31,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         
     if (req.method === 'POST') {
-        const newEntry = createNewTodo(req.body)
-        newEntry.save()
+        const newTodo = createNewTodo(req.body)
+        newTodo.save()
         console.log('New Todo added to database')
-        res.status(201).json(newEntry)
-        }
+        res.status(201).json(newTodo)
+    }
+    
+     if (req.method === 'DELETE') {
+        const id = req.body.id;
+        Todo.deleteOne({ id: id }, function (error) {
+            if (error) { console.log(error) }
+            else if (!error) { console.log('Item deleted')}
+        });
+        res.status(200).json(id)
+
+    } 
         
         else {
         res.status(500).json({ Message: 'Something went wrong' })

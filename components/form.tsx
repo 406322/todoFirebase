@@ -44,7 +44,6 @@ export const Form = () => {
             onSubmit={handleSubmit}
             className="flex gap-3 p-5 m-5 bg-gray-200 rounded-md">
 
-
             <input
                 name="todo"
                 type="text"
@@ -56,6 +55,7 @@ export const Form = () => {
 
             <GoDiffAdded
                 title="Add Todo"
+                type="submit"
                 className="h-10 cursor-pointer w-7"
             />
         </form>

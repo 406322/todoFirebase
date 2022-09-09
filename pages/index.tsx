@@ -1,7 +1,12 @@
+import { Form } from "../components/form"
+
 export default function Home() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <>
+      <h1 className="text-center text-3xl font-bold underline">
+        TodoList
+      </h1>
+      <Form />
+    </>
   )
 }

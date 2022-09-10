@@ -46,10 +46,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     else if (req.method === 'PUT') {
-        console.log('PUT')
         const filter = { id: req.body.id };
-        const update = { todo: req.body.todo };
+        let update;
+        if (req.body.todo) { update = { todo: req.body.todo } }
+        else { update = { isComplete: req.body.isComplete } }
         let doc = await Todo.findOneAndUpdate(filter, update, { new: true });
+        console.log('Todo updated in database')
         res.send(200)
     }
 

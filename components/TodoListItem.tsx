@@ -39,7 +39,8 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
                     const tempTodo = { ...element };
                     tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
-                    const response = axios.put("/api", tempTodo);
+                    const data = { todo: tempTodo.todo, id: tempTodo.id }
+                    const response = axios.put("/api", data);
                     return tempTodo;
                 }
                 return element;
@@ -53,6 +54,8 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
                 if (element.id === todo.id) {
                     const tempTodo = { ...element };
                     tempTodo.isComplete = !tempTodo.isComplete;
+                    const data = { isComplete: tempTodo.isComplete, id: tempTodo.id }
+                    const response = axios.put("/api", data);
                     return tempTodo;
                 }
                 return element;

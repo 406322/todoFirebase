@@ -5,8 +5,7 @@ import { GoDiffAdded } from 'react-icons/go';
 import axios from "axios";
 
 
-export const Form = () => {
-    const [todoList, setTodoList] = useState<Todo[]>([]);
+export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
 
     const [formValue, setFormValue] = useState({
         todo: "",
@@ -25,15 +24,11 @@ export const Form = () => {
         });
     };
 
-    const post = (data: any) => {
-        const response = axios.post('/api', data)
-    }
-
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         formValue.id = uuidv4();
-        post(formValue)
-        setTodoList([...todoList, formValue]);
+        axios.post('/api', formValue)
+        setTodos([...todos, formValue]);
         const resetForm = event.target as HTMLFormElement;
         resetForm.reset();
     };

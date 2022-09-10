@@ -4,9 +4,7 @@ import { TodoListItem } from "./TodoListItem"
 import axios from "axios";
 
 
-export const TodoList = () => {
-
-    const [todos, setTodos] = useState<Todo[]>()
+export const TodoList = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
 
     useEffect(() => {
         const getAllTodos = async () => {
@@ -16,11 +14,10 @@ export const TodoList = () => {
         getAllTodos()
     }, [])
 
-
     return (
         <>
             {todos &&
-                todos.map((todo) => <TodoListItem key={todo.id} props={todo} />)}
+                todos.map((todo: Todo) => <TodoListItem key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />)}
         </>
     );
 };

@@ -28,30 +28,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 .catch((error) => console.log(error))
         }
         catch (error) { console.log(error) }
-        }
-        
-    if (req.method === 'POST') {
+    }
+
+    else if (req.method === 'POST') {
         const newTodo = createNewTodo(req.body)
         newTodo.save()
-        console.log('New Todo added to database')
+        console.log('Todo added to database')
         res.status(201).json(newTodo)
     }
-    
-     if (req.method === 'DELETE') {
+
+    else if (req.method === 'DELETE') {
         const id = req.body.id;
         Todo.deleteOne({ id: id }, function (error) {
             if (error) { console.log(error) }
-            else if (!error) { console.log('Item deleted')}
+            else if (!error) { console.log('Todo deleted from database') }
         });
         res.status(200).json(id)
+    }
 
-    } 
-        
-        else {
+    else {
         res.status(500).json({ Message: 'Something went wrong' })
         return res.end()
-        }
-    
+    }
 
 
- }
+
+}

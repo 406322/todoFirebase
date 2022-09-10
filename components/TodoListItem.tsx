@@ -6,12 +6,10 @@ import { useState } from "react";
 import axios from "axios";
 
 
-export const TodoListItem = ({ props }: { props: Todo }) => {
-
-    const [todoList, setTodoList] = useState<Todo[]>([]);
+export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Todo[], setTodos: any }) => {
 
     const [formValue, setFormValue] = useState({
-        todo: props.todo,
+        todo: todo.todo,
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,14 +22,10 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
         });
     };
 
-    const deleteTodo = () => {
-        const response = axios.delete('/api', { data: { id: props.id } })
-    }
-
-    const handleDelete = () => {
-        deleteTodo()
-        // const newState = todoList.filter((todo: Todo) => todo.id !== props.id);
-        // setTodoList(newState);
+    const handleDelete = async () => {
+        const newState = todos.filter((element: Todo) => element.id !== todo.id);
+        await axios.delete('/api', { data: { id: todo.id } });
+        setTodos(newState);
     };
 
     const handleEdit = () => {
@@ -39,9 +33,9 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
     };
 
     const handleSave = () => {
-        setTodoList(
-            todoList.map((todo: Todo) => {
-                if (todo.id === props.id) {
+        setTodos(
+            todos.map((element: Todo) => {
+                if (element.id === todo.id) {
                     const tempTodo = { ...todo };
                     tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
@@ -53,9 +47,9 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
     }
 
     const handleToggleComplete = (): void => {
-        setTodoList(
-            todoList.map((todo: Todo) => {
-                if (todo.id === props.id) {
+        setTodos(
+            todos.map((element: Todo) => {
+                if (element.id === todo.id) {
                     const tempTodo = { ...todo };
                     tempTodo.isComplete = !tempTodo.isComplete;
                     return tempTodo;
@@ -66,9 +60,9 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
     };
 
     const toggleEdit = () => {
-        setTodoList(
-            todoList.map((todo: Todo) => {
-                if (todo.id === props.id) {
+        setTodos(
+            todos.map((element: Todo) => {
+                if (element.id === todo.id) {
                     const tempTodo = { ...todo };
                     tempTodo.isEdit = !tempTodo.isEdit;
                     return tempTodo;
@@ -87,12 +81,12 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
                 <div className="flex gap-3">
                     <input
                         type="checkbox"
-                        checked={props.isComplete}
+                        checked={todo.isComplete}
                         className="cursor-pointer w-7 h-7"
                         onChange={handleToggleComplete}
                     />
 
-                    {props.isEdit
+                    {todo.isEdit
                         ? <input
                             name="description"
                             type="text"
@@ -102,7 +96,7 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
                         />
                         : <p
                             className="mb-3 font-normal text-center text-black">
-                            {props.todo}
+                            {todo.todo}
                         </p>
                     }
 
@@ -115,7 +109,7 @@ export const TodoListItem = ({ props }: { props: Todo }) => {
                         onClick={() => handleDelete()}
                     />
 
-                    {props.isEdit
+                    {todo.isEdit
                         ? <BiSave
                             title="Save Todo"
                             className="cursor-pointer w-7 h-7"

@@ -32,16 +32,17 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
         toggleEdit();
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         setTodos(
             todos.map((element: Todo) => {
                 if (element.id === todo.id) {
-                    const tempTodo = { ...todo };
+                    const tempTodo = { ...element };
                     tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
+                    const response = axios.put("/api", tempTodo);
                     return tempTodo;
                 }
-                return todo;
+                return element;
             })
         );
     }
@@ -50,11 +51,11 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
         setTodos(
             todos.map((element: Todo) => {
                 if (element.id === todo.id) {
-                    const tempTodo = { ...todo };
+                    const tempTodo = { ...element };
                     tempTodo.isComplete = !tempTodo.isComplete;
                     return tempTodo;
                 }
-                return todo;
+                return element;
             })
         );
     };
@@ -63,11 +64,11 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
         setTodos(
             todos.map((element: Todo) => {
                 if (element.id === todo.id) {
-                    const tempTodo = { ...todo };
+                    const tempTodo = { ...element };
                     tempTodo.isEdit = !tempTodo.isEdit;
                     return tempTodo;
                 }
-                return todo;
+                return element;
             })
         );
     }
@@ -88,7 +89,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
 
                     {todo.isEdit
                         ? <input
-                            name="description"
+                            name="todo"
                             type="text"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                             onChange={handleChange}

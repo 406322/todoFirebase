@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import Todo from "../../db/models"
-import { v4 as uuidv4 } from 'uuid';
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.0gu0gwe.mongodb.net/TodoList?retryWrites=true&w=majority`
@@ -46,11 +45,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).json(id)
     }
 
+    else if (req.method === 'PUT') {
+        console.log('PUT')
+        const filter = { id: req.body.id };
+        const update = { todo: req.body.todo };
+        let doc = await Todo.findOneAndUpdate(filter, update, { new: true });
+        res.send(200)
+    }
+
     else {
         res.status(500).json({ Message: 'Something went wrong' })
         return res.end()
     }
-
-
 
 }

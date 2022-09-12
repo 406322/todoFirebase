@@ -34,25 +34,26 @@ export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
     };
 
     return (
+        <div className="bg-[#201c1b]">
+            <form
+                onSubmit={handleSubmit}
+                className="flex gap-3 p-5 mx-5 bg-[#201c1b] rounded-md">
 
-        <form
-            onSubmit={handleSubmit}
-            className="flex gap-3 p-5 m-5 bg-gray-200 rounded-md">
+                <input
+                    name="todo"
+                    type="text"
+                    onChange={handleChange}
+                    className=" border border-gray-300 outline-none text-white bg-[#201c1b] text-sm rounded-lg block w-full p-2.5"
+                    placeholder="Add Todo..."
+                    required
+                />
 
-            <input
-                name="todo"
-                type="text"
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                placeholder="Add Todo..."
-                required
-            />
-
-            <GoDiffAdded
-                title="Add Todo"
-                type="submit"
-                className="h-10 cursor-pointer w-7"
-            />
-        </form>
+                <GoDiffAdded
+                    title="Add Todo"
+                    type="submit"
+                    className="h-10 text-white cursor-pointer w-7"
+                />
+            </form>
+        </div>
     );
 };

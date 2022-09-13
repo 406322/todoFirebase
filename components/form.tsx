@@ -3,9 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
 import axios from "axios";
-
+import { collection, getDocs, addDoc, deleteDoc, doc, onSnapshot, query, where, orderBy, serverTimestamp, getDoc, updateDoc } from 'firebase/firestore'
+import { db } from "../firebase/firebase";
 
 export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
+    const collectionRef = collection(db, 'TodoList')
 
     const [formValue, setFormValue] = useState({
         todo: "",
@@ -24,19 +26,22 @@ export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
         });
     };
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        formValue.id = uuidv4();
-        axios.post('/api', formValue)
-        setTodos([...todos, formValue]);
-        const resetForm = event.target as HTMLFormElement;
-        resetForm.reset();
-    };
+
+    const addTodo = async (event: React.FormEvent) => {
+        event.preventDefault()
+        await addDoc(collectionRef, {
+            todo: formValue.todo,
+            id: uuidv4(),
+            isComplete: formValue.isComplete,
+            isEdit: formValue.isEdit
+        }).then(() => event.target as HTMLFormElement)
+            .then((resetForm) => resetForm.reset())
+    }
 
     return (
         <div className="bg-[#201c1b]">
             <form
-                onSubmit={handleSubmit}
+                onSubmit={addTodo}
                 className="flex gap-3 p-5 mx-5 bg-[#201c1b] rounded-md">
 
                 <input

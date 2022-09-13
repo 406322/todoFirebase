@@ -6,6 +6,7 @@ import axios from "axios";
 
 export const TodoList = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
 
+
     useEffect(() => {
         const getAllTodos = async () => {
             const response = await axios.get('/api')

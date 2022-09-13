@@ -5,7 +5,8 @@ import { BiSave } from 'react-icons/bi';
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { BiPencil } from "react-icons/bi";
-
+import { doc, deleteDoc } from "@firebase/firestore";
+import { db } from "../firebase/firebase";
 
 
 export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Todo[], setTodos: any }) => {
@@ -40,11 +41,12 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
         });
     };
 
-    const handleDelete = async () => {
-        const newState = todos.filter((element: Todo) => element.id !== todo.id);
-        await axios.delete('/api', { data: { id: todo.id } });
-        setTodos(newState);
-    };
+    const deleteTodo = (event: React.FormEvent) => {
+        event.preventDefault()
+        console.log(todo)
+        const docRef = doc(db, 'TodoList', todo.id)
+        deleteDoc(docRef)
+    }
 
     const handleEdit = () => {
         toggleEditToSaved()
@@ -54,11 +56,11 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const handleSave = async () => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id === todo.id) {
+                if (element.id2 === todo.id2) {
                     const tempTodo = { ...element };
                     tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
-                    const data = { todo: tempTodo.todo, id: tempTodo.id }
+                    const data = { todo: tempTodo.todo, id: tempTodo.id2 }
                     const response = axios.put("/api", data);
                     return tempTodo;
                 }
@@ -70,10 +72,10 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const handleToggleComplete = (): void => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id === todo.id) {
+                if (element.id2 === todo.id2) {
                     const tempTodo = { ...element };
                     tempTodo.isComplete = !tempTodo.isComplete;
-                    const data = { isComplete: tempTodo.isComplete, id: tempTodo.id }
+                    const data = { isComplete: tempTodo.isComplete, id: tempTodo.id2 }
                     const response = axios.put("/api", data);
                     return tempTodo;
                 }
@@ -85,7 +87,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const toggleEdit = () => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id === todo.id) {
+                if (element.id2 === todo.id2) {
                     const tempTodo = { ...element };
                     tempTodo.isEdit = !tempTodo.isEdit;
                     return tempTodo;
@@ -98,7 +100,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
 
     const toggleEditToSaved = () => {
         todos.map((element: Todo) => {
-            if (element.id !== todo.id) {
+            if (element.id2 !== todo.id2) {
                 console.log(element)
                 const tempTodo = { ...element };
                 console.log(tempTodo.isEdit)
@@ -141,7 +143,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
                     <TiDeleteOutline
                         title="Delete Todo"
                         className="text-white cursor-pointer w-7 h-7"
-                        onClick={() => handleDelete()}
+                        onClick={deleteTodo}
                     />
 
                     {hasFocus

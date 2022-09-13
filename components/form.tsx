@@ -12,6 +12,7 @@ export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
     const [formValue, setFormValue] = useState({
         todo: "",
         id: "",
+        id2: "",
         isComplete: false,
         isEdit: false
     });
@@ -31,7 +32,7 @@ export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
         event.preventDefault()
         await addDoc(collectionRef, {
             todo: formValue.todo,
-            id: uuidv4(),
+            id2: uuidv4(),
             isComplete: formValue.isComplete,
             isEdit: formValue.isEdit
         }).then(() => event.target as HTMLFormElement)

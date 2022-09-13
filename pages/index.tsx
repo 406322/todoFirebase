@@ -12,13 +12,12 @@ export default function Home() {
 
   const colRef = collection(db, "TodoList");
 
-  // FIX ANY
-  const getTodos = async () => {
+  const getTodos = () => {
     getDocs(colRef)
       .then((snapshot) => {
         let todos: any = [];
         snapshot.forEach((doc) => {
-          todos.push({ ...doc.data() })
+          todos.push({ ...doc.data(), id: doc.id })
         })
         setTodos(todos)
       })

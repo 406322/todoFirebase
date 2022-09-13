@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
 import { TopNav } from "../components/TopNav.jsx"
 import { db } from '../firebase/firebase';
-import { collection, QueryDocumentSnapshot, DocumentData, getDocs, } from "@firebase/firestore";
+import { collection, QueryDocumentSnapshot, DocumentData, getDocs, onSnapshot, doc, query } from "@firebase/firestore";
 
 export default function Home() {
 
@@ -22,6 +22,14 @@ export default function Home() {
         setTodos(todos)
       })
   }
+
+  const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
+    const todos: any = [];
+    querySnapshot.forEach((doc) => {
+      todos.push({ ...doc.data(), id: doc.id })
+    });
+    setTodos(todos)
+  });
 
   useEffect(() => {
     getTodos()

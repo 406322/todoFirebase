@@ -1,7 +1,5 @@
 import { Todo } from "../models/todo";
-import { useState, useEffect, useRef } from "react";
 import { TodoListItem } from "./TodoListItem"
-import axios from "axios";
 
 
 export const TodoList = ({ todos, setTodos }: { todos: any, setTodos: any }) => {

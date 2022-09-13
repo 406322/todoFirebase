@@ -136,7 +136,6 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
                     />
                 </div>
 
-
                 <div className="flex gap-3">
                     <TiDeleteOutline
                         title="Delete Todo"
@@ -157,9 +156,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
                             onClick={handleEdit}
                         />
                     }
-
                 </div>
-
             </form>
         </>
     );

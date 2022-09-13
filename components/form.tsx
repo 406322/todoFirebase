@@ -12,7 +12,6 @@ export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
     const [formValue, setFormValue] = useState({
         todo: "",
         id: "",
-        id2: "",
         isComplete: false,
         isEdit: false
     });

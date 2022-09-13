@@ -43,7 +43,6 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
 
     const deleteTodo = (event: React.FormEvent) => {
         event.preventDefault()
-        console.log(todo)
         const docRef = doc(db, 'TodoList', todo.id)
         deleteDoc(docRef)
     }
@@ -56,11 +55,11 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const handleSave = async () => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id2 === todo.id2) {
+                if (element.id === todo.id) {
                     const tempTodo = { ...element };
                     tempTodo.todo = formValue.todo;
                     tempTodo.isEdit = !tempTodo.isEdit;
-                    const data = { todo: tempTodo.todo, id: tempTodo.id2 }
+                    const data = { todo: tempTodo.todo, id: tempTodo.id }
                     const response = axios.put("/api", data);
                     return tempTodo;
                 }
@@ -72,10 +71,10 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const handleToggleComplete = (): void => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id2 === todo.id2) {
+                if (element.id === todo.id) {
                     const tempTodo = { ...element };
                     tempTodo.isComplete = !tempTodo.isComplete;
-                    const data = { isComplete: tempTodo.isComplete, id: tempTodo.id2 }
+                    const data = { isComplete: tempTodo.isComplete, id: tempTodo.id }
                     const response = axios.put("/api", data);
                     return tempTodo;
                 }
@@ -87,7 +86,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
     const toggleEdit = () => {
         setTodos(
             todos.map((element: Todo) => {
-                if (element.id2 === todo.id2) {
+                if (element.id === todo.id) {
                     const tempTodo = { ...element };
                     tempTodo.isEdit = !tempTodo.isEdit;
                     return tempTodo;
@@ -100,8 +99,7 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
 
     const toggleEditToSaved = () => {
         todos.map((element: Todo) => {
-            if (element.id2 !== todo.id2) {
-                console.log(element)
+            if (element.id !== todo.id) {
                 const tempTodo = { ...element };
                 console.log(tempTodo.isEdit)
                 tempTodo.isEdit = !tempTodo.isEdit;

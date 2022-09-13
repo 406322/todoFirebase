@@ -4,38 +4,29 @@ import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
 import { TopNav } from "../components/TopNav.jsx"
 import { db } from '../firebase/firebase';
-import { collection, QueryDocumentSnapshot, DocumentData, query, where, limit, getDocs } from "@firebase/firestore";
-
-const todosCollection = collection(db, 'TodoList');
-
+import { collection, QueryDocumentSnapshot, DocumentData, getDocs, } from "@firebase/firestore";
 
 export default function Home() {
 
   const [todos, setTodos] = useState<QueryDocumentSnapshot<DocumentData>[]>();
 
+  const colRef = collection(db, "TodoList");
+
+  // FIX ANY
   const getTodos = async () => {
-    const todosQuery = query(todosCollection);
-
-    const querySnapshot = await getDocs(todosQuery);
-
-    const result: QueryDocumentSnapshot<DocumentData>[] = [];
-    querySnapshot.forEach((snapshot) => {
-      console.log(snapshot)
-      // result.push(snapshot);
-    });
-    setTodos(result);
-  };
+    getDocs(colRef)
+      .then((snapshot) => {
+        let todos: any = [];
+        snapshot.forEach((doc) => {
+          todos.push({ ...doc.data() })
+        })
+        setTodos(todos)
+      })
+  }
 
   useEffect(() => {
-    getTodos();
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(todos)
-  // }, [todos])
-
-
-  // const [todos, setTodos] = useState<Todo[]>([])
+    getTodos()
+  }, [])
 
   return (
     <div className="bg-[#201c1b]">

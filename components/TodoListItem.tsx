@@ -30,7 +30,8 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
         toggleEditFocus()
     }
 
-    const blur = () => {
+    const blur = (event: React.FormEvent) => {
+        event.preventDefault()
         inputRef.current!.blur();
         saveEdit()
         toggleEditBlur()

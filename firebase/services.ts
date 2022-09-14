@@ -35,40 +35,40 @@ export const addTodo = async (event: React.FormEvent, todo: string, isComplete: 
         .then((resetForm) => resetForm.reset())
 }
 
-export const deleteTodo = (event: React.FormEvent, todo: Todo) => {
+export const deleteTodo = async (event: React.FormEvent, todo: Todo) => {
     event.preventDefault()
     const docRef = doc(db, 'TodoList', todo.id)
-    deleteDoc(docRef)
+    await deleteDoc(docRef)
 }
 
-export const updateTodo = (id: string, todo: string) => {
+export const updateTodo = async (id: string, todo: string) => {
     const docRef = doc(db, 'TodoList', id)
-    updateDoc(docRef, {
+    await updateDoc(docRef, {
         todo: todo
     })
 }
 
-export const toggleComplete = (id: string, isComplete: boolean) => {
+export const toggleComplete = async (id: string, isComplete: boolean) => {
     const docRef = doc(db, 'TodoList', id)
-    updateDoc(docRef, {
+    await updateDoc(docRef, {
         isComplete: !isComplete
     })
 }
 
-export const toggleEditBlur = (id: string) => {
+export const toggleEditBlur = async (id: string) => {
     const docRef = doc(db, 'TodoList', id)
-    updateDoc(docRef, { isEdit: false })
+    await updateDoc(docRef, { isEdit: false })
 }
 
 export const toggleEditFocus = (todos: Todo[], todo: Todo) => {
-    todos.forEach(element => {
+    todos.forEach(async element => {
         const docRef = doc(db, 'TodoList', element.id)
         if (element.id === todo.id) {
-            updateDoc(docRef, {
+            await updateDoc(docRef, {
                 isEdit: true
             })
         } else {
-            updateDoc(docRef, {
+            await updateDoc(docRef, {
                 isEdit: false
             })
         }

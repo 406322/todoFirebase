@@ -2,13 +2,12 @@ import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { BiSave } from 'react-icons/bi';
 import { useState, useRef } from "react";
-import axios from "axios";
 import { BiPencil } from "react-icons/bi";
 import { doc, deleteDoc, updateDoc } from "@firebase/firestore";
 import { db } from "../firebase/firebase";
 
 
-export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Todo[], setTodos: any }) => {
+export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => {
 
     const [formValue, setFormValue] = useState({
         todo: todo.todo,
@@ -28,12 +27,33 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
 
     const focus = () => {
         inputRef.current!.focus(); //
-        toggleEdit()
+        toggleEditFocus()
     }
 
     const blur = () => {
         inputRef.current!.blur();
-        toggleEdit()
+        saveEdit()
+        toggleEditBlur()
+    }
+
+    const toggleEditFocus = () => {
+        todos.forEach(element => {
+            const docRef = doc(db, 'TodoList', element.id)
+            if (element.id === todo.id) {
+                updateDoc(docRef, {
+                    isEdit: true
+                })
+            } else {
+                updateDoc(docRef, {
+                    isEdit: false
+                })
+            }
+        });
+    }
+
+    const toggleEditBlur = () => {
+        const docRef = doc(db, 'TodoList', todo.id)
+        updateDoc(docRef, { isEdit: false })
     }
 
     const deleteTodo = (event: React.FormEvent) => {
@@ -49,20 +69,11 @@ export const TodoListItem = ({ todo, todos, setTodos }: { todo: Todo, todos: Tod
         })
     }
 
-    const toggleEdit = () => {
-        todos.forEach(element => {
-            const docRef = doc(db, 'TodoList', element.id)
-            if (element.id === todo.id) {
-                updateDoc(docRef, {
-                    isEdit: !element.isEdit
-                })
-            } else {
-                updateDoc(docRef, {
-                    isEdit: false
-                })
-            }
-        });
-
+    const saveEdit = () => {
+        const docRef = doc(db, 'TodoList', todo.id)
+        updateDoc(docRef, {
+            todo: formValue.todo
+        })
     }
 
     return (

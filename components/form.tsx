@@ -4,7 +4,7 @@ import { GoDiffAdded } from 'react-icons/go';
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from "../firebase/firebase";
 
-export const Form = ({ todos, setTodos }: { todos: any, setTodos: any }) => {
+export const Form = () => {
     const collectionRef = collection(db, 'TodoList')
 
     const [formValue, setFormValue] = useState({

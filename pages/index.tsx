@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
 import { TopNav } from "../components/TopNav.jsx"
 import { db } from '../firebase/firebase';
-import { collection, QueryDocumentSnapshot, DocumentData, getDocs, onSnapshot, doc, query } from "@firebase/firestore";
+import { collection, QueryDocumentSnapshot, DocumentData, getDocs, onSnapshot } from "@firebase/firestore";
 
 export default function Home() {
 
@@ -38,8 +38,8 @@ export default function Home() {
   return (
     <div className="bg-[#201c1b]">
       <TopNav />
-      <Form todos={todos} setTodos={setTodos} />
-      <TodoList todos={todos} setTodos={setTodos} />
+      <Form />
+      <TodoList todos={todos} />
     </div>
   )
 }

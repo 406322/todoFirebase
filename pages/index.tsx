@@ -2,26 +2,21 @@ import { Form } from "../components/Form"
 import { TodoList } from "../components/TodoList"
 import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
-import { TopNav } from "../components/TopNav.jsx"
+import { TopNav } from "../components/TopNav"
 import { db } from '../firebase/firebase';
-import { collection, QueryDocumentSnapshot, DocumentData, getDocs, onSnapshot } from "@firebase/firestore";
+import { collection, onSnapshot } from "@firebase/firestore";
+import { getTodos } from "../firebase/services";
 
 export default function Home() {
 
-  const [todos, setTodos] = useState<QueryDocumentSnapshot<DocumentData>[]>();
+  const [todos, setTodos] = useState<Todo[]>();
 
   const colRef = collection(db, "TodoList");
 
-  const getTodos = () => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        let todos: any = [];
-        snapshot.forEach((doc) => {
-          todos.push({ ...doc.data(), id: doc.id })
-        })
-        setTodos(todos)
-      })
-  }
+  useEffect(() => {
+    const response = getTodos()
+    setTodos(response)
+  }, [])
 
   const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
     const todos: any = [];
@@ -30,10 +25,6 @@ export default function Home() {
     });
     setTodos(todos)
   });
-
-  useEffect(() => {
-    getTodos()
-  }, [])
 
   return (
     <div className="bg-[#201c1b]">

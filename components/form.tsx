@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
-import { collection, addDoc } from 'firebase/firestore'
-import { db } from "../firebase/firebase";
+import { addTodo } from "../firebase/services";
 
 export const Form = () => {
-    const collectionRef = collection(db, 'TodoList')
 
     const [formValue, setFormValue] = useState({
         todo: "",
@@ -13,6 +11,8 @@ export const Form = () => {
         isComplete: false,
         isEdit: false
     });
+
+    const { todo, isComplete, isEdit } = formValue
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -24,20 +24,10 @@ export const Form = () => {
         });
     };
 
-    const addTodo = async (event: React.FormEvent) => {
-        event.preventDefault()
-        await addDoc(collectionRef, {
-            todo: formValue.todo,
-            isComplete: formValue.isComplete,
-            isEdit: formValue.isEdit
-        }).then(() => event.target as HTMLFormElement)
-            .then((resetForm) => resetForm.reset())
-    }
-
     return (
         <div className="bg-[#201c1b]">
             <form
-                onSubmit={addTodo}
+                onSubmit={(event) => addTodo(event, todo, isComplete, isEdit)}
                 className="flex gap-3 p-5 mx-5 bg-[#201c1b] rounded-md">
 
                 <input

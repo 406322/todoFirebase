@@ -3,9 +3,10 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { BiSave } from 'react-icons/bi';
 import { useState, useRef } from "react";
 import { BiPencil } from "react-icons/bi";
-import { doc, deleteDoc, updateDoc } from "@firebase/firestore";
-import { db } from "../firebase/firebase";
-
+import { toggleEditBlur, toggleEditFocus } from "../firebase/services";
+import { deleteTodo } from "../firebase/services";
+import { updateTodo } from "../firebase/services";
+import { toggleComplete } from "../firebase/services";
 
 export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => {
 
@@ -25,62 +26,22 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const focus = () => {
+    const onFocus = () => {
         inputRef.current!.focus(); //
-        toggleEditFocus()
+        toggleEditFocus(todos, todo)
     }
 
-    const blur = (event: React.FormEvent) => {
+    const onBlur = (event: React.FormEvent) => {
         event.preventDefault()
         inputRef.current!.blur();
-        saveEdit()
-        toggleEditBlur()
-    }
-
-    const toggleEditFocus = () => {
-        todos.forEach(element => {
-            const docRef = doc(db, 'TodoList', element.id)
-            if (element.id === todo.id) {
-                updateDoc(docRef, {
-                    isEdit: true
-                })
-            } else {
-                updateDoc(docRef, {
-                    isEdit: false
-                })
-            }
-        });
-    }
-
-    const toggleEditBlur = () => {
-        const docRef = doc(db, 'TodoList', todo.id)
-        updateDoc(docRef, { isEdit: false })
-    }
-
-    const deleteTodo = (event: React.FormEvent) => {
-        event.preventDefault()
-        const docRef = doc(db, 'TodoList', todo.id)
-        deleteDoc(docRef)
-    }
-
-    const toggleComplete = () => {
-        const docRef = doc(db, 'TodoList', todo.id)
-        updateDoc(docRef, {
-            isComplete: !todo.isComplete
-        })
-    }
-
-    const saveEdit = () => {
-        const docRef = doc(db, 'TodoList', todo.id)
-        updateDoc(docRef, {
-            todo: formValue.todo
-        })
+        updateTodo(todo.id, formValue.todo)
+        toggleEditBlur(todo.id)
     }
 
     return (
         <>
             <form
-                onSubmit={blur}
+                onSubmit={onBlur}
                 className="flex justify-between gap-3 p-5 m-5 bg-[#201c1b] rounded-md ">
 
                 <div className="flex gap-3">
@@ -88,7 +49,7 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
                         type="checkbox"
                         checked={todo.isComplete}
                         className="rounded-full cursor-pointer w-7 h-7"
-                        onChange={toggleComplete}
+                        onChange={() => toggleComplete(todo.id, todo.isComplete)}
                     />
 
                     < input
@@ -97,7 +58,7 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
                         ref={inputRef}
                         className="block w-full outline-none text-white bg-[#201c1b] rounded-lg"
                         onChange={handleChange}
-                        onBlur={blur}
+                        onBlur={onBlur}
                         value={formValue.todo}
                         onFocus={focus}
                     />
@@ -107,20 +68,20 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
                     <TiDeleteOutline
                         title="Delete Todo"
                         className="text-white cursor-pointer w-7 h-7"
-                        onClick={deleteTodo}
+                        onClick={(event) => deleteTodo(event, todo)}
                     />
 
                     {todo.isEdit
                         ? <BiSave
                             title="Save Todo"
                             className="text-white cursor-pointer w-7 h-7"
-                            onClick={blur}
+                            onClick={onBlur}
                         />
 
                         : <BiPencil
                             title="Edit Todo"
                             className="text-white cursor-pointer w-7 h-7"
-                            onClick={focus}
+                            onClick={onFocus}
                         />
                     }
                 </div>

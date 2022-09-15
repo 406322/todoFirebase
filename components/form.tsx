@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
-import { addTodo } from "../firebase/services";
+import { addTodo } from "../firebase/dbServices";
 
 export const Form = () => {
 

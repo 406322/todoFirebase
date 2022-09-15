@@ -3,9 +3,9 @@ import { TodoList } from "../components/TodoList"
 import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
 import { TopNav } from "../components/TopNav"
-import { db } from '../firebase/firebase';
+import { db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot } from "@firebase/firestore";
-import { getTodos } from "../firebase/services";
+import { getTodos } from "../firebase/dbServices";
 
 export default function Home() {
 

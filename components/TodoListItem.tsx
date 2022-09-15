@@ -3,10 +3,10 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { BiSave } from 'react-icons/bi';
 import { useState, useRef } from "react";
 import { BiPencil } from "react-icons/bi";
-import { toggleEditBlur, toggleEditFocus } from "../firebase/services";
-import { deleteTodo } from "../firebase/services";
-import { updateTodo } from "../firebase/services";
-import { toggleComplete } from "../firebase/services";
+import { toggleEditBlur, toggleEditFocus } from "../firebase/dbServices";
+import { deleteTodo } from "../firebase/dbServices";
+import { updateTodo } from "../firebase/dbServices";
+import { toggleComplete } from "../firebase/dbServices";
 
 export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => {
 

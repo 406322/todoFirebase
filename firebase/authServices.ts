@@ -35,7 +35,7 @@ export const login = async (loginEmail: string, loginPassword: string) => {
         let message
         if (error instanceof Error) message = error.message
         else message = String(error)
-        reportError({ message })
+        console.log({ message })
     }
 }
 

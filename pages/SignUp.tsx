@@ -52,6 +52,7 @@ const Signup = () => {
                 <input className='border' type="text" name='password' onChange={handleChange} />
                 <button className='p-1 bg-green-400 rounded-sm' type='submit'>signup</button>
                 <Link href="/">Back to home</Link>
+                <input type="text" placeholder="Type here" className="w-full max-w-xs input input-bordered" />
             </form>
 
 

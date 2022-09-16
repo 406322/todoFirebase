@@ -7,7 +7,7 @@ import { auth } from "../firebase/firebaseConfig";
 
 export const Form = () => {
 
-    const [user, setUser] = useState<any>();
+    const [user, setUser] = useState < any > ();
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {

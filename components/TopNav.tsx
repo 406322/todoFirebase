@@ -3,10 +3,15 @@ import { auth } from '../firebase/firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { logout } from '../firebase/authServices';
 import Link from 'next/link';
+import { LoginModal } from './LoginModal';
+import { Dispatch, SetStateAction } from "react";
 
 export const TopNav = () => {
 
     const [user, setUser] = useState<any>({});
+
+
+    const [loginModal, setLoginModal] = useState(false)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
@@ -20,7 +25,7 @@ export const TopNav = () => {
                 TodoList
             </h1>
 
-            <div className='flex gap-5 p-5'>
+            {/* <div c>
                 {user && <p className='text-white'>{user.email}</p>}
 
                 {user
@@ -30,8 +35,9 @@ export const TopNav = () => {
                         <a className="text-white cursor-pointer ">Sign in</a>
                     </Link>
                 }
-            </div>
+            </div> */}
 
+            <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
         </div >
     )
 }

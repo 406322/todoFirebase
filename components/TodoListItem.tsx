@@ -56,7 +56,7 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
                         name="todo"
                         type="text"
                         ref={inputRef}
-                        className="block w-full outline-none text-white bg-[#201c1b] rounded-lg"
+                        className="block w-full outline-none border-none text-white bg-[#201c1b] rounded-lg"
                         onChange={handleChange}
                         onBlur={onBlur}
                         value={formValue.todo}

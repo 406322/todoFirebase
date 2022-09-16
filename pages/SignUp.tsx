@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { auth } from '../firebase/firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { register, login, logout } from '../firebase/authServices'
+import React from 'react'
 
 
 const Signup = () => {
@@ -53,6 +54,14 @@ const Signup = () => {
         login(loginEmail, loginPassword)
         let resetForm = event.target as HTMLFormElement
         resetForm.reset()
+    }
+
+    const onClose = () => {
+        console.log('Close')
+    }
+
+    const onClick = () => {
+        console.log('Click')
     }
 
     return (
@@ -123,6 +132,8 @@ const Signup = () => {
             <div>
                 <Link href="/">Back to home</Link>
             </div>
+
+
 
         </div>
 

@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
 import { addTodo } from "../firebase/dbServices";
 import { Dropdown } from "flowbite-react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 
 export const Form = () => {
+
+    const [user, setUser] = useState<any>();
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser: any) => {
+            setUser(currentUser);
+        });
+    }, [])
+
 
     const [formValue, setFormValue] = useState({
         todo: "",
         id: "",
         isComplete: false,
-        isEdit: false
+        isEdit: false,
+        user: user
     });
 
     const { todo, isComplete, isEdit } = formValue
@@ -28,7 +40,7 @@ export const Form = () => {
     return (
         <div className="bg-[#201c1b]">
             <form
-                onSubmit={(event) => addTodo(event, todo, isComplete, isEdit)}
+                onSubmit={(event) => addTodo(event, todo, isComplete, isEdit, user.email)}
                 className="flex gap-3 p-5 mx-5 bg-[#201c1b] rounded-md">
 
                 <input

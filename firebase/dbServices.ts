@@ -25,12 +25,13 @@ export const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
     return todos
 });
 
-export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean) => {
+export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string) => {
     event.preventDefault()
     await addDoc(colRef, {
         todo: todo,
         isComplete: isComplete,
-        isEdit: isEdit
+        isEdit: isEdit,
+        user: user
     }).then(() => event.target as HTMLFormElement)
         .then((resetForm) => resetForm.reset())
 }

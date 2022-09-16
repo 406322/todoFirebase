@@ -1,7 +1,7 @@
 import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { BiSave } from 'react-icons/bi';
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { BiPencil } from "react-icons/bi";
 import { toggleEditBlur, toggleEditFocus } from "../firebase/dbServices";
 import { deleteTodo } from "../firebase/dbServices";
@@ -13,11 +13,6 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
     const [formValue, setFormValue] = useState({
         todo: todo.todo,
     });
-
-    useEffect(() => {
-        console.log(todo)
-    }, [todo])
-
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -32,13 +27,13 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const onFocus = () => {
-        inputRef.current!.focus(); //
+        inputRef.current!.focus()
         toggleEditFocus(todos, todo)
     }
 
     const onBlur = (event: React.FormEvent) => {
         event.preventDefault()
-        inputRef.current!.blur();
+        inputRef.current!.blur()
         updateTodo(todo.id, formValue.todo)
         toggleEditBlur(todo.id)
     }

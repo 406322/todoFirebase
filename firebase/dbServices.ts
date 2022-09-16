@@ -1,29 +1,9 @@
-import { collection, addDoc, getDocs, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore'
+import { collection, addDoc, updateDoc, doc, deleteDoc, query, where } from 'firebase/firestore'
 import { db } from './firebaseConfig'
 import { Todo } from '../models/todo'
 
 const colRef = collection(db, 'TodoList')
 
-export const getTodos = (): Todo[] => {
-    let Temptodos: any = [];
-    getDocs(colRef)
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-                Temptodos.push({ ...doc.data(), id: doc.id })
-            })
-            let todos: Todo[] = { ...Temptodos }
-            return todos
-        })
-    return Temptodos
-}
-
-export const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
-    const todos: any = [];
-    querySnapshot.forEach((doc) => {
-        todos.push({ ...doc.data(), id: doc.id })
-    });
-    return todos
-});
 
 export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string) => {
     event.preventDefault()

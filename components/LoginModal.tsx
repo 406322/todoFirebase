@@ -27,7 +27,6 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
             setUser(currentUser);
-            console.log(currentUser)
         });
     }, [])
 

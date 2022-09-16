@@ -16,7 +16,6 @@ export const TopNav = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
             setUser(currentUser);
-            console.log(currentUser)
         });
     }, [])
 

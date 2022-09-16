@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Todo } from "../models/todo"
 import { GoDiffAdded } from 'react-icons/go';
 import { addTodo } from "../firebase/dbServices";
-import { Dropdown } from "flowbite-react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 

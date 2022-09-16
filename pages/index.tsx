@@ -3,9 +3,10 @@ import { TodoList } from "../components/TodoList"
 import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
 import { TopNav } from "../components/TopNav"
-import { db } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot } from "@firebase/firestore";
-import { getTodos } from "../firebase/dbServices";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 export default function Home() {
 
@@ -13,15 +14,21 @@ export default function Home() {
 
   const colRef = collection(db, "TodoList");
 
+  const [user, setUser] = useState<any>({});
+
   useEffect(() => {
-    const response = getTodos()
-    setTodos(response)
+    onAuthStateChanged(auth, (currentUser: any) => {
+      setUser(currentUser);
+    });
   }, [])
 
   const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
     const todos: any = [];
     querySnapshot.forEach((doc) => {
-      todos.push({ ...doc.data(), id: doc.id })
+      let tempUser = doc.data()
+      if (user && tempUser.user === user.email) {
+        todos.push({ ...doc.data(), id: doc.id })
+      }
     });
     setTodos(todos)
   });

@@ -35,17 +35,17 @@ export const addTodo = async (event: React.FormEvent, todo: string, isComplete: 
         .then((resetForm) => resetForm.reset())
 }
 
-export const deleteTodo = async (event: React.FormEvent, todo: Todo) => {
-    event.preventDefault()
-    const docRef = doc(db, 'TodoList', todo.id)
-    await deleteDoc(docRef)
-}
-
-export const updateTodo = async (id: string, todo: string) => {
+export const updateTodo = async (id: Todo["id"], todo: string) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {
         todo: todo
     })
+}
+
+export const deleteTodo = async (event: React.FormEvent, todo: Todo) => {
+    event.preventDefault()
+    const docRef = doc(db, 'TodoList', todo.id)
+    await deleteDoc(docRef)
 }
 
 export const toggleComplete = async (id: string, isComplete: boolean) => {

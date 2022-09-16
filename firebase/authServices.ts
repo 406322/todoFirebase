@@ -1,11 +1,9 @@
+import { auth } from "./firebaseConfig";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import { auth } from "./firebaseConfig";
-
-
 
 export const register = async (registerEmail: string, registerPassword: string) => {
     try {
@@ -30,7 +28,6 @@ export const login = async (loginEmail: string, loginPassword: string) => {
             loginEmail,
             loginPassword
         );
-        console.log(user);
     } catch (error) {
         let message
         if (error instanceof Error) message = error.message

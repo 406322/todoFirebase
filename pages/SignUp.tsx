@@ -57,31 +57,6 @@ const Signup = () => {
 
     return (
         <div className='flex flex-col items-center gap-5 text-center'>
-            <form
-                onSubmit={handleRegister}
-                className="flex flex-col gap-2">
-                <header className='my-3 font-bold'> Register User </header>
-                <input
-                    placeholder="Email..."
-                    name='registerEmail'
-                    type="email"
-                    className="w-full max-w-xs mb-2 input input-bordered"
-                    onChange={handleChange}
-                />
-                <input
-                    placeholder="Password..."
-                    name='registerPassword'
-                    type="password"
-                    className="w-full max-w-xs input input-bordered"
-                    onChange={handleChange}
-                />
-
-                <button
-                    className="block btn"
-                    type='submit'>
-                    Create User
-                </button>
-            </form>
 
             <form
                 onSubmit={handleLogin}
@@ -106,6 +81,32 @@ const Signup = () => {
                     className="btn"
                     type='submit'>
                     Login
+                </button>
+            </form>
+
+            <form
+                onSubmit={handleRegister}
+                className="flex flex-col gap-2">
+                <header className='my-3 font-bold'> Register User </header>
+                <input
+                    placeholder="Email..."
+                    name='registerEmail'
+                    type="email"
+                    className="w-full max-w-xs mb-2 input input-bordered"
+                    onChange={handleChange}
+                />
+                <input
+                    placeholder="Password..."
+                    name='registerPassword'
+                    type="password"
+                    className="w-full max-w-xs input input-bordered"
+                    onChange={handleChange}
+                />
+
+                <button
+                    className="block btn"
+                    type='submit'>
+                    Create User
                 </button>
             </form>
 

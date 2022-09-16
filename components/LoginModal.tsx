@@ -84,7 +84,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setRegisterModal }: { lo
                 show={loginModal}
                 size="md"
                 popup={true}
-                onClose={() => setLoginModal(!loginModal)}
+                onClose={() => { user && setLoginModal(!loginModal) }}
             >
                 <Modal.Header />
                 <Modal.Body>

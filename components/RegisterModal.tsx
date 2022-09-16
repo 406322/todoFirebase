@@ -5,7 +5,7 @@ import { register } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 
 
-export const RegisterModal = ({ registerModal, setRegisterModal }: { registerModal: boolean, setRegisterModal: Dispatch<SetStateAction<boolean>> }) => {
+export const RegisterModal = ({ registerModal, setRegisterModal, setLoginModal }: { registerModal: boolean, setRegisterModal: Dispatch<SetStateAction<boolean>>, setLoginModal: Dispatch<SetStateAction<boolean>> }) => {
 
     const [user, setUser] = useState<any>({});
 
@@ -64,13 +64,18 @@ export const RegisterModal = ({ registerModal, setRegisterModal }: { registerMod
         }
     }
 
+    const backToLogin = () => {
+        setRegisterModal(false)
+        setLoginModal(true)
+    }
+
     return (
         <>
             <Modal
                 show={registerModal}
                 size="md"
                 popup={true}
-                onClose={() => setRegisterModal(!registerModal)}
+                onClose={() => user && setRegisterModal(!registerModal)}
             >
                 <Modal.Header />
                 <Modal.Body>
@@ -136,6 +141,17 @@ export const RegisterModal = ({ registerModal, setRegisterModal }: { registerMod
                             </Button>
                         </div>
 
+
+                        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+                            Already registered?{' '}
+                            <a
+                                href="#"
+                                className="text-blue-700 hover:underline dark:text-blue-500"
+                                onClick={backToLogin}
+                            >
+                                Login to account
+                            </a>
+                        </div>
                     </form>
                 </Modal.Body>
             </Modal>

@@ -1,16 +1,89 @@
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
-import { Dispatch, SetStateAction } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { login, logout, register } from "../firebase/authServices";
+import { auth } from "../firebase/firebaseConfig";
 
 
 export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean, setLoginModal: Dispatch<SetStateAction<boolean>> }) => {
 
+    const [user, setUser] = useState<any>({});
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser: any) => {
+            setUser(currentUser);
+        });
+    }, [])
+
+
+
+    const [formValue, setFormValue] = useState({
+        loginEmail: "",
+        loginPassword: "",
+        registerEmail: "",
+        registerPassword: ""
+    });
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser: any) => {
+            setUser(currentUser);
+            console.log(currentUser)
+        });
+    }, [])
+
+    const { loginEmail, loginPassword, registerEmail, registerPassword } = formValue
+
+    interface Signup {
+        loginEmail: string,
+        loginPassword: string,
+        registerEmail: string,
+        registerPassword: string
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormValue((prevState: Signup) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    };
+
+    const handleRegister = (event: React.FormEvent) => {
+        event.preventDefault()
+        register(registerEmail, registerPassword)
+        let resetForm = event.target as HTMLFormElement
+        resetForm.reset()
+    }
+
+    const resetForm = () => {
+        setFormValue({
+            loginEmail: "",
+            loginPassword: "",
+            registerEmail: "",
+            registerPassword: ""
+        })
+    }
+
+    const handleLogin = (event: React.FormEvent) => {
+        event.preventDefault()
+        login(loginEmail, loginPassword)
+        resetForm()
+        setLoginModal(false)
+    }
 
     return (
         <>
             <div className='flex gap-5 p-5 text-white'>
-                <button onClick={() => setLoginModal(!loginModal)}>
-                    Sign in
-                </button>
+                {user && <p className='text-white'>{user.email}</p>}
+                {user
+                    ? <p className='text-white cursor-pointer' onClick={logout}>Sign out</p>
+
+                    : <button onClick={() => setLoginModal(!loginModal)}>
+                        Sign in
+                    </button>
+                }
             </div>
             <Modal
                 show={loginModal}
@@ -20,7 +93,7 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
             >
                 <Modal.Header />
                 <Modal.Body>
-                    <div className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
+                    <form className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                             Sign in to our platform
                         </h3>
@@ -34,7 +107,10 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                             <TextInput
                                 id="email"
                                 placeholder="name@company.com"
+                                name="loginEmail"
+                                onChange={handleChange}
                                 required={true}
+                                value={loginEmail}
                             />
                         </div>
                         <div>
@@ -47,7 +123,10 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                             <TextInput
                                 id="password"
                                 type="password"
+                                name="loginPassword"
+                                onChange={handleChange}
                                 required={true}
+                                value={loginPassword}
                             />
                         </div>
                         <div className="flex justify-between">
@@ -57,15 +136,15 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                                     Remember me
                                 </Label>
                             </div> */}
-                            <a
-                                href="#"
+                            <button
+                                onClick={() => console.log('Not implemented')}
                                 className="text-sm text-blue-700 hover:underline dark:text-blue-500"
                             >
                                 Lost Password?
-                            </a>
+                            </button>
                         </div>
                         <div className="w-full">
-                            <Button>
+                            <Button type="submit" onClick={handleLogin}>
                                 Log in to your account
                             </Button>
                         </div>
@@ -78,7 +157,7 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                                 Create account
                             </a>
                         </div>
-                    </div>
+                    </form>
                 </Modal.Body>
             </Modal>
         </>

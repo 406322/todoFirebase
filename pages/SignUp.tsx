@@ -56,13 +56,6 @@ const Signup = () => {
         resetForm.reset()
     }
 
-    const onClose = () => {
-        console.log('Close')
-    }
-
-    const onClick = () => {
-        console.log('Click')
-    }
 
     return (
         <div className='flex flex-col items-center gap-5 text-center'>

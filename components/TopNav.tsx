@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../firebase/firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
-import { logout } from '../firebase/authServices';
-import Link from 'next/link';
 import { LoginModal } from './LoginModal';
-import { Dispatch, SetStateAction } from "react";
+import { RegisterModal } from './RegisterModal';
 
 export const TopNav = () => {
 
@@ -12,6 +10,8 @@ export const TopNav = () => {
 
 
     const [loginModal, setLoginModal] = useState(false)
+    const [registerModal, setRegisterModal] = useState(false)
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
@@ -37,7 +37,8 @@ export const TopNav = () => {
                 }
             </div> */}
 
-            <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
+            <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
+            <RegisterModal registerModal={registerModal} setRegisterModal={setRegisterModal} />
         </div >
     )
 }

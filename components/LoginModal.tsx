@@ -5,7 +5,7 @@ import { login, logout, register } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 
 
-export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean, setLoginModal: Dispatch<SetStateAction<boolean>> }) => {
+export const LoginModal = ({ loginModal, setLoginModal, setRegisterModal }: { loginModal: boolean, setLoginModal: Dispatch<SetStateAction<boolean>>, setRegisterModal: Dispatch<SetStateAction<boolean>> }) => {
 
     const [user, setUser] = useState<any>({});
 
@@ -14,8 +14,6 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
             setUser(currentUser);
         });
     }, [])
-
-
 
     const [formValue, setFormValue] = useState({
         loginEmail: "",
@@ -30,7 +28,7 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
         });
     }, [])
 
-    const { loginEmail, loginPassword, registerEmail, registerPassword } = formValue
+    const { loginEmail, loginPassword } = formValue
 
     interface Signup {
         loginEmail: string,
@@ -49,13 +47,6 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
         });
     };
 
-    const handleRegister = (event: React.FormEvent) => {
-        event.preventDefault()
-        register(registerEmail, registerPassword)
-        let resetForm = event.target as HTMLFormElement
-        resetForm.reset()
-    }
-
     const resetForm = () => {
         setFormValue({
             loginEmail: "",
@@ -70,6 +61,11 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
         login(loginEmail, loginPassword)
         resetForm()
         setLoginModal(false)
+    }
+
+    const handleRegister = () => {
+        setLoginModal(false)
+        setRegisterModal(true)
     }
 
     return (
@@ -136,7 +132,7 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                                 </Label>
                             </div> */}
                             <button
-                                onClick={() => console.log('Not implemented')}
+                                onClick={() => alert('Not implemented')}
                                 className="text-sm text-blue-700 hover:underline dark:text-blue-500"
                             >
                                 Lost Password?
@@ -152,6 +148,7 @@ export const LoginModal = ({ loginModal, setLoginModal }: { loginModal: boolean,
                             <a
                                 href="#"
                                 className="text-blue-700 hover:underline dark:text-blue-500"
+                                onClick={handleRegister}
                             >
                                 Create account
                             </a>

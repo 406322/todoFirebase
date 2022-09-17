@@ -22,11 +22,10 @@ export default function Home() {
     });
   }, [])
 
-  const unsubscribe = onSnapshot(colRef, (querySnapshot) => {
+  const unsubscribe = onSnapshot(colRef, snapshot => {
     const todos: any = [];
-    querySnapshot.forEach((doc) => {
-      let tempUser = doc.data()
-      if (user && tempUser.user === user.email) {
+    snapshot.forEach((doc) => {
+      if (user && doc.data().user === user.email) {
         todos.push({ ...doc.data(), id: doc.id })
       }
     });

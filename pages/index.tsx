@@ -1,21 +1,19 @@
-import { CreateTodo } from "../components/CreateTodo"
 import { TodoList } from "../components/TodoList"
-import { useState, useEffect } from "react";
-import { Todo } from "../models/todo";
+import { useEffect } from "react";
 import { TopNav } from "../components/TopNav"
 import { auth, db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { orderBy, query } from "firebase/firestore";
-import { BsPlusLg } from 'react-icons/bs';
-
+import { useAtom } from 'jotai'
+import { userAtom } from "../atoms";
+import { todosAtom } from "../atoms";
 
 
 export default function Home() {
 
-  const [todos, setTodos] = useState<Todo[]>();
-
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useAtom(userAtom);
+  const [todos, setTodos] = useAtom(todosAtom);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser: any) => {
@@ -29,7 +27,6 @@ export default function Home() {
     const todos: any = [];
     snapshot.forEach((doc) => {
       if (user && doc.data().user === user.email) {
-        console.log(doc)
         todos.push({ ...doc.data(), id: doc.id })
       }
     });
@@ -39,8 +36,7 @@ export default function Home() {
   return (
     <div className="bg-[#201c1b]">
       <TopNav />
-      {/* <CreateTodo /> */}
-      <TodoList todos={todos} />
+      <TodoList />
     </div>
   )
 }

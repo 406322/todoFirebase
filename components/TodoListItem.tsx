@@ -1,12 +1,13 @@
 import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useState, useRef, useEffect } from "react";
-import { toggleEditBlur, toggleEditFocus } from "../firebase/dbServices";
+import { toggleEditBlur } from "../firebase/dbServices";
 import { deleteTodo } from "../firebase/dbServices";
 import { updateTodo } from "../firebase/dbServices";
 import { toggleComplete } from "../firebase/dbServices";
 
-export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => {
+
+export const TodoListItem = ({ todo }: { todo: Todo }) => {
 
     const [formValue, setFormValue] = useState({
         todo: todo.todo,
@@ -27,11 +28,6 @@ export const TodoListItem = ({ todo, todos }: { todo: Todo, todos: Todo[] }) => 
     };
 
     const inputRef = useRef<HTMLInputElement>(null);
-
-    const onFocus = () => {
-        inputRef.current!.focus()
-        toggleEditFocus(todos, todo)
-    }
 
     const onBlur = (event: React.FormEvent) => {
         event.preventDefault()

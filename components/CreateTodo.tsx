@@ -3,10 +3,12 @@ import { Todo } from "../models/todo"
 import { addTodo } from "../firebase/dbServices";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
+import { useAtom } from 'jotai'
+import { userAtom } from "../atoms";
 
 export const CreateTodo = () => {
 
-    const [user, setUser] = useState<any>();
+    const [user, setUser] = useAtom(userAtom);
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {

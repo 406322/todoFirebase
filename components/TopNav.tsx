@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { auth } from '../firebase/firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
 import { addTodo } from '../firebase/dbServices';
 import { GoPlus } from 'react-icons/go';
-
+import { useAtom } from 'jotai'
+import { userAtom } from "../atoms";
+import { loginModalAtom } from '../atoms';
 
 export const TopNav = () => {
 
-    const [user, setUser] = useState<any>({});
-
-    const [loginModal, setLoginModal] = useState(false)
-    const [registerModal, setRegisterModal] = useState(false)
+    const [user, setUser] = useAtom(userAtom);
+    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
 
     useEffect(() => {
         if (user === null) {
@@ -34,24 +34,25 @@ export const TopNav = () => {
             isComplete: false,
             isEdit: true,
         }
-        addTodo(event, data.todo, data.isComplete, data.isEdit, "test@test.no")
+        addTodo(event, data.todo, data.isComplete, data.isEdit, user.email)
     }
 
     return (
         <div
             className='flex items-center justify-between mx-5 mb-5'
-            onClick={newTodo}
         >
 
-            <div className='flex items-center gap-3 text-white cursor-pointer'>
+            <div
+                className='flex items-center gap-3 text-white cursor-pointer'
+                onClick={newTodo}>
                 <GoPlus
                     name='AddNewTodo'
                     className='ml-10 text-white w-7 h-7'
                 />
                 Add new Todo</div>
 
-            <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
-            <RegisterModal registerModal={registerModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
+            <LoginModal />
+            <RegisterModal />
         </div >
     )
 }

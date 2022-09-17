@@ -1,13 +1,19 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
+import { useAtom } from 'jotai'
+import { userAtom } from "../atoms";
+import { loginModalAtom } from '../atoms';
+import { registerModalAtom } from '../atoms';
 
 
-export const LoginModal = ({ loginModal, setLoginModal, setRegisterModal }: { loginModal: boolean, setLoginModal: Dispatch<SetStateAction<boolean>>, setRegisterModal: Dispatch<SetStateAction<boolean>> }) => {
+export const LoginModal = () => {
 
-    const [user, setUser] = useState<any>({});
+    const [user, setUser] = useAtom(userAtom);
+    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
+    const [registerModal, setRegisterModal] = useAtom(registerModalAtom)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {

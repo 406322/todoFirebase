@@ -1,15 +1,13 @@
-import { CreateTodo } from "../components/CreateTodo"
 import { TodoList } from "../components/TodoList"
-import { useState, useEffect } from "react";
-import { Todo } from "../models/todo";
+import { useEffect } from "react";
 import { TopNav } from "../components/TopNav"
 import { auth, db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { orderBy, query } from "firebase/firestore";
 import { useAtom } from 'jotai'
-import { userAtom } from "../styles/atoms";
-import { todosAtom } from "../styles/atoms";
+import { userAtom } from "../atoms";
+import { todosAtom } from "../atoms";
 
 
 export default function Home() {
@@ -38,7 +36,7 @@ export default function Home() {
   return (
     <div className="bg-[#201c1b]">
       <TopNav />
-      <TodoList todos={todos} />
+      <TodoList />
     </div>
   )
 }

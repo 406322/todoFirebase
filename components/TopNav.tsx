@@ -3,6 +3,9 @@ import { auth } from '../firebase/firebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
 import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
+import { addTodo } from '../firebase/dbServices';
+import { GoPlus } from 'react-icons/go';
+
 
 export const TopNav = () => {
 
@@ -24,11 +27,29 @@ export const TopNav = () => {
         });
     }, [])
 
+    const newTodo = (event: any) => {
+        event.preventDefault()
+        const data = {
+            todo: "",
+            isComplete: false,
+            isEdit: true,
+        }
+        addTodo(event, data.todo, data.isComplete, data.isEdit, "test@test.no")
+    }
+
     return (
-        <div className='flex justify-between'>
-            <h1 className="p-5 text-3xl font-bold text-white bg-[#201c1b]">
-                TodoList
-            </h1>
+        <div
+            className='flex items-center justify-between mx-5 mb-5'
+            onClick={newTodo}
+        >
+
+            <div className='flex items-center gap-3 text-white cursor-pointer'>
+                <GoPlus
+                    name='AddNewTodo'
+                    className='ml-10 text-white w-7 h-7'
+                />
+                Add new Todo</div>
+
             <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
             <RegisterModal registerModal={registerModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />
         </div >

@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { login, logout, register } from "../firebase/authServices";
+import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 
 
@@ -125,12 +125,6 @@ export const LoginModal = ({ loginModal, setLoginModal, setRegisterModal }: { lo
                             />
                         </div>
                         <div className="flex justify-between">
-                            {/* <div className="flex items-center gap-2">
-                                <Checkbox id="remember" />
-                                <Label htmlFor="remember">
-                                    Remember me
-                                </Label>
-                            </div> */}
                             <button
                                 onClick={() => alert('Not implemented')}
                                 className="text-sm text-blue-700 hover:underline dark:text-blue-500"

@@ -1,5 +1,5 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { browserLocalPersistence, browserSessionPersistence, onAuthStateChanged, setPersistence } from "firebase/auth";
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
@@ -14,6 +14,7 @@ export const LoginModal = () => {
     const [user, setUser] = useAtom(userAtom);
     const [loginModal, setLoginModal] = useAtom(loginModalAtom)
     const [registerModal, setRegisterModal] = useAtom(registerModalAtom)
+    const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
@@ -62,8 +63,9 @@ export const LoginModal = () => {
         })
     }
 
-    const handleLogin = (event: React.FormEvent) => {
+    const handleLogin = async (event: React.FormEvent) => {
         event.preventDefault()
+        if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
         login(loginEmail, loginPassword)
         resetForm()
         setLoginModal(false)
@@ -111,6 +113,7 @@ export const LoginModal = () => {
                                 name="loginEmail"
                                 onChange={handleChange}
                                 required={true}
+                                autoComplete="on"
                                 value={loginEmail}
                             />
                         </div>
@@ -129,6 +132,14 @@ export const LoginModal = () => {
                                 required={true}
                                 value={loginPassword}
                             />
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Checkbox
+                                id="remember"
+                                onClick={(e) => setAuthPersistence(!authPersistence)} />
+                            <Label htmlFor="remember">
+                                Remember me
+                            </Label>
                         </div>
                         <div className="w-full">
                             <Button type="submit" onClick={handleLogin}>

@@ -7,19 +7,15 @@ import { auth, db } from '../firebase/firebaseConfig';
 import { collection, onSnapshot } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { orderBy, query } from "firebase/firestore";
-import { BsPlusLg } from 'react-icons/bs';
 import { useAtom } from 'jotai'
 import { userAtom } from "../styles/atoms";
-
+import { todosAtom } from "../styles/atoms";
 
 
 export default function Home() {
 
-
-  const [todos, setTodos] = useState<Todo[]>();
-
-
   const [user, setUser] = useAtom(userAtom);
+  const [todos, setTodos] = useAtom(todosAtom);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser: any) => {
@@ -42,7 +38,6 @@ export default function Home() {
   return (
     <div className="bg-[#201c1b]">
       <TopNav />
-      {/* <CreateTodo /> */}
       <TodoList todos={todos} />
     </div>
   )

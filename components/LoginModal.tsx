@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { login, logout, register } from "../firebase/authServices";
+import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 
 

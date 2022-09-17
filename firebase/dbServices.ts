@@ -11,9 +11,11 @@ export const addTodo = async (event: React.FormEvent, todo: string, isComplete: 
         todo: todo,
         isComplete: isComplete,
         isEdit: isEdit,
-        user: user
-    }).then(() => event.target as HTMLFormElement)
-        .then((resetForm) => resetForm.reset())
+        user: user,
+        date: new Date()
+    })
+    // .then(() => event.target as HTMLFormElement)
+    // .then((resetForm) => resetForm.reset())
 }
 
 export const updateTodo = async (id: Todo["id"], todo: string) => {

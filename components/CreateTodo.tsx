@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Todo } from "../models/todo"
-import { GoDiffAdded } from 'react-icons/go';
 import { addTodo } from "../firebase/dbServices";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 
-export const Form = () => {
+export const CreateTodo = () => {
 
     const [user, setUser] = useState<any>();
 
@@ -40,7 +39,7 @@ export const Form = () => {
         <div className="bg-[#201c1b]">
             <form
                 onSubmit={(event) => addTodo(event, todo, isComplete, isEdit, user.email)}
-                className="flex gap-3 p-5 mx-5 bg-[#201c1b] rounded-md">
+                className="flex gap-3 p-5 mr-5 ml-16 bg-[#201c1b] rounded-md">
 
                 <input
                     name="todo"
@@ -50,12 +49,6 @@ export const Form = () => {
                     placeholder="Add Todo..."
                     required
                 />
-
-                {/* <GoDiffAdded
-                    title="Add Todo"
-                    type="submit"
-                    className="h-10 text-white cursor-pointer w-7"
-                /> */}
             </form>
         </div>
     );

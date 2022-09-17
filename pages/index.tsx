@@ -1,4 +1,4 @@
-import { Form } from "../components/Form"
+import { CreateTodo } from "../components/CreateTodo"
 import { TodoList } from "../components/TodoList"
 import { useState, useEffect } from "react";
 import { Todo } from "../models/todo";
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="bg-[#201c1b]">
       <TopNav />
-      <Form />
+      <CreateTodo />
       <TodoList todos={todos} />
     </div>
   )

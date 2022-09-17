@@ -25,8 +25,8 @@ export const TopNav = () => {
     }, [])
 
     return (
-        <div className='flex justify-between'>
-            <h1 className="p-5 text-3xl font-bold text-white bg-[#201c1b]">
+        <div className='flex items-center justify-between mx-5'>
+            <h1 className="p-5 ml-12 text-3xl font-bold text-white bg-[#201c1b]">
                 TodoList
             </h1>
             <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} setRegisterModal={setRegisterModal} />

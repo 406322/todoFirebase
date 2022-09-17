@@ -8,14 +8,18 @@ import { collection, onSnapshot } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { orderBy, query } from "firebase/firestore";
 import { BsPlusLg } from 'react-icons/bs';
+import { useAtom } from 'jotai'
+import { userAtom } from "../styles/atoms";
 
 
 
 export default function Home() {
 
+
   const [todos, setTodos] = useState<Todo[]>();
 
-  const [user, setUser] = useState<any>({});
+
+  const [user, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser: any) => {
@@ -29,7 +33,6 @@ export default function Home() {
     const todos: any = [];
     snapshot.forEach((doc) => {
       if (user && doc.data().user === user.email) {
-        console.log(doc)
         todos.push({ ...doc.data(), id: doc.id })
       }
     });

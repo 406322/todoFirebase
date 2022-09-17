@@ -63,6 +63,9 @@ export const RegisterModal = () => {
         event.preventDefault()
         if (registerPassword !== confirmPassword) {
             alert('Passwords not matching')
+        }
+        if (registerPassword.length < 5) {
+            alert('Password need to be at least 6 characters')
         } else {
             register(registerEmail, registerPassword)
             resetForm()
@@ -85,7 +88,9 @@ export const RegisterModal = () => {
             >
                 <Modal.Header />
                 <Modal.Body>
-                    <form className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
+                    <form
+                        className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8"
+                        onSubmit={handleRegister}>
                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                             Create and account
                         </h3>
@@ -99,6 +104,7 @@ export const RegisterModal = () => {
                             <TextInput
                                 id="email"
                                 placeholder="name@company.com"
+                                type="email"
                                 name="registerEmail"
                                 onChange={handleChange}
                                 required={true}
@@ -140,12 +146,9 @@ export const RegisterModal = () => {
                             />
                         </div>
 
-
-                        <div className="w-full">
-                            <Button type="submit" onClick={handleRegister}>
-                                Create an account
-                            </Button>
-                        </div>
+                        <Button type="submit">
+                            Create an account
+                        </Button>
 
 
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">

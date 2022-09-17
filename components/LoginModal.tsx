@@ -130,6 +130,11 @@ export const LoginModal = () => {
                                 value={loginPassword}
                             />
                         </div>
+                        <div className="w-full">
+                            <Button type="submit" onClick={handleLogin}>
+                                Log in to your account
+                            </Button>
+                        </div>
                         <div className="flex justify-between">
                             <button
                                 onClick={() => alert('Not implemented')}
@@ -138,11 +143,7 @@ export const LoginModal = () => {
                                 Lost Password?
                             </button>
                         </div>
-                        <div className="w-full">
-                            <Button type="submit" onClick={handleLogin}>
-                                Log in to your account
-                            </Button>
-                        </div>
+
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                             Not registered?{' '}
                             <a

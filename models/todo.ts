@@ -3,5 +3,6 @@ export type Todo = {
     id: string,
     isComplete: boolean,
     isEdit: boolean,
-    user: string
+    user: string,
+    date: any
 }

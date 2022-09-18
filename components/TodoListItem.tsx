@@ -5,10 +5,14 @@ import { toggleEditBlur } from "../firebase/dbServices";
 import { deleteTodo } from "../firebase/dbServices";
 import { updateTodo } from "../firebase/dbServices";
 import { toggleComplete } from "../firebase/dbServices";
+import { useAtom } from "jotai";
+import { todosAtom } from "../atoms";
 
 
 
 export const TodoListItem = ({ todo }: { todo: Todo }) => {
+
+    const [todos, setTodos] = useAtom(todosAtom);
 
     const [formValue, setFormValue] = useState({
         todo: todo.todo,
@@ -32,13 +36,28 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
 
     const onBlur = (event: React.FormEvent) => {
         event.preventDefault()
-
         if (formValue.todo.length < 1) { deleteTodo(event, todo) }
         else {
             inputRef.current!.blur()
             updateTodo(todo.id, formValue.todo)
+            const newArray = todos.filter(element => todo.id !== element.id);
+            todo.todo = formValue.todo
+            setTodos([...newArray, todo])
             toggleEditBlur(todo.id)
         }
+    }
+
+    const handleDelete = (event: any) => {
+        deleteTodo(event, todo)
+        const newArray = todos.filter(element => todo.id !== element.id);
+        setTodos(newArray)
+    }
+
+    const handleToggleComplete = (event: any) => {
+        toggleComplete(todo.id, todo.isComplete)
+        const newArray = todos.filter(element => todo.id !== element.id);
+        todo.isComplete = !todo.isComplete
+        setTodos([...newArray, todo])
     }
 
     return (
@@ -52,7 +71,7 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
                         type="checkbox"
                         checked={todo.isComplete}
                         className="rounded-full cursor-pointer focus:ring-0 w-7 h-7 focus:ring-offset-0 focus:decoration-none"
-                        onChange={() => toggleComplete(todo.id, todo.isComplete)}
+                        onChange={handleToggleComplete}
                     />
 
                     <div className="flex justify-end w-full">
@@ -77,7 +96,7 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
                             <TiDeleteOutline
                                 title="Delete Todo"
                                 className="text-white cursor-pointer w-7 h-7"
-                                onClick={(event) => deleteTodo(event, todo)}
+                                onClick={handleDelete}
                             />
                         </div>
                     </div>

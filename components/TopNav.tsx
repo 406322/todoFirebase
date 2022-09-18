@@ -8,6 +8,7 @@ import { GoPlus } from 'react-icons/go';
 import { useAtom } from 'jotai'
 import { userAtom } from "../atoms";
 import { loginModalAtom } from '../atoms';
+import { Dropdown } from './DropDown';
 
 export const TopNav = () => {
 
@@ -41,7 +42,6 @@ export const TopNav = () => {
         <div
             className='flex items-center justify-between mx-5 mb-5'
         >
-
             <div
                 className='flex items-center gap-3 text-white cursor-pointer'
                 onClick={newTodo}>
@@ -49,8 +49,9 @@ export const TopNav = () => {
                     name='AddNewTodo'
                     className='ml-10 text-white w-7 h-7'
                 />
-                Add new Todo</div>
-
+                Add new Todo
+            </div>
+            <Dropdown />
             <LoginModal />
             <RegisterModal />
         </div >

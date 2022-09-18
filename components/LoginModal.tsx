@@ -78,16 +78,6 @@ export const LoginModal = () => {
 
     return (
         <>
-            <div className='flex gap-5 p-5 text-white'>
-                {user && <p className='text-white'>{user.email}</p>}
-                {user
-                    ? <p className='text-white cursor-pointer' onClick={logout}>Sign out</p>
-
-                    : <button onClick={() => setLoginModal(!loginModal)}>
-                        Sign in
-                    </button>
-                }
-            </div>
             <Modal
                 show={loginModal}
                 size="md"

@@ -5,27 +5,22 @@ import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
-import { userAtom } from "../atoms";
 import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
 
 
 export default function Home() {
 
-  const [user, setUser] = useAtom(userAtom);
   const [todos, setTodos] = useAtom(todosAtom);
-
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      getAll()
+      if (currentUser) { getAllTodos(currentUser.email!) }
     });
   }, [])
 
-  const q = query(collection(db, 'TodoList'), where('user', '==', 'test@test.no'), orderBy('date', 'desc'));
-
-  const getAll = async () => {
+  const getAllTodos = async (currentUser: string) => {
+    const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));
     const querySnapshot = await getDocs(q);
     const todos: any = [];
     querySnapshot.forEach((doc) => {

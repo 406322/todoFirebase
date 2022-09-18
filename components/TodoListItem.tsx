@@ -9,7 +9,6 @@ import { useAtom } from "jotai";
 import { todosAtom } from "../atoms";
 
 
-
 export const TodoListItem = ({ todo }: { todo: Todo }) => {
 
     const [todos, setTodos] = useAtom(todosAtom);

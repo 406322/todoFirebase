@@ -5,15 +5,15 @@ import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom } from "../atoms";
-import { loginModalAtom } from '../atoms';
-import { registerModalAtom } from '../atoms';
+import { showLoginModalAtom } from '../atoms';
+import { showRegisterModalAtom } from '../atoms';
 
 
 export const LoginModal = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
-    const [registerModal, setRegisterModal] = useAtom(registerModalAtom)
+    const [showLoginModal, setLoginModal] = useAtom(showLoginModalAtom)
+    const [showRegisterModal, setRegisterModal] = useAtom(showRegisterModalAtom)
     const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
@@ -79,10 +79,10 @@ export const LoginModal = () => {
     return (
         <>
             <Modal
-                show={loginModal}
+                show={showLoginModal}
                 size="md"
                 popup={true}
-                onClose={() => { user && setLoginModal(!loginModal) }}
+                onClose={() => { user && setLoginModal(!showLoginModal) }}
             >
                 <Modal.Header />
                 <Modal.Body>

@@ -5,15 +5,15 @@ import { register } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom } from "../atoms";
-import { loginModalAtom } from '../atoms';
-import { registerModalAtom } from '../atoms';
+import { showLoginModalAtom } from '../atoms';
+import { showRegisterModalAtom } from '../atoms';
 
 
 export const RegisterModal = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
-    const [registerModal, setRegisterModal] = useAtom(registerModalAtom)
+    const [loginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: any) => {
@@ -69,13 +69,13 @@ export const RegisterModal = () => {
         } else {
             register(registerEmail, registerPassword)
             resetForm()
-            setRegisterModal(false)
+            setShowRegisterModal(false)
         }
     }
 
     const backToLogin = () => {
-        setRegisterModal(false)
-        setLoginModal(true)
+        setShowRegisterModal(false)
+        setShowLoginModal(true)
     }
 
     return (
@@ -84,7 +84,7 @@ export const RegisterModal = () => {
                 show={registerModal}
                 size="md"
                 popup={true}
-                onClose={() => user && setRegisterModal(!registerModal)}
+                onClose={() => user && setShowRegisterModal(!registerModal)}
             >
                 <Modal.Header />
                 <Modal.Body>

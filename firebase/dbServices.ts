@@ -1,12 +1,9 @@
-import { collection, addDoc, updateDoc, doc, deleteDoc, query, where, setDoc } from 'firebase/firestore'
+import { updateDoc, doc, deleteDoc, setDoc, Timestamp } from 'firebase/firestore'
 import { db } from './firebaseConfig'
 import { Todo } from '../models/todo'
 
-const colRef = collection(db, 'TodoList')
 
-
-
-export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string, id: string, date: Date) => {
+export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string, id: string, date: Timestamp) => {
     event.preventDefault()
     await setDoc(doc(db, 'TodoList', id), {
         todo: todo,

@@ -3,7 +3,7 @@ import { Dropdown, Avatar, Navbar } from 'flowbite-react'
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { GoPlus } from 'react-icons/go';
-import { loginModalAtom, todosAtom, userAtom } from '../atoms';
+import { showLoginModalAtom, todosAtom, userAtom } from '../atoms';
 import { logout } from '../firebase/authServices';
 import { addTodo } from '../firebase/dbServices';
 import { auth } from '../firebase/firebaseConfig';
@@ -18,7 +18,7 @@ let ProfilePicture = '/dummy-profile-pic.png';
 export const Navigation = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
+    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
 
 
@@ -28,11 +28,17 @@ export const Navigation = () => {
         });
     }, [])
 
+    const handleLogout = () => {
+        logout()
+        setShowLoginModal(false)
+        setTodos([])
+    }
+
 
     const newTodo = (event: any) => {
         event.preventDefault()
         if (!user) {
-            setLoginModal(true)
+            setShowLoginModal(true)
         } else {
             const newTodo: Todo = {
                 todo: "",
@@ -84,8 +90,8 @@ export const Navigation = () => {
 
                         <Dropdown.Divider />
                         {user
-                            ? <Dropdown.Item onClick={() => logout}>Sign Out</Dropdown.Item>
-                            : <Dropdown.Item onClick={() => setLoginModal(true)}>Sign inn</Dropdown.Item>
+                            ? <Dropdown.Item onClick={handleLogout}>Sign Out</Dropdown.Item>
+                            : <Dropdown.Item onClick={() => setShowLoginModal(true)}>Sign inn</Dropdown.Item>
                         }
                     </Dropdown>
                 </div>

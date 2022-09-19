@@ -1,20 +1,18 @@
-import { onAuthStateChanged } from 'firebase/auth';
-import { Dropdown, Avatar, Navbar } from 'flowbite-react'
-import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 import { GoPlus } from 'react-icons/go';
+import { Dropdown, Avatar, Navbar } from 'flowbite-react'
+import { useAtom } from 'jotai';
 import { showLoginModalAtom, todosAtom, userAtom } from '../atoms';
+import { Todo } from '../models/todo';
+import { onAuthStateChanged } from 'firebase/auth';
 import { logout } from '../firebase/authServices';
 import { addTodo } from '../firebase/dbServices';
 import { auth } from '../firebase/firebaseConfig';
-import { Todo } from '../models/todo';
-import { LoginModal } from './LoginModal';
-import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
+import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
 
-
-let ProfilePicture = '/dummy-profile-pic.png';
 
 export const Navigation = () => {
 
@@ -35,12 +33,9 @@ export const Navigation = () => {
         setTodos([])
     }
 
-
-    const newTodo = (event: any) => {
-        event.preventDefault()
-        if (!user) {
-            setShowLoginModal(true)
-        } else {
+    const newTodo = (event: React.FormEvent) => {
+        if (!user) { setShowLoginModal(true) }
+        else {
             const newTodo: Todo = {
                 todo: "",
                 isComplete: false,
@@ -51,7 +46,7 @@ export const Navigation = () => {
             }
             todos.unshift(newTodo)
             setTodos([...todos])
-            addTodo(event, newTodo.todo, newTodo.isComplete, newTodo.isEdit, user.email, newTodo.id, newTodo.date)
+            addTodo(event, newTodo)
         }
     }
 
@@ -78,7 +73,7 @@ export const Navigation = () => {
                     <Dropdown
                         arrowIcon={false}
                         inline={true}
-                        label={<Avatar alt="User settings" img={ProfilePicture} rounded={true} />}
+                        label={<Avatar alt="User settings" img='/dummy-profile-pic.png' rounded={true} />}
                     >
                         {user &&
                             <Dropdown.Header>

@@ -2,15 +2,14 @@ import { updateDoc, doc, deleteDoc, setDoc, Timestamp } from 'firebase/firestore
 import { db } from './firebaseConfig'
 import { Todo } from '../models/todo'
 
-
-export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string, id: string, date: Timestamp) => {
+export const addTodo = async (event: React.FormEvent, newTodo: Todo) => {
     event.preventDefault()
-    await setDoc(doc(db, 'TodoList', id), {
-        todo: todo,
-        isComplete: isComplete,
-        isEdit: isEdit,
-        user: user,
-        date: date
+    await setDoc(doc(db, 'TodoList', newTodo.id), {
+        todo: newTodo.todo,
+        isComplete: newTodo.isComplete,
+        isEdit: newTodo.isEdit,
+        user: newTodo.user,
+        date: newTodo.date
     })
 }
 

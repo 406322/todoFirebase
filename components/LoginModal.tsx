@@ -12,8 +12,8 @@ import { showRegisterModalAtom } from '../atoms';
 export const LoginModal = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [showLoginModal, setLoginModal] = useAtom(showLoginModalAtom)
-    const [showRegisterModal, setRegisterModal] = useAtom(showRegisterModalAtom)
+    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [showRegisterModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
     const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
@@ -62,12 +62,12 @@ export const LoginModal = () => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
         login(loginEmail, loginPassword)
         resetForm()
-        setLoginModal(false)
+        setShowLoginModal(false)
     }
 
     const handleRegister = () => {
-        setLoginModal(false)
-        setRegisterModal(true)
+        setShowLoginModal(false)
+        setShowRegisterModal(true)
     }
 
     return (
@@ -76,7 +76,7 @@ export const LoginModal = () => {
                 show={showLoginModal}
                 size="md"
                 popup={true}
-                onClose={() => { user && setLoginModal(!showLoginModal) }}
+                onClose={() => { user && setShowLoginModal(!showLoginModal) }}
             >
                 <Modal.Header />
                 <Modal.Body>

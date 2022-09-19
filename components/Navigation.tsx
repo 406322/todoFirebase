@@ -11,6 +11,7 @@ import { Todo } from '../models/todo';
 import { LoginModal } from './LoginModal';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
+import { RegisterModal } from './RegisterModal';
 
 
 let ProfilePicture = '/dummy-profile-pic.png';
@@ -57,6 +58,7 @@ export const Navigation = () => {
     return (
         <div className="p-5 bg-slate-900">
             <LoginModal />
+            <RegisterModal />
 
             <Navbar
                 fluid={true}

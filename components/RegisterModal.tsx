@@ -1,12 +1,11 @@
-import { onAuthStateChanged } from "firebase/auth";
-import { Button, Label, Modal, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
+import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { register } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
-import { userAtom } from "../atoms";
-import { showLoginModalAtom } from '../atoms';
-import { showRegisterModalAtom } from '../atoms';
+import { userAtom, showLoginModalAtom, showRegisterModalAtom } from "../atoms";
+import { Signup } from "../models/todo";
 
 
 export const RegisterModal = () => {
@@ -16,8 +15,8 @@ export const RegisterModal = () => {
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
 
     useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: any) => {
-            setUser(currentUser);
+        onAuthStateChanged(auth, (currentUser: User | null) => {
+            if (currentUser) { setUser(currentUser) }
         });
     }, [])
 
@@ -27,19 +26,7 @@ export const RegisterModal = () => {
         confirmPassword: ""
     });
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: any) => {
-            setUser(currentUser);
-        });
-    }, [])
-
     const { registerEmail, registerPassword, confirmPassword } = formValue
-
-    interface Signup {
-        registerEmail: string,
-        registerPassword: string,
-        confirmPassword: string
-    }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -59,14 +46,15 @@ export const RegisterModal = () => {
         })
     }
 
+    const passwordMatchCheck = () => { return registerPassword === confirmPassword }
+    const passwordLengthCheck = () => { return registerPassword.length < 5 }
+
     const handleRegister = (event: React.FormEvent) => {
         event.preventDefault()
-        if (registerPassword !== confirmPassword) {
-            alert('Passwords not matching')
-        }
-        if (registerPassword.length < 5) {
-            alert('Password need to be at least 6 characters')
-        } else {
+        if (!passwordMatchCheck()) { alert('Passwords not matching') }
+        if (!passwordLengthCheck()) { alert('Password need to be at least 6 characters') }
+        else {
+            console.log('Hei')
             register(registerEmail, registerPassword)
             resetForm()
             setShowRegisterModal(false)
@@ -156,8 +144,7 @@ export const RegisterModal = () => {
                             <a
                                 href="#"
                                 className="text-blue-700 hover:underline dark:text-blue-500"
-                                onClick={backToLogin}
-                            >
+                                onClick={backToLogin}>
                                 Login to account
                             </a>
                         </div>

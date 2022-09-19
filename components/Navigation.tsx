@@ -52,7 +52,7 @@ export const Navigation = () => {
     }
 
     return (
-        <div className="p-5 bg-slate-900">
+        <div className="p-5 bg-white dark:bg-gray-900">
             <LoginModal />
             <RegisterModal />
 

@@ -1,5 +1,5 @@
 import { TodoList } from "../components/TodoList"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from '../firebase/firebaseConfig';
 import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
@@ -7,11 +7,20 @@ import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
 import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
+import { Spinner } from "flowbite-react";
 
 
 export default function Home() {
 
   const [todos, setTodos] = useAtom(todosAtom);
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+
+  }, []);
+
+  // setTimeout(() => console.log('Initial timeout!'), 1000);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -32,7 +41,14 @@ export default function Home() {
   return (
     <div className="">
       <Navigation />
-      <TodoList />
+
+      {loading
+        ? <div className="flex justify-center h-screen pt-10 text-left bg-white dark:bg-gray-900 text-bg-gray-900 dark:text-white">
+          <Spinner aria-label="Left-aligned spinner example" />
+        </div>
+        : <TodoList />
+
+      }
     </div>
   )
 }

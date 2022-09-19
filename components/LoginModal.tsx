@@ -5,15 +5,15 @@ import { login, logout } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom } from "../atoms";
-import { loginModalAtom } from '../atoms';
-import { registerModalAtom } from '../atoms';
+import { showLoginModalAtom } from '../atoms';
+import { showRegisterModalAtom } from '../atoms';
 
 
 export const LoginModal = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [loginModal, setLoginModal] = useAtom(loginModalAtom)
-    const [registerModal, setRegisterModal] = useAtom(registerModalAtom)
+    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [showRegisterModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
     const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
@@ -28,12 +28,6 @@ export const LoginModal = () => {
         registerEmail: "",
         registerPassword: ""
     });
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: any) => {
-            setUser(currentUser);
-        });
-    }, [])
 
     const { loginEmail, loginPassword } = formValue
 
@@ -68,31 +62,21 @@ export const LoginModal = () => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
         login(loginEmail, loginPassword)
         resetForm()
-        setLoginModal(false)
+        setShowLoginModal(false)
     }
 
     const handleRegister = () => {
-        setLoginModal(false)
-        setRegisterModal(true)
+        setShowLoginModal(false)
+        setShowRegisterModal(true)
     }
 
     return (
         <>
-            <div className='flex gap-5 p-5 text-white'>
-                {user && <p className='text-white'>{user.email}</p>}
-                {user
-                    ? <p className='text-white cursor-pointer' onClick={logout}>Sign out</p>
-
-                    : <button onClick={() => setLoginModal(!loginModal)}>
-                        Sign in
-                    </button>
-                }
-            </div>
             <Modal
-                show={loginModal}
+                show={showLoginModal}
                 size="md"
                 popup={true}
-                onClose={() => { user && setLoginModal(!loginModal) }}
+                onClose={() => { user && setShowLoginModal(!showLoginModal) }}
             >
                 <Modal.Header />
                 <Modal.Body>

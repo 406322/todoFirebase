@@ -1,41 +1,37 @@
 import { TodoList } from "../components/TodoList"
 import { useEffect } from "react";
-import { TopNav } from "../components/TopNav"
 import { auth, db } from '../firebase/firebaseConfig';
-import { collection, onSnapshot } from "@firebase/firestore";
+import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { orderBy, query } from "firebase/firestore";
+import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
-import { userAtom } from "../atoms";
 import { todosAtom } from "../atoms";
+import { Navigation } from "../components/Navigation";
 
 
 export default function Home() {
 
-  const [user, setUser] = useAtom(userAtom);
   const [todos, setTodos] = useAtom(todosAtom);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser: any) => {
-      setUser(currentUser);
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) { getAllTodos(currentUser.email!) }
     });
   }, [])
 
-  const q = query(collection(db, 'TodoList'), orderBy('date', 'desc'));
-
-  const unsubscribe = onSnapshot(q, snapshot => {
+  const getAllTodos = async (currentUser: string) => {
+    const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));
+    const querySnapshot = await getDocs(q);
     const todos: any = [];
-    snapshot.forEach((doc) => {
-      if (user && doc.data().user === user.email) {
-        todos.push({ ...doc.data(), id: doc.id })
-      }
+    querySnapshot.forEach((doc) => {
+      todos.push({ ...doc.data(), id: doc.id })
     });
     setTodos(todos)
-  });
+  }
 
   return (
-    <div className="bg-[#201c1b]">
-      <TopNav />
+    <div className="">
+      <Navigation />
       <TodoList />
     </div>
   )

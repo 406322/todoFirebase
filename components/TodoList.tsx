@@ -7,11 +7,14 @@ export const TodoList = () => {
 
     const [todos] = useAtom(todosAtom);
 
+    let sorted = todos.sort((a, b) => Number(a.date) - Number(b.date))
+
     return (
-        <div className="min-h-screen bg-[#201c1b] divide-cyan-100 px-10">
+        <div className="min-h-screen px-5 pb-5 bg-slate-900 divide-cyan-100">
             {todos &&
                 todos
-                    .sort((a: Todo, b: Todo) => Number(a.isComplete) - Number(b.isComplete))
+                    .reverse()
+                    .sort((a, b) => Number(a.isComplete) - Number(b.isComplete))
                     .map((todo: Todo) => <TodoListItem key={todo.id} todo={todo} />)}
         </div>
 

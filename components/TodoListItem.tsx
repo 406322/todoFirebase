@@ -2,9 +2,7 @@ import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useState, useRef, useEffect } from "react";
 import { toggleEditBlur } from "../firebase/dbServices";
-import { deleteTodo } from "../firebase/dbServices";
-import { updateTodo } from "../firebase/dbServices";
-import { toggleComplete } from "../firebase/dbServices";
+import { deleteTodo, updateTodo, toggleComplete } from "../firebase/dbServices";
 import { useAtom } from "jotai";
 import { todosAtom } from "../atoms";
 
@@ -51,13 +49,13 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
         }
     }
 
-    const handleDelete = (event: any) => {
+    const handleDelete = (event: React.FormEvent) => {
         deleteTodo(event, todo)
         const newArray = todos.filter(element => todo.id !== element.id);
         setTodos(newArray)
     }
 
-    const handleToggleComplete = (event: any) => {
+    const handleToggleComplete = () => {
         toggleComplete(todo.id, todo.isComplete)
         const newArray = todos.filter(element => todo.id !== element.id);
         todo.isComplete = !todo.isComplete

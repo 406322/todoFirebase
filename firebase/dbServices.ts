@@ -1,4 +1,4 @@
-import { updateDoc, doc, deleteDoc, setDoc, Timestamp } from 'firebase/firestore'
+import { updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore'
 import { db } from './firebaseConfig'
 import { Todo } from '../models/todo'
 
@@ -13,7 +13,7 @@ export const addTodo = async (event: React.FormEvent, newTodo: Todo) => {
     })
 }
 
-export const updateTodo = async (id: Todo["id"], todo: string) => {
+export const updateTodo = async (id: Todo["id"], todo: Todo["todo"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {
         todo: todo
@@ -26,14 +26,14 @@ export const deleteTodo = async (event: React.FormEvent, todo: Todo) => {
     await deleteDoc(docRef)
 }
 
-export const toggleComplete = async (id: string, isComplete: boolean) => {
+export const toggleComplete = async (id: Todo["id"], isComplete: Todo["isComplete"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {
         isComplete: !isComplete
     })
 }
 
-export const toggleEditBlur = async (id: string) => {
+export const toggleEditBlur = async (id: Todo["id"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, { isEdit: false })
 }

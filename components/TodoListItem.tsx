@@ -2,9 +2,9 @@ import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useState, useRef, useEffect } from "react";
 import { toggleEditBlur } from "../firebase/dbServices";
-import { deleteTodo } from "../firebase/dbServices";
-import { updateTodo } from "../firebase/dbServices";
-import { toggleComplete } from "../firebase/dbServices";
+// import { deleteTodo, updateTodo, toggleComplete } from "../firebase/dbServices";
+import * as api from "../firebase/dbServices";
+
 import { useAtom } from "jotai";
 import { todosAtom } from "../atoms";
 
@@ -36,14 +36,14 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
     const onBlur = (event: React.FormEvent) => {
         event.preventDefault()
         if (formValue.todo.length < 1) {
-            deleteTodo(event, todo)
+            api.deleteTodo(event, todo)
             const newArray = todos.filter(element => todo.id !== element.id);
             setTodos(newArray)
         }
-        if (formValue.todo.length < 1) { deleteTodo(event, todo) }
+        if (formValue.todo.length < 1) { api.deleteTodo(event, todo) }
         else {
             inputRef.current!.blur()
-            updateTodo(todo.id, formValue.todo)
+            api.updateTodo(todo.id, formValue.todo)
             const newArray = todos.filter(element => todo.id !== element.id);
             todo.todo = formValue.todo
             setTodos([...newArray, todo])
@@ -51,14 +51,14 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
         }
     }
 
-    const handleDelete = (event: any) => {
-        deleteTodo(event, todo)
+    const handleDelete = (event: React.FormEvent) => {
+        api.deleteTodo(event, todo)
         const newArray = todos.filter(element => todo.id !== element.id);
         setTodos(newArray)
     }
 
-    const handleToggleComplete = (event: any) => {
-        toggleComplete(todo.id, todo.isComplete)
+    const handleToggleComplete = () => {
+        api.toggleComplete(todo.id, todo.isComplete)
         const newArray = todos.filter(element => todo.id !== element.id);
         todo.isComplete = !todo.isComplete
         setTodos([...newArray, todo])

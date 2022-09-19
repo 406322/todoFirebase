@@ -1,20 +1,19 @@
-import { updateDoc, doc, deleteDoc, setDoc, Timestamp } from 'firebase/firestore'
+import { updateDoc, doc, deleteDoc, setDoc } from 'firebase/firestore'
 import { db } from './firebaseConfig'
 import { Todo } from '../models/todo'
 
-
-export const addTodo = async (event: React.FormEvent, todo: string, isComplete: boolean, isEdit: boolean, user: string, id: string, date: Timestamp) => {
+export const addTodo = async (event: React.FormEvent, newTodo: Todo) => {
     event.preventDefault()
-    await setDoc(doc(db, 'TodoList', id), {
-        todo: todo,
-        isComplete: isComplete,
-        isEdit: isEdit,
-        user: user,
-        date: date
+    await setDoc(doc(db, 'TodoList', newTodo.id), {
+        todo: newTodo.todo,
+        isComplete: newTodo.isComplete,
+        isEdit: newTodo.isEdit,
+        user: newTodo.user,
+        date: newTodo.date
     })
 }
 
-export const updateTodo = async (id: Todo["id"], todo: string) => {
+export const updateTodo = async (id: Todo["id"], todo: Todo["todo"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {
         todo: todo
@@ -27,14 +26,14 @@ export const deleteTodo = async (event: React.FormEvent, todo: Todo) => {
     await deleteDoc(docRef)
 }
 
-export const toggleComplete = async (id: string, isComplete: boolean) => {
+export const toggleComplete = async (id: Todo["id"], isComplete: Todo["isComplete"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {
         isComplete: !isComplete
     })
 }
 
-export const toggleEditBlur = async (id: string) => {
+export const toggleEditBlur = async (id: Todo["id"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, { isEdit: false })
 }

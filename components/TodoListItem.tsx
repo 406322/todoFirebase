@@ -68,7 +68,7 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
         <>
             <form
                 onSubmit={onBlur}
-                className="flex justify-between mb-3 rounded-md bg-slate-900 ">
+                className="flex justify-between mb-3 bg-white rounded-md dark:bg-slate-900 ">
 
                 <div className="flex items-center justify-center w-full gap-4">
                     <input
@@ -89,7 +89,7 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
                                 onFocus={focus}
                                 onBlur={onBlur}
                                 value={formValue.todo}
-                                className="block py-2.5 focus:text-[16px] px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className="block py-2.5 focus:text-[16px] px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=" "
                                 spellCheck="false"
                             />
@@ -98,7 +98,7 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
                         <div className="absolute pr-5 ">
                             <TiDeleteOutline
                                 title="Delete Todo"
-                                className="text-white cursor-pointer w-7 h-7"
+                                className="text-black cursor-pointer dark:text-white w-7 h-7"
                                 onClick={handleDelete}
                             />
                         </div>

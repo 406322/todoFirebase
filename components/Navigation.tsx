@@ -13,6 +13,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
 import { ThemeSwitch } from './themeSwitch';
+import { MdApps } from 'react-icons/md';
+
+
+
 
 
 export const Navigation = () => {
@@ -60,6 +64,7 @@ export const Navigation = () => {
                 fluid={true}
                 rounded={true}
             >
+
                 <div
                     className='flex items-center gap-3 text-white cursor-pointer dark:text-black'
                     onClick={newTodo}>
@@ -69,16 +74,25 @@ export const Navigation = () => {
 
                 <div className="flex gap-3 md:order-2">
 
-                    <div
+                    <div id='AddTodoButton'
                         className='flex items-center'
                         onClick={newTodo}>
                         <GoPlus
                             name='AddNewTodo'
-                            className='ml-5 text-black dark:text-white w-7 h-7'
+                            className='text-black dark:text-white w-7 h-7'
                         />
                     </div>
 
-                    <div className="mt-2">
+                    <div
+                        id="AppsButton"
+                        className='flex items-center text-white cursor-pointer dark:text-black '>
+                        <MdApps
+                            className='text-black dark:text-white w-7 h-7'
+                        />
+                    </div>
+
+                    <div id='ThemeSwitch'
+                        className="mt-2">
                         <ThemeSwitch />
                     </div>
 

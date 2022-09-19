@@ -10,7 +10,7 @@ export const TodoList = () => {
     let sorted = todos.sort((a, b) => Number(a.date) - Number(b.date))
 
     return (
-        <div className="min-h-screen px-5 pb-5 bg-slate-900 divide-cyan-100">
+        <div className="min-h-screen px-5 pb-5 bg-white dark:bg-slate-900 divide-cyan-100">
             {todos &&
                 todos
                     .reverse()

@@ -12,6 +12,7 @@ import { Timestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
+import { ThemeSwitch } from './themeSwitch';
 
 
 export const Navigation = () => {
@@ -60,15 +61,26 @@ export const Navigation = () => {
                 rounded={true}
             >
                 <div
-                    className='flex items-center gap-3 text-black cursor-pointer'
+                    className='flex items-center gap-3 text-white cursor-pointer dark:text-black'
                     onClick={newTodo}>
-                    <GoPlus
-                        name='AddNewTodo'
-                        className='ml-5 text-black w-7 h-7'
-                    />
-                    Add new Todo
+                    <h1 className='text-2xl font-bold text-black dark:text-white'>Todo</h1>
                 </div>
-                <div className="flex md:order-2">
+
+
+                <div className="flex gap-3 md:order-2">
+
+                    <div
+                        className='flex items-center'
+                        onClick={newTodo}>
+                        <GoPlus
+                            name='AddNewTodo'
+                            className='ml-5 text-black dark:text-white w-7 h-7'
+                        />
+                    </div>
+
+                    <div className="mt-2">
+                        <ThemeSwitch />
+                    </div>
 
                     <Dropdown
                         arrowIcon={false}
@@ -91,7 +103,10 @@ export const Navigation = () => {
                             : <Dropdown.Item onClick={() => setShowLoginModal(true)}>Sign inn</Dropdown.Item>
                         }
                     </Dropdown>
+
                 </div>
+
+
             </Navbar >
 
         </div >

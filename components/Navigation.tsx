@@ -67,7 +67,7 @@ export const Navigation = () => {
                     onClick={newTodo}>
                     <GoPlus
                         name='AddNewTodo'
-                        className='ml-10 text-black w-7 h-7'
+                        className='ml-5 text-black w-7 h-7'
                     />
                     Add new Todo
                 </div>

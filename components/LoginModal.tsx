@@ -29,12 +29,6 @@ export const LoginModal = () => {
         registerPassword: ""
     });
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: any) => {
-            setUser(currentUser);
-        });
-    }, [])
-
     const { loginEmail, loginPassword } = formValue
 
     interface Signup {

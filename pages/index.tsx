@@ -20,8 +20,6 @@ export default function Home() {
 
   }, []);
 
-  // setTimeout(() => console.log('Initial timeout!'), 1000);
-
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) { getAllTodos(currentUser.email!) }
@@ -41,7 +39,6 @@ export default function Home() {
   return (
     <div className="">
       <Navigation />
-
       {loading
         ? <div className="flex justify-center h-screen pt-10 text-left bg-white dark:bg-gray-900 text-bg-gray-900 dark:text-white">
           <Spinner aria-label="Left-aligned spinner example" />

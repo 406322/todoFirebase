@@ -22,6 +22,7 @@ export const LoginForm = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
+
     const onSubmit = async (data: any) => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
         const response = await login(data.email, data.password)
@@ -50,6 +51,7 @@ export const LoginForm = () => {
                 </div>
                 <TextInput
                     id="email"
+                    type="email"
                     placeholder="name@company.com"
                     autoComplete="on"
                     {...register("email", { required: true })}

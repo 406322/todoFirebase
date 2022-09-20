@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { register } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom, showLoginModalAtom, showRegisterModalAtom } from "../atoms";
-import { SignupInputs } from "../models/todo";
+import { useForm } from "react-hook-form";
+
 
 export const RegisterForm = () => {
 
@@ -19,45 +19,12 @@ export const RegisterForm = () => {
         });
     }, [])
 
-    const [formValue, setFormValue] = useState({
-        registerEmail: "",
-        registerPassword: "",
-        confirmPassword: ""
-    });
+    const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
-    const { registerEmail, registerPassword, confirmPassword } = formValue
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormValue((prevState: SignupInputs) => {
-            return {
-                ...prevState,
-                [name]: value,
-            };
-        });
-    };
-
-    const resetForm = () => {
-        setFormValue({
-            registerEmail: "",
-            registerPassword: "",
-            confirmPassword: ""
-        })
-    }
-
-    const passwordMatchCheck = () => { return registerPassword === confirmPassword }
-    const passwordLengthCheck = () => { return registerPassword.length < 5 }
-
-    const handleRegister = (event: React.FormEvent) => {
-        event.preventDefault()
-        if (!passwordMatchCheck()) { alert('Passwords not matching') }
-        if (!passwordLengthCheck()) { alert('Password need to be at least 6 characters') }
-        else {
-            console.log('Hei')
-            register(registerEmail, registerPassword)
-            resetForm()
-            setShowRegisterModal(false)
-        }
+    const onSubmit = (data: any) => {
+        register(data.email, data.password)
+        reset()
+        setShowRegisterModal(false)
     }
 
     const backToLogin = () => {
@@ -68,7 +35,7 @@ export const RegisterForm = () => {
     return (
         <form
             className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8"
-            onSubmit={handleRegister}>
+            onSubmit={handleSubmit(onSubmit)}>
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Create and account
             </h3>
@@ -83,11 +50,9 @@ export const RegisterForm = () => {
                     id="email"
                     placeholder="name@company.com"
                     type="email"
-                    name="registerEmail"
-                    onChange={handleChange}
-                    required={true}
-                    value={registerEmail}
+                    {...register("email", { required: true })}
                 />
+                {errors?.email?.type === "required" && <p>This field is required</p>}
             </div>
 
             <div>
@@ -100,11 +65,10 @@ export const RegisterForm = () => {
                 <TextInput
                     id="registerPassword"
                     type="password"
-                    name="registerPassword"
-                    onChange={handleChange}
-                    required={true}
-                    value={registerPassword}
+                    {...register("password", { required: true, minLength: 6 })}
                 />
+                {errors?.password?.type === "required" && <p>This field is required</p>}
+                {errors?.password?.type === "minLength" && (<p>password cannot be less than 6 characters</p>)}
             </div>
 
             <div>
@@ -117,11 +81,19 @@ export const RegisterForm = () => {
                 <TextInput
                     id="confirmPassword"
                     type="password"
-                    name="confirmPassword"
-                    onChange={handleChange}
-                    required={true}
-                    value={confirmPassword}
+                    {...register("confirmPassword", {
+                        required: true,
+                        validate: (val: string) => {
+                            if (watch('password') != val) {
+                                return "Your passwords do no match";
+                            }
+                        },
+                    })}
                 />
+                {watch("confirmPassword") !== watch("password") &&
+                    getValues("confirmPassword") ? (
+                    <p>passwords do not match</p>
+                ) : null}
             </div>
 
             <Button type="submit">
@@ -134,7 +106,10 @@ export const RegisterForm = () => {
                 <a
                     href="#"
                     className="text-blue-700 hover:underline dark:text-blue-500"
-                    onClick={backToLogin}>
+                    onClick={() => {
+                        setShowRegisterModal(false)
+                        setShowLoginModal(true)
+                    }}>
                     Login to account
                 </a>
             </div>

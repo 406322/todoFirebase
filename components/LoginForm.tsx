@@ -24,11 +24,14 @@ export const LoginForm = () => {
 
     const onSubmit = async (data: any) => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
-        login(data.email, data.password)
-        reset()
-        setShowLoginModal(false)
+        const response = await login(data.email, data.password)
+        if (response === 'Firebase: Error (auth/invalid-email).') { alert('Wrong Email') }
+        if (response === 'Firebase: Error (auth/wrong-password).') { alert('Wrong Password') }
+        if (response === 'ok') {
+            reset()
+            setShowLoginModal(false)
+        }
     }
-
 
     return (
         <form

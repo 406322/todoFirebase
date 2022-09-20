@@ -28,11 +28,12 @@ export const login = async (loginEmail: string, loginPassword: string) => {
             loginEmail,
             loginPassword
         );
+        return 'ok'
     } catch (error) {
         let message
         if (error instanceof Error) message = error.message
         else message = String(error)
-        console.log({ message })
+        return message
     }
 }
 

@@ -10,8 +10,8 @@ export type Todo = {
 }
 
 export interface SignupInputs {
-    registerEmail: string,
-    registerPassword: string,
+    email: string,
+    password: string,
     confirmPassword: string
 }
 

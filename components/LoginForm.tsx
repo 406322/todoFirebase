@@ -97,6 +97,18 @@ export const LoginForm = () => {
                 </button>
             </div>
 
+            <div className="flex justify-between">
+                <button
+                    onClick={() => {
+                        login("test@test.no", "abc123")
+                        reset()
+                        setShowLoginModal(false)
+                    }}
+                    className="text-sm text-blue-700 hover:underline dark:text-blue-500">
+                    Login with testuser
+                </button>
+            </div>
+
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?
                 <a

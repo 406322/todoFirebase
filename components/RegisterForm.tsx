@@ -22,14 +22,10 @@ export const RegisterForm = () => {
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
     const onSubmit = (data: any) => {
+        console.log(data)
         register(data.email, data.password)
         reset()
         setShowRegisterModal(false)
-    }
-
-    const backToLogin = () => {
-        setShowRegisterModal(false)
-        setShowLoginModal(true)
     }
 
     return (

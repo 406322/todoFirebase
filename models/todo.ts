@@ -9,8 +9,13 @@ export type Todo = {
     date: Timestamp
 }
 
-export interface Signup {
-    registerEmail: string,
-    registerPassword: string,
+export interface SignupInputs {
+    email: string,
+    password: string,
     confirmPassword: string
+}
+
+export interface LoginInputs {
+    loginEmail: string,
+    loginPassword: string,
 }

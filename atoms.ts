@@ -6,3 +6,7 @@ export const todosAtom = atom<Todo[]>([])
 export const showLoginModalAtom = atom(false)
 export const showRegisterModalAtom = atom(false)
 export const showDropdownListModal = atom(false)
+export const showResetPasswordAtom = atom(false)
+
+
+

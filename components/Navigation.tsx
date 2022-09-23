@@ -14,6 +14,7 @@ import { LoginModal } from './LoginModal';
 import { RegisterModal } from './RegisterModal';
 import { ThemeSwitch } from './themeSwitch';
 import { MdApps } from 'react-icons/md';
+import { ResetPasswordModal } from './ResetPasswordModal';
 
 
 export const Navigation = () => {
@@ -56,6 +57,7 @@ export const Navigation = () => {
         <div className="p-5 bg-white dark:bg-gray-900">
             <LoginModal />
             <RegisterModal />
+            <ResetPasswordModal />
 
             <Navbar
                 fluid={true}

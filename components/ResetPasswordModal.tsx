@@ -4,6 +4,7 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom, showResetPasswordAtom } from "../atoms";
+import { ResetPasswordForm } from "./ResetPasswordForm";
 
 export const ResetPasswordModal = () => {
 
@@ -26,10 +27,7 @@ export const ResetPasswordModal = () => {
             >
                 <Modal.Header />
                 <Modal.Body>
-
-
-
-
+                    <ResetPasswordForm />
                 </Modal.Body>
             </Modal>
         </>

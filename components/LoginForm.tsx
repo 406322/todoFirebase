@@ -3,7 +3,7 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { showLoginModalAtom, showRegisterModalAtom, userAtom } from "../atoms";
+import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../atoms";
 import { login } from "../firebase/authServices";
 import { auth } from "../firebase/firebaseConfig";
 
@@ -12,6 +12,7 @@ export const LoginForm = () => {
     const [, setUser] = useAtom(userAtom);
     const [, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [, setShowRegisterModal] = useAtom(showRegisterModalAtom)
+    const [showResetpassword, setShowResetPassword] = useAtom(showResetPasswordAtom)
     const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
@@ -76,7 +77,7 @@ export const LoginForm = () => {
             <div className="flex items-center gap-2">
                 <Checkbox
                     id="remember"
-                    onClick={(e) => setAuthPersistence(!authPersistence)} />
+                    onClick={() => setAuthPersistence(!authPersistence)} />
                 <Label htmlFor="remember">
                     Remember me
                 </Label>
@@ -91,7 +92,10 @@ export const LoginForm = () => {
 
             <div className="flex justify-between">
                 <button
-                    onClick={() => alert('Not implemented')}
+                    onClick={() => {
+                        setShowLoginModal(false)
+                        setShowResetPassword(true)
+                    }}
                     className="text-sm text-blue-700 hover:underline dark:text-blue-500">
                     Lost Password?
                 </button>

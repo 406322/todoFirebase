@@ -16,9 +16,6 @@ import { ThemeSwitch } from './themeSwitch';
 import { MdApps } from 'react-icons/md';
 
 
-
-
-
 export const Navigation = () => {
 
     const [user, setUser] = useAtom(userAtom);
@@ -66,15 +63,16 @@ export const Navigation = () => {
             >
 
                 <div
-                    className='flex items-center gap-3 text-white cursor-pointer dark:text-black'
-                    onClick={newTodo}>
+                    id='Header'
+                    className='flex items-center gap-3 text-white dark:text-black'>
                     <h1 className='text-2xl font-bold text-black dark:text-white'>Todo</h1>
                 </div>
 
 
                 <div className="flex gap-3 md:order-2">
 
-                    <div id='AddTodoButton'
+                    <div
+                        id='AddTodoButton'
                         className='flex items-center'
                         onClick={newTodo}>
                         <GoPlus

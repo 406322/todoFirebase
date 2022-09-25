@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Modal } from "flowbite-react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
-import { userAtom, showRegisterModalAtom } from "../atoms";
+import { userAtom, showRegisterModalAtom } from "../../atoms";
 import { RegisterForm } from "./RegisterForm";
 
 export const RegisterModal = () => {

@@ -3,9 +3,9 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../atoms";
-import { login } from "../firebase/authServices";
-import { auth } from "../firebase/firebaseConfig";
+import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../../atoms";
+import { login } from "../../firebase/authServices";
+import { auth } from "../../firebase/firebaseConfig";
 
 export const LoginForm = () => {
 

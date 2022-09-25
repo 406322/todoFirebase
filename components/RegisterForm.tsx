@@ -5,6 +5,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom, showLoginModalAtom, showRegisterModalAtom } from "../atoms";
 import { useForm } from "react-hook-form";
+import { register as registerUser } from "../firebase/authServices";
 
 
 export const RegisterForm = () => {
@@ -23,7 +24,7 @@ export const RegisterForm = () => {
 
     const onSubmit = (data: any) => {
         console.log(data)
-        register(data.email, data.password)
+        registerUser(data.email, data.password)
         reset()
         setShowRegisterModal(false)
     }

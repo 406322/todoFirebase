@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, sendPasswordResetEmail, User } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom, showLoginModalAtom, showRegisterModalAtom } from "../atoms";
@@ -12,6 +12,7 @@ export const ResetPasswordForm = () => {
     const [user, setUser] = useAtom(userAtom);
     const [loginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
+    const [message, setMessage] = useState(false)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: User | null) => {
@@ -21,11 +22,22 @@ export const ResetPasswordForm = () => {
 
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
-    const onSubmit = (data: any) => {
-        console.log(data)
-        // register(data.email, data.password)
-        reset()
-        setShowRegisterModal(false)
+    const onSubmit = async (data: any) => {
+        await sendPasswordResetEmail(auth, data.email)
+            .then(() => {
+                reset()
+                setMessage(true)
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                if (errorCode === 'auth/user-not-found') {
+                    alert('Email not found')
+                }
+                reset()
+
+            });
     }
 
     return (
@@ -51,6 +63,8 @@ export const ResetPasswordForm = () => {
                 {errors?.email?.type === "required" && <p>This field is required</p>}
             </div>
 
+            {message && <p>E-Mail sent. Please check your inbox</p>}
+
             <Button type="submit">
                 Reset Password
             </Button>
@@ -63,6 +77,7 @@ export const ResetPasswordForm = () => {
                     onClick={() => {
                         setShowRegisterModal(false)
                         setShowLoginModal(true)
+                        setMessage(false)
                     }}>
                     Login to account
                 </a>

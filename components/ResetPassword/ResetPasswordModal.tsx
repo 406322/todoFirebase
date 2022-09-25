@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { Modal } from "flowbite-react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
-import { userAtom, showRegisterModalAtom } from "../atoms";
-import { RegisterForm } from "./RegisterForm";
+import { userAtom, showResetPasswordAtom } from "../../atoms";
+import { ResetPasswordForm } from "./ResetPasswordForm";
 
-export const RegisterModal = () => {
+export const ResetPasswordModal = () => {
 
     const [user, setUser] = useAtom(userAtom);
-    const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
+    const [resetPasswordModal, setShowResetPasswordModal] = useAtom(showResetPasswordAtom)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: User | null) => {
@@ -20,14 +20,14 @@ export const RegisterModal = () => {
     return (
         <>
             <Modal
-                show={registerModal}
+                show={resetPasswordModal}
                 size="md"
                 popup={true}
-                onClose={() => user && setShowRegisterModal(!registerModal)}
+                onClose={() => user && setShowResetPasswordModal(!resetPasswordModal)}
             >
                 <Modal.Header />
                 <Modal.Body>
-                    <RegisterForm />
+                    <ResetPasswordForm />
                 </Modal.Body>
             </Modal>
         </>

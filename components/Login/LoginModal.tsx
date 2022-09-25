@@ -1,6 +1,6 @@
 import { Modal } from "flowbite-react";
 import { useAtom } from 'jotai'
-import { userAtom, showLoginModalAtom } from "../atoms";
+import { userAtom, showLoginModalAtom } from "../../atoms";
 import { LoginForm } from "./LoginForm";
 
 

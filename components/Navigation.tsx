@@ -10,10 +10,11 @@ import { addTodo } from '../firebase/dbServices';
 import { auth } from '../firebase/firebaseConfig';
 import { Timestamp } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-import { LoginModal } from './LoginModal';
-import { RegisterModal } from './RegisterModal';
+import { LoginModal } from './Login/LoginModal';
+import { RegisterModal } from './Register/RegisterModal';
 import { ThemeSwitch } from './themeSwitch';
 import { MdApps } from 'react-icons/md';
+import { ResetPasswordModal } from './ResetPassword/ResetPasswordModal';
 
 
 export const Navigation = () => {
@@ -56,6 +57,7 @@ export const Navigation = () => {
         <div className="p-5 bg-white dark:bg-gray-900">
             <LoginModal />
             <RegisterModal />
+            <ResetPasswordModal />
 
             <Navbar
                 fluid={true}

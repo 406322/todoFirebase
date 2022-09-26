@@ -1,6 +1,3 @@
-import React from "react";
-import { ReactComponent as CaretIcon } from '../../icons/caret.svg';
-import { ReactComponent as PlusIcon } from '../../icons/plus.svg';
 import { openAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';

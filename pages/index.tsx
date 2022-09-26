@@ -8,6 +8,7 @@ import { useAtom } from 'jotai'
 import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
 import { loadingAtom } from "../atoms";
+import { NavBar } from '../components/Navigation.js/NavBar'
 
 
 export default function Home() {
@@ -37,7 +38,8 @@ export default function Home() {
 
   return (
     <div className="">
-      <Navigation />
+      <NavBar />
+      {/* <Navigation /> */}
       {loading
         ? <div className="h-screen bg-white dark:bg-gray-900"></div>
         : <TodoList />

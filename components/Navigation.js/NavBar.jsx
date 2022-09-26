@@ -3,36 +3,49 @@ import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
 import OutsideClickHandler from 'react-outside-click-handler';
 import Image from "next/image";
+import { GoPlus } from 'react-icons/go';
+import { BsFillCaretDownFill } from 'react-icons/bs';
+
+
+
+
 
 export const NavBar = () => {
 
     const [open, setOpen] = useAtom(openAtom);
 
     return (
-        <nav className="h-[60px] bg-white dark:bg-gray-700 px-1 border-b-2 border-white">
+        <div className="h-16 pr-5 bg-white border-b-2 border-white dark:bg-gray-900">
 
-            <ul className="flex justify-end h-full max-w-full">
+            <div className="flex justify-end w-full h-full">
 
-                <li className="w-[48px] flex justify-center items-center">
-                    <a href="#" className="w-[30px] h-[30px] bg-[#484a4d] rounded-full p-[5px] m-[2px] flex justify-center items-center" onClick={() => console.log('Pluss')}>
-                        <Image src="/icons/plus.svg" layout="fill" />
-                    </a>
-                </li>
+                <div className="flex items-center justify-center w-16">
+                    <div
+                        className="w-10 h-10 bg-[#484a4d] rounded-full flex justify-center items-center"
+                        onClick={() => console.log('Pluss')}>
+                        {/* <Image src="/icons/plus.svg" layout="fill" /> */}
+                        <GoPlus />
+                    </div>
+                </div>
 
                 <OutsideClickHandler
                     display="contents"
                     onOutsideClick={() => { setOpen(false) }}>
-                    <li className="w-[48px] flex justify-center items-center">
-                        <a href="#" className="w-[30px] h-[30px] bg-[#484a4d] rounded-full p-[5px] m-[2px] flex justify-center items-center" onClick={() => setOpen(!open)}>
-                            <Image src="/icons/plus.svg" layout="fill" />
-                        </a>
+                    <div
+                        className="flex items-center justify-center ">
+                        <div
+                            className="w-10 h-10 bg-[#484a4d] rounded-full flex justify-center items-center"
+                            onClick={() => setOpen(!open)}
+                        >
+                            <BsFillCaretDownFill />
+                        </div>
                         {open && <DropdownMenu></DropdownMenu>}
-                    </li>
+                    </div>
                 </OutsideClickHandler>
 
-            </ul>
+            </div>
 
-        </nav>
+        </div>
     )
 }
 

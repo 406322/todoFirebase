@@ -7,7 +7,7 @@ export const DropdownMenu = () => {
 
     return (
         <div
-            className="absolute top-[58px] w-[300px] bg-[#242526] border border-[#474a4d] rounded-sm p-1 overflow-hidden "
+            className="absolute top-[58px] w-[300px] bg-[#242526] border border-[#474a4d] rounded-sm p-1 overflow-hidden z-10 "
             ref={dropdownRef}>
             <div className="w-full">
 

@@ -12,22 +12,22 @@ export const NavBar = () => {
     const [open, setOpen] = useAtom(openAtom);
 
     return (
-        <nav className="navbar">
+        <nav className="h-[60px] bg-white dark:bg-gray-700 px-1 border-b-2 border-white">
 
-            <ul className="navbar-nav">
+            <ul className="flex justify-end h-full max-w-full">
 
-                <li className="nav-item">
-                    <a href="#" className="icon-button" onClick={() => console.log('Pluss')}>
-                        <Image src="/icons/plus.svg" height={30} width={30} />
+                <li className="w-[48px] flex justify-center items-center">
+                    <a href="#" className="w-[30px] h-[30px] bg-[#484a4d] rounded-full p-[5px] m-[2px] flex justify-center items-center" onClick={() => console.log('Pluss')}>
+                        <Image src="/icons/plus.svg" layout="fill" />
                     </a>
                 </li>
 
                 <OutsideClickHandler
                     display="contents"
                     onOutsideClick={() => { setOpen(false) }}>
-                    <li className="nav-item">
-                        <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
-                            <Image src="/icons/plus.svg" height={30} width={30} />
+                    <li className="w-[48px] flex justify-center items-center">
+                        <a href="#" className="w-[30px] h-[30px] bg-[#484a4d] rounded-full p-[5px] m-[2px] flex justify-center items-center" onClick={() => setOpen(!open)}>
+                            <Image src="/icons/plus.svg" layout="fill" />
                         </a>
                         {open && <DropdownMenu></DropdownMenu>}
                     </li>

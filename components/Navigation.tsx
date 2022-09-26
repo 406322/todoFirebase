@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { GoPlus } from 'react-icons/go';
-import { Dropdown, Avatar, Navbar } from 'flowbite-react'
+import { Dropdown, Avatar, Navbar, Spinner } from 'flowbite-react'
 import { useAtom } from 'jotai';
 import { showLoginModalAtom, todosAtom, userAtom } from '../atoms';
 import { Todo } from '../models/todo';
@@ -15,6 +15,7 @@ import { RegisterModal } from './Register/RegisterModal';
 import { ThemeSwitch } from './themeSwitch';
 import { MdApps } from 'react-icons/md';
 import { ResetPasswordModal } from './ResetPassword/ResetPasswordModal';
+import { loadingAtom } from '../atoms';
 
 
 export const Navigation = () => {
@@ -22,6 +23,9 @@ export const Navigation = () => {
     const [user, setUser] = useAtom(userAtom);
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
+
+    const [loading, setLoading] = useAtom(loadingAtom)
+
 
 
     useEffect(() => {
@@ -71,7 +75,14 @@ export const Navigation = () => {
                 </div>
 
 
-                <div className="flex gap-3 md:order-2">
+                <div
+                    id='Spinner'
+                    className="flex gap-3 md:order-2">
+                    {loading &&
+                        <div className='flex items-center'>
+                            <Spinner aria-label="Left-aligned spinner example" />
+                        </div>
+                    }
 
                     <div
                         id='AddTodoButton'
@@ -119,7 +130,6 @@ export const Navigation = () => {
                     </Dropdown>
 
                 </div>
-
 
             </Navbar >
 

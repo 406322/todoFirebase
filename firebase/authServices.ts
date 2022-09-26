@@ -1,6 +1,7 @@
 import { auth } from "./firebaseConfig";
 import {
     createUserWithEmailAndPassword,
+    deleteUser,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
@@ -54,4 +55,18 @@ export const lostPassword = (email: string) => {
             const errorMessage = error.message;
             // ..
         });
+}
+
+export const deleteUseraccount = () => {
+    const user = auth.currentUser;
+    let response = ""
+    if (user) {
+        deleteUser(user)
+            .then(() => {
+                response = "Deleted"
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+    return response
 }

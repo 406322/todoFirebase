@@ -8,5 +8,4 @@ export const showRegisterModalAtom = atom(false)
 export const showDropdownListModal = atom(false)
 export const showResetPasswordAtom = atom(false)
 
-
-
+export const loadingAtom = atom(true)

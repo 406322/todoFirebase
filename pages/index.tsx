@@ -7,17 +7,16 @@ import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
 import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
-import { Spinner } from "flowbite-react";
+import { loadingAtom } from "../atoms";
 
 
 export default function Home() {
 
   const [todos, setTodos] = useAtom(todosAtom);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useAtom(loadingAtom)
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
-
   }, []);
 
   useEffect(() => {
@@ -40,11 +39,8 @@ export default function Home() {
     <div className="">
       <Navigation />
       {loading
-        ? <div className="flex justify-center h-screen pt-10 text-left bg-white dark:bg-gray-900 text-bg-gray-900 dark:text-white">
-          <Spinner aria-label="Left-aligned spinner example" />
-        </div>
+        ? <div className="h-screen bg-white dark:bg-gray-900"></div>
         : <TodoList />
-
       }
     </div>
   )

@@ -23,10 +23,7 @@ export const Navigation = () => {
     const [user, setUser] = useAtom(userAtom);
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
-
     const [loading, setLoading] = useAtom(loadingAtom)
-
-
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -73,7 +70,6 @@ export const Navigation = () => {
                     className='flex items-center gap-3 text-white dark:text-black'>
                     <h1 className='text-2xl font-bold text-black dark:text-white'>Todo</h1>
                 </div>
-
 
                 <div
                     id='Spinner'

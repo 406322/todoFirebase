@@ -6,7 +6,7 @@ import { BiCog } from 'react-icons/bi';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
-import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
+import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
 
 

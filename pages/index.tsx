@@ -20,22 +20,20 @@ export default function Home() {
   const [loading, setLoading] = useAtom(loadingAtom)
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
-  useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) { getAllTodos(currentUser.email!) }
     });
   }, [])
 
   const getAllTodos = async (currentUser: string) => {
+    setLoading(true)
     const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));
     const querySnapshot = await getDocs(q);
     const todos: any = [];
     querySnapshot.forEach((doc) => {
       todos.push({ ...doc.data(), id: doc.id })
     });
+    setTimeout(() => setLoading(false), 1000);
     setTodos(todos)
   }
 

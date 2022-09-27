@@ -4,7 +4,7 @@ import { DropdownMenu } from './DropdownMenu';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { GoPlus } from 'react-icons/go';
 import { BsFillCaretDownFill } from 'react-icons/bs';
-import { ThemeSwitch2 } from '../themeSwitch2';
+import { ThemeSwitch } from '../themeSwitch';
 import { MdApps } from 'react-icons/md';
 import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
@@ -79,7 +79,7 @@ export const NavBar = () => {
                     className="flex items-center justify-center">
                     <div id='ThemeSwitch'
                         className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white">
-                        <ThemeSwitch2 />
+                        <ThemeSwitch />
                     </div>
                 </div>
 

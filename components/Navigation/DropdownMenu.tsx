@@ -1,23 +1,38 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { GoPlus } from 'react-icons/go';
+import { BiLogIn } from 'react-icons/bi';
+import { BiLogOut } from 'react-icons/bi';
 import { BiCog } from 'react-icons/bi';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
-import { userAtom } from "../../atoms";
+import { showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
+import { logout } from '../../firebase/authServices';
+
 
 
 export const DropdownMenu = () => {
 
     const dropdownRef = useRef(null);
     const [user, setUser] = useAtom(userAtom);
+    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [todos, setTodos] = useAtom(todosAtom);
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
         });
     }, [])
+
+    const handleLogout = () => {
+        logout()
+        setShowLoginModal(false)
+        setTodos([])
+    }
+
+    const handleLogin = () => {
+        setShowLoginModal(true)
+    }
 
     return (
         <div
@@ -38,19 +53,21 @@ export const DropdownMenu = () => {
                 </div>
 
                 {user
-                    ? <div className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
+                    ? <div
+                        className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
+                        onClick={handleLogout}>
                         <span className="mr-1"></span>
-                        <BiCog className="w-8 h-8" />
+                        <BiLogOut className="w-8 h-8" />
                         Log Out
                     </div>
-                    : <div className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
+                    : <div
+                        className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
+                        onClick={handleLogin}>
                         <span className="mr-1"></span>
-                        <BiCog className="w-8 h-8" />
-                        Log Out
+                        <BiLogIn className="w-8 h-8" />
+                        Log In
                     </div>
                 }
-
-
 
             </div>
         </div>

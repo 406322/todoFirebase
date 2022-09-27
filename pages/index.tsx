@@ -9,6 +9,9 @@ import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
 import { loadingAtom } from "../atoms";
 import { NavBar } from '../components/Navigation/NavBar'
+import { LoginModal } from "../components/Login/LoginModal";
+import { RegisterModal } from "../components/Register/RegisterModal";
+import { ResetPasswordModal } from "../components/ResetPassword/ResetPasswordModal";
 
 
 export default function Home() {
@@ -40,6 +43,9 @@ export default function Home() {
     <div className="">
       <NavBar />
       {/* <Navigation /> */}
+      <LoginModal />
+      <RegisterModal />
+      <ResetPasswordModal />
       {loading
         ? <div className="h-screen bg-white dark:bg-gray-900"></div>
         : <TodoList />

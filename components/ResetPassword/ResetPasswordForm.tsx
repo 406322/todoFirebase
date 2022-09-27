@@ -3,7 +3,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { onAuthStateChanged, sendPasswordResetEmail, User } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
-import { userAtom, showLoginModalAtom, showRegisterModalAtom } from "../../atoms";
+import { userAtom, showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { useForm } from "react-hook-form";
 
 
@@ -13,6 +13,8 @@ export const ResetPasswordForm = () => {
     const [loginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
     const [message, setMessage] = useState(false)
+    const [showResetpassword, setShowResetPassword] = useAtom(showResetPasswordAtom)
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser: User | null) => {
@@ -75,7 +77,7 @@ export const ResetPasswordForm = () => {
                     href="#"
                     className="text-blue-700 hover:underline dark:text-blue-500"
                     onClick={() => {
-                        setShowRegisterModal(false)
+                        setShowResetPassword(false)
                         setShowLoginModal(true)
                         setMessage(false)
                     }}>

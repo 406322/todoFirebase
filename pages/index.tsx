@@ -8,7 +8,7 @@ import { useAtom } from 'jotai'
 import { todosAtom } from "../atoms";
 import { Navigation } from "../components/Navigation";
 import { loadingAtom } from "../atoms";
-import { NavBar } from '../components/Navigation.js/NavBar'
+import { NavBar } from '../components/Navigation/NavBar'
 
 
 export default function Home() {

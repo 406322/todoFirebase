@@ -77,7 +77,7 @@ export const NavBar = () => {
                     className="flex items-center justify-center">
                     <div
                         className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
-                        onClick={() => console.log('Pluss')}>
+                        onClick={() => console.log('Not implemented')}>
                         <MdApps />
                     </div>
                 </div>

@@ -14,13 +14,13 @@ export const DropdownMenu = () => {
             ref={dropdownRef}>
             <div className="w-full">
 
-                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800">
+                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800 cursor-pointer">
                     <span className="mr-1"></span>
                     <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
                     My Profile
                 </a>
 
-                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800">
+                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800 cursor-pointer">
                     <span className="mr-1"></span>
                     <BiCog className="w-8 h-8" />
                     Settings

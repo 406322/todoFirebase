@@ -15,7 +15,7 @@ export const ThemeSwitch = () => {
     }
 
     return (
-        <div className="">
+        <div>
 
             <button
                 aria-label="Toggle Dark Mode"

@@ -2,12 +2,8 @@ import { openAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
 import OutsideClickHandler from 'react-outside-click-handler';
-import Image from "next/image";
 import { GoPlus } from 'react-icons/go';
 import { BsFillCaretDownFill } from 'react-icons/bs';
-
-
-
 
 
 export const NavBar = () => {
@@ -23,7 +19,6 @@ export const NavBar = () => {
                     <div
                         className="w-10 h-10 bg-[#484a4d] rounded-full flex justify-center items-center"
                         onClick={() => console.log('Pluss')}>
-                        {/* <Image src="/icons/plus.svg" layout="fill" /> */}
                         <GoPlus />
                     </div>
                 </div>

@@ -1,5 +1,8 @@
 import { useRef } from "react";
 import Image from "next/image";
+import { GoPlus } from 'react-icons/go';
+import { BiCog } from 'react-icons/bi';
+
 
 
 export const DropdownMenu = () => {
@@ -7,19 +10,19 @@ export const DropdownMenu = () => {
 
     return (
         <div
-            className="absolute top-[58px] w-[300px] bg-[#242526] border border-[#474a4d] rounded-sm p-1 overflow-hidden z-10 "
+            className=" absolute right-1 top-[58px] w-[300px] bg-gray-900 border border-gray-800 rounded-sm p-1  z-10 "
             ref={dropdownRef}>
             <div className="w-full">
 
-                <a className="h-[50px] flex items-center rounded-sm p-1">
+                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800">
                     <span className="mr-1"></span>
+                    <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
                     My Profile
                 </a>
 
-                <a className="h-[50px] flex items-center rounded-sm p-1">
-                    <span className="mr-1">
-                        <Image src="/icons/cog.svg" layout="fill" />
-                    </span>
+                <a className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-800">
+                    <span className="mr-1"></span>
+                    <BiCog className="w-8 h-8" />
                     Settings
                 </a>
 

@@ -1,4 +1,4 @@
-import { openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
+import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -10,9 +10,11 @@ import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { useEffect } from 'react';
+import { CSSProperties, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
+import ClipLoader from "react-spinners/ClipLoader";
+import { Spinner } from './Spinner';
 
 
 export const NavBar = () => {
@@ -21,6 +23,8 @@ export const NavBar = () => {
     const [user, setUser] = useAtom(userAtom);
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
+    const [loading, setLoading] = useAtom(loadingAtom)
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -46,11 +50,18 @@ export const NavBar = () => {
         }
     }
 
+
+
     return (
         <div className="h-16 bg-white border-gray-300 border-b-1 pr-9 dark:bg-gray-900">
 
             <div className="flex justify-end w-full h-full gap-3">
 
+                {loading &&
+                    <div className='flex items-center'>
+                        <Spinner />
+                    </div>
+                }
 
                 <div
                     id='PlusIcon'

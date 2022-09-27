@@ -10,7 +10,6 @@ import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
 
 
-
 export const DropdownMenu = () => {
 
     const dropdownRef = useRef(null);

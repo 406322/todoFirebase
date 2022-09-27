@@ -103,7 +103,8 @@ export const LoginForm = () => {
 
             <div className="flex justify-between">
                 <button
-                    onClick={() => {
+                    onClick={(event) => {
+                        event.preventDefault()
                         login("test@test.no", "abc123")
                         reset()
                         setShowLoginModal(false)

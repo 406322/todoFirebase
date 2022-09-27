@@ -1,5 +1,5 @@
 import { TodoList } from "../components/TodoList"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { auth, db } from '../firebase/firebaseConfig';
 import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";

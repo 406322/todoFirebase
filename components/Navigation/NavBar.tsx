@@ -10,10 +10,9 @@ import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { CSSProperties, useEffect } from 'react';
+import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
-import ClipLoader from "react-spinners/ClipLoader";
 import { Spinner } from './Spinner';
 
 
@@ -49,8 +48,6 @@ export const NavBar = () => {
             addTodo(event, newTodo)
         }
     }
-
-
 
     return (
         <div className="h-16 bg-white border-gray-300 border-b-1 pr-9 dark:bg-gray-900">
@@ -92,8 +89,6 @@ export const NavBar = () => {
                         <MdApps />
                     </div>
                 </div>
-
-
 
                 <OutsideClickHandler
                     display="contents"

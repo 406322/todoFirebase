@@ -2,7 +2,6 @@ import { Todo } from "../models/todo";
 import { TiDeleteOutline } from 'react-icons/ti';
 import { useState, useRef, useEffect } from "react";
 import { toggleEditBlur } from "../firebase/dbServices";
-// import { deleteTodo, updateTodo, toggleComplete } from "../firebase/dbServices";
 import * as api from "../firebase/dbServices";
 
 import { useAtom } from "jotai";

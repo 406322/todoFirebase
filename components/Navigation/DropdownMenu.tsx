@@ -6,7 +6,7 @@ import { BiCog } from 'react-icons/bi';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
-import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
+import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
 
 
@@ -17,7 +17,6 @@ export const DropdownMenu = () => {
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
     const [open, setOpen] = useAtom(openAtom)
-
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {

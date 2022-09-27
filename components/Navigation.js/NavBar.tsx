@@ -15,7 +15,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 
 
-
 export const NavBar = () => {
 
     const [open, setOpen] = useAtom(openAtom)
@@ -48,7 +47,7 @@ export const NavBar = () => {
     }
 
     return (
-        <div className="h-16 bg-white border-b-2 border-white pr-9 dark:bg-gray-900">
+        <div className="h-16 bg-white border-gray-300 border-b-1 pr-9 dark:bg-gray-900">
 
             <div className="flex justify-end w-full h-full gap-3">
 
@@ -57,7 +56,7 @@ export const NavBar = () => {
                     id='PlusIcon'
                     className="flex items-center justify-center">
                     <div
-                        className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full"
+                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
                         onClick={newTodo}>
                         <GoPlus />
                     </div>
@@ -68,7 +67,7 @@ export const NavBar = () => {
                     id='ThemeSwitch'
                     className="flex items-center justify-center">
                     <div id='ThemeSwitch'
-                        className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full">
+                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white">
                         <ThemeSwitch2 />
                     </div>
                 </div>
@@ -77,7 +76,7 @@ export const NavBar = () => {
                     id='AppsButton'
                     className="flex items-center justify-center">
                     <div
-                        className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full"
+                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
                         onClick={() => console.log('Pluss')}>
                         <MdApps />
                     </div>
@@ -92,7 +91,7 @@ export const NavBar = () => {
                         id='Dropdown'
                         className="flex items-center justify-center ">
                         <div
-                            className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full"
+                            className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
                             onClick={() => setOpen(!open)}
                         >
                             <BsFillCaretDownFill />

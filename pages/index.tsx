@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
 import { todosAtom } from "../atoms";
-import { Navigation } from "../components/Navigation";
 import { loadingAtom } from "../atoms";
 import { NavBar } from '../components/Navigation/NavBar'
 import { LoginModal } from "../components/Login/LoginModal";
@@ -40,7 +39,6 @@ export default function Home() {
   return (
     <div className="">
       <NavBar />
-      {/* <Navigation /> */}
       <LoginModal />
       <RegisterModal />
       <ResetPasswordModal />

@@ -5,6 +5,7 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
+    updateProfile
 } from "firebase/auth";
 
 export const register = async (registerEmail: string, registerPassword: string) => {
@@ -70,17 +71,15 @@ export const deleteUseraccount = () => {
     return response
 }
 
-export const updateUserName = (user: any) => {
-    user.updateProfile({
-        displayName: "Jane Q. User",
-    }).then(function () {
-        console.log('Profile updated successfully!')
-        const displayName = user.displayName
-        console.log(displayName)
-        var photoURL = user.photoURL
-    }, function (error: any) {
-        console.log(error)
-    });
+export const updateUserName = async (user: any, newName: string) => {
+    try {
+        await updateProfile(user, {
+            displayName: newName,
+        })
+        return 'ok'
+    } catch (error) {
+        return 'error'
+    }
 }
 
 export const updateUserPhoto = (user: any) => {

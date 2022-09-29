@@ -1,9 +1,11 @@
 import { useAtom } from "jotai"
-import { loadingAtom, userAtom } from "../atoms"
-import { NavBar } from "../components/Navigation/NavBar"
+import { loadingAtom, userAtom } from "../../atoms"
+import { NavBar } from "../../components/Navigation/NavBar"
 import { useEffect } from "react"
 import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
+import { updateUserName, updateUserPhoto } from "../../firebase/authServices"
+import Link from "next/link"
 
 
 const ProfilePage = () => {
@@ -27,11 +29,13 @@ const ProfilePage = () => {
 
                     <Image src="/dummy-profile-pic.png" width={96} height={96} className="rounded-full " />
 
-                    <button
-                        className="flex items-center h-10 gap-2 p-2 px-5 bg-blue-600 cursor-pointer rounded-3xl">
-                        <BiPencil className="w-4 h-4" />
-                        Edit
-                    </button>
+                    <Link href="/profile/edit">
+                        <button
+                            className="flex items-center h-10 gap-2 p-2 px-5 text-white bg-blue-600 cursor-pointer rounded-3xl">
+                            <BiPencil className="w-4 h-4" />
+                            Edit
+                        </button>
+                    </Link>
 
                 </div>
 
@@ -49,7 +53,7 @@ const ProfilePage = () => {
 
                     <div className="flex gap-8 mt-8">
 
-                        <div>
+                        {/* <div>
                             <label
                                 className="text-xs font-semibold text-gray-600">
                                 Phone
@@ -59,7 +63,7 @@ const ProfilePage = () => {
                                 className="text-black bg-gray-100 rounded dark:bg-gray-900 dark:text-white ">
                                 {user.phoneNumber ? user.phoneNumber : 'N/A'}
                             </p>
-                        </div>
+                        </div> */}
 
                         <div>
                             <label
@@ -78,7 +82,7 @@ const ProfilePage = () => {
             </div>
 
             <div className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
-                <button className="px-4 py-2 bg-red-500 rounded-md">Delete account</button>
+                <button className="px-4 py-2 text-white bg-red-500 rounded-md">Delete account</button>
 
             </div>
 

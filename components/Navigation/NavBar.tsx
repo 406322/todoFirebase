@@ -51,11 +51,11 @@ export const NavBar = () => {
     }
 
     return (
-        <div className="flex h-16 bg-white border-gray-300 border-b-1 px-9 dark:bg-gray-900">
+        <div className="flex h-16 bg-gray-100 border-gray-300 border-b-1 px-9 dark:bg-gray-900">
 
             <Link href="/">
                 <a className='flex flex-col justify-center'>
-                    <h1 className='text-2xl font-bold bg-white dark:bg-gray-900'>Todo</h1>
+                    <h1 className='text-2xl font-bold bg-gray-100 dark:bg-gray-900'>Hjem</h1>
                 </a>
             </Link>
 

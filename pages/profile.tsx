@@ -1,5 +1,5 @@
 import { useAtom } from "jotai"
-import { loadingAtom } from "../atoms"
+import { loadingAtom, userAtom } from "../atoms"
 import { NavBar } from "../components/Navigation/NavBar"
 import { useEffect } from "react"
 import Image from "next/image"
@@ -9,9 +9,11 @@ import { BiPencil } from 'react-icons/bi';
 const ProfilePage = () => {
 
     const [loading, setLoading] = useAtom(loadingAtom)
+    const [user, setUser] = useAtom(userAtom);
 
     useEffect(() => {
         setLoading(false)
+        console.log(user)
     }, [])
 
 
@@ -42,7 +44,7 @@ const ProfilePage = () => {
                     <p
                         id="name"
                         className="mt-0.5 text-md dark:text-white text-black  bg-gray-100 dark:bg-gray-900">
-                        Ludwig Slettingdalen
+                        {user.displayName ? user.displayName : 'N/A'}
                     </p>
 
                     <div className="flex gap-8 mt-8">
@@ -55,7 +57,7 @@ const ProfilePage = () => {
                             <p
                                 id="phone"
                                 className="text-black bg-gray-100 rounded dark:bg-gray-900 dark:text-white ">
-                                91520848
+                                {user.phoneNumber ? user.phoneNumber : 'N/A'}
                             </p>
                         </div>
 
@@ -67,7 +69,7 @@ const ProfilePage = () => {
                             <p
                                 id="email"
                                 className="text-black bg-gray-100 rounded dark:text-white dark:bg-gray-900">
-                                ludwig.slettingdalen@gmail.com
+                                {user.email}
                             </p>
                         </div>
 

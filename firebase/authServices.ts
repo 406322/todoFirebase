@@ -14,7 +14,6 @@ export const register = async (registerEmail: string, registerPassword: string) 
             registerEmail,
             registerPassword
         );
-        console.log(user);
     } catch (error) {
         let message
         if (error instanceof Error) message = error.message
@@ -69,4 +68,29 @@ export const deleteUseraccount = () => {
             });
     }
     return response
+}
+
+export const updateUserName = (user: any) => {
+    user.updateProfile({
+        displayName: "Jane Q. User",
+    }).then(function () {
+        console.log('Profile updated successfully!')
+        const displayName = user.displayName
+        console.log(displayName)
+        var photoURL = user.photoURL
+    }, function (error: any) {
+        console.log(error)
+    });
+}
+
+export const updateUserPhoto = (user: any) => {
+    user.updateProfile({
+        photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(function () {
+        console.log('Photo updated successfully!')
+        var photoURL = user.photoURL
+        console.log(photoURL)
+    }, function (error: any) {
+        console.log(error)
+    });
 }

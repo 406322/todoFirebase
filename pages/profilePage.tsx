@@ -34,7 +34,11 @@ const ProfilePage = () => {
                 </div>
 
                 <div className="flex flex-col">
-                    <p className="text-xs font-semibold text-gray-600">Name</p>
+
+                    <p
+                        className="text-xs font-semibold text-gray-600">
+                        Name
+                    </p>
                     <p
                         id="name"
                         className="mt-0.5 text-md dark:text-white text-black  bg-gray-100 dark:bg-gray-900">
@@ -42,25 +46,40 @@ const ProfilePage = () => {
                     </p>
 
                     <div className="flex gap-8 mt-8">
+
                         <div>
-                            <p className="text-xs font-semibold text-gray-600">Phone</p>
+                            <label
+                                className="text-xs font-semibold text-gray-600">
+                                Phone
+                            </label>
                             <p
                                 id="phone"
                                 className="text-black bg-gray-100 rounded dark:bg-gray-900 dark:text-white ">
                                 91520848
                             </p>
                         </div>
+
                         <div>
-                            <p className="text-xs font-semibold text-gray-600">Email</p>
+                            <label
+                                className="text-xs font-semibold text-gray-600">
+                                Email
+                            </label>
                             <p
                                 id="email"
                                 className="text-black bg-gray-100 rounded dark:text-white dark:bg-gray-900">
                                 ludwig.slettingdalen@gmail.com
                             </p>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+            <div className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
+                <button className="px-4 py-2 bg-red-500 rounded-md">Delete account</button>
+
+            </div>
+
         </>
     )
 }

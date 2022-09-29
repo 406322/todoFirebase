@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
+import Link from 'next/link';
 
 
 export const NavBar = () => {
@@ -50,7 +51,13 @@ export const NavBar = () => {
     }
 
     return (
-        <div className="h-16 bg-white border-gray-300 border-b-1 pr-9 dark:bg-gray-900">
+        <div className="flex h-16 bg-white border-gray-300 border-b-1 px-9 dark:bg-gray-900">
+
+            <Link href="/">
+                <a className='flex flex-col justify-center'>
+                    <h1 className='text-2xl font-bold bg-white dark:bg-gray-900'>Todo</h1>
+                </a>
+            </Link>
 
             <div className="flex justify-end w-full h-full gap-3">
 

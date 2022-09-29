@@ -43,33 +43,27 @@ export const DropdownMenu = () => {
             ref={dropdownRef}>
             <div className="w-full">
 
-                <div className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
-                    <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
-                    <Link href="/profilePage"><a>My Profile</a></Link>
-                </div>
-
-                {/* <Link href="/">
-                    <a>Home</a>
-                </Link> */}
-
-                <div className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
-                    <span className="mr-1"></span>
-                    <BiCog className="w-8 h-8" />
-                    Settings
-                </div>
+                <Link href="/profile">
+                    <a>
+                        <div
+                            onClick={() => setOpen(false)}
+                            className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
+                            <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
+                            My Profile
+                        </div>
+                    </a>
+                </Link>
 
                 {user
                     ? <div
-                        className="h-[50px] flex  items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
+                        className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
                         onClick={handleLogout}>
-                        <span className="mr-1"></span>
                         <BiLogOut className="w-8 h-8" />
                         Log Out
                     </div>
                     : <div
                         className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
                         onClick={handleLogin}>
-                        <span className="mr-1"></span>
                         <BiLogIn className="w-8 h-8" />
                         Log In
                     </div>

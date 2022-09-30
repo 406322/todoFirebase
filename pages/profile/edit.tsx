@@ -1,18 +1,24 @@
 import { useAtom } from 'jotai';
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { userAtom } from '../../atoms';
 import { NavBar } from "../../components/Navigation/NavBar"
 import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
+import { auth } from '../../firebase/firebaseConfig';
 
 
 const Edit = () => {
 
-    const [user, setUser] = useAtom(userAtom);
     const { handleSubmit, reset, register, formState: { errors } } = useForm()
     const router = useRouter()
+    const user = auth.currentUser;
+
+
+    useEffect(() => {
+        if (!user) { router.push("/") }
+    }, [])
 
     const onSubmit = async (data: any) => {
         try {

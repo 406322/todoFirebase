@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { deleteUseraccount } from "../../firebase/authServices";
 import { useRouter } from "next/router";
+import { auth } from "../../firebase/firebaseConfig";
 
 
 const Delete = () => {
@@ -10,6 +11,11 @@ const Delete = () => {
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm()
     const [showMessage, setShowMessage] = useState(false)
     const router = useRouter()
+    const user = auth.currentUser;
+
+    useEffect(() => {
+        if (!user) { router.push("/") }
+    }, [])
 
     const onSubmit = (data: any) => {
         if (data.delete !== "delete my account") { setShowMessage(true) }

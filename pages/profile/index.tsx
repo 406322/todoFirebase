@@ -4,17 +4,21 @@ import { NavBar } from "../../components/Navigation/NavBar"
 import { useEffect } from "react"
 import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
-import { updateUserName, updateUserPhoto } from "../../firebase/authServices"
 import Link from "next/link"
+import { useRouter } from "next/router";
+
 
 
 const ProfilePage = () => {
 
     const [loading, setLoading] = useAtom(loadingAtom)
-    const [user, setUser] = useAtom(userAtom);
+    const [user, setUser] = useAtom(userAtom)
+    const router = useRouter()
+
 
     useEffect(() => {
         setLoading(false)
+        if (!user) { router.push("/") }
     }, [])
 
     return (

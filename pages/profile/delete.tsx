@@ -11,11 +11,10 @@ const Delete = () => {
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm()
     const [showMessage, setShowMessage] = useState(false)
     const router = useRouter()
+    const user = auth.currentUser;
 
-    useEffect(() => {
-        const user = auth.currentUser;
-        if (!user) { router.push("/") }
-    }, [])
+    if (!user) { router.push("/") }
+
 
     const onSubmit = (data: any) => {
         if (data.delete !== "delete my account") { setShowMessage(true) }

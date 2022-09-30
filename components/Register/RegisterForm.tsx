@@ -23,7 +23,6 @@ export const RegisterForm = () => {
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
     const onSubmit = (data: any) => {
-        console.log(data)
         registerUser(data.email, data.password)
         reset()
         setShowRegisterModal(false)

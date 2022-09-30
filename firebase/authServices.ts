@@ -5,6 +5,7 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
+    updateProfile
 } from "firebase/auth";
 
 export const register = async (registerEmail: string, registerPassword: string) => {
@@ -14,7 +15,6 @@ export const register = async (registerEmail: string, registerPassword: string) 
             registerEmail,
             registerPassword
         );
-        console.log(user);
     } catch (error) {
         let message
         if (error instanceof Error) message = error.message
@@ -69,4 +69,27 @@ export const deleteUseraccount = () => {
             });
     }
     return response
+}
+
+export const updateUserName = async (user: any, newName: string) => {
+    try {
+        await updateProfile(user, {
+            displayName: newName,
+        })
+        return 'ok'
+    } catch (error) {
+        return 'error'
+    }
+}
+
+export const updateUserPhoto = (user: any) => {
+    user.updateProfile({
+        photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(function () {
+        console.log('Photo updated successfully!')
+        var photoURL = user.photoURL
+        console.log(photoURL)
+    }, function (error: any) {
+        console.log(error)
+    });
 }

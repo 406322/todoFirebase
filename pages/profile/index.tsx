@@ -15,9 +15,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         setLoading(false)
-        console.log(user)
     }, [])
-
 
     return (
         <>
@@ -47,23 +45,11 @@ const ProfilePage = () => {
                     </p>
                     <p
                         id="name"
-                        className="mt-0.5 text-md dark:text-white text-black  bg-gray-100 dark:bg-gray-900">
+                        className="text-black bg-gray-100 text-md dark:text-white dark:bg-gray-900">
                         {user.displayName ? user.displayName : 'N/A'}
                     </p>
 
-                    <div className="flex gap-8 mt-8">
-
-                        {/* <div>
-                            <label
-                                className="text-xs font-semibold text-gray-600">
-                                Phone
-                            </label>
-                            <p
-                                id="phone"
-                                className="text-black bg-gray-100 rounded dark:bg-gray-900 dark:text-white ">
-                                {user.phoneNumber ? user.phoneNumber : 'N/A'}
-                            </p>
-                        </div> */}
+                    <div className="flex mt-3">
 
                         <div>
                             <label
@@ -81,8 +67,11 @@ const ProfilePage = () => {
                 </div>
             </div>
 
-            <div className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
-                <button className="px-4 py-2 text-white bg-red-500 rounded-md">Delete account</button>
+            <div className="flex justify-start p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
+
+                <Link href="/profile/delete">
+                    <button className="px-4 py-2 text-white bg-red-500 rounded-md">Delete account</button>
+                </Link>
 
             </div>
 

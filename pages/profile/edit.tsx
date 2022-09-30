@@ -15,8 +15,6 @@ const Edit = () => {
     const router = useRouter()
     const user = auth.currentUser;
 
-    if (!user) { router.push("/") }
-
 
     const onSubmit = async (data: any) => {
         try {

@@ -15,9 +15,6 @@ const ProfilePage = () => {
     const [user, setUser] = useAtom(userAtom)
     const router = useRouter()
 
-    if (!user) { router.push("/") }
-
-
     return (
         <>
             <NavBar />

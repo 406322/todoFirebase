@@ -51,7 +51,7 @@ const Delete = () => {
                 {...register("delete", { required: true })}
             />
             {errors?.delete?.type === "required" && <p className="mb-3 text-sm text-red-500">This field is required</p>}
-            {showMessage ? <p className="mb-3 text-sm text-red-500">Type 'Delete my account'</p> : null}
+            {showMessage ? <p className="mb-3 text-sm text-red-500">Type &quot;Delete my account&quot;</p> : null}
 
             <button
                 type="submit"

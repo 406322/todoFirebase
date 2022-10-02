@@ -1,12 +1,10 @@
 import { useAtom } from "jotai"
 import { loadingAtom, userAtom } from "../../atoms"
 import { NavBar } from "../../components/Navigation/NavBar"
-import { useEffect } from "react"
 import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
 import Link from "next/link"
 import { useRouter } from "next/router";
-
 
 
 const ProfilePage = () => {

@@ -1,8 +1,6 @@
-import { useAtom } from 'jotai';
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form';
-import { userAtom } from '../../atoms';
 import { NavBar } from "../../components/Navigation/NavBar"
 import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
@@ -11,15 +9,18 @@ import { auth } from '../../firebase/firebaseConfig';
 
 const Edit = () => {
 
-    const { handleSubmit, reset, register, formState: { errors } } = useForm()
+    const { handleSubmit, reset, register, setFocus, formState: { errors } } = useForm()
     const router = useRouter()
-    const user = auth.currentUser;
+    const user = auth.currentUser
+
+    useEffect(() => {
+        setFocus("name");
+    }, [setFocus]);
 
 
     const onSubmit = async (data: any) => {
         try {
             if (data.name) { await updateUserName(user, data.name) }
-            if (data.phone) { console.log('') }
             reset()
         } catch (error) {
             console.log(error)
@@ -48,16 +49,6 @@ const Edit = () => {
                         {...register("name")}
                     />
                 </div>
-
-                {/* <div className='flex flex-col'>
-                    <label htmlFor="name" className='my-2 text-sm font-semibold text-gray-600 dark:text-gray-300'>Phone</label>
-                    <input
-                        type="text"
-                        className='mb-2 rounded-md dark:bg-gray-800 dark:focus:bg-gray-900'
-                        autoCorrect='false'
-                        {...register("phone")}
-                    />
-                </div> */}
 
                 <button
                     className='p-2 px-5 my-2 text-white bg-blue-600 rounded-md'

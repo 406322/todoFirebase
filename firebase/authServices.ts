@@ -43,7 +43,6 @@ export const logout = async () => {
     await signOut(auth);
 }
 
-
 export const lostPassword = (email: string) => {
     sendPasswordResetEmail(auth, email)
         .then(() => {
@@ -82,14 +81,13 @@ export const updateUserName = async (user: any, newName: string) => {
     }
 }
 
-export const updateUserPhoto = (user: any) => {
-    user.updateProfile({
-        photoURL: "https://example.com/jane-q-user/profile.jpg"
-    }).then(function () {
-        console.log('Photo updated successfully!')
-        var photoURL = user.photoURL
-        console.log(photoURL)
-    }, function (error: any) {
-        console.log(error)
-    });
+export const updateUserPhoto = (user: any, image: string) => {
+    try {
+        updateProfile(user, {
+            photoURL: image
+        })
+        return 'ok'
+    } catch (error) {
+        return 'error'
+    }
 }

@@ -1,10 +1,18 @@
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { NavBar } from "../../components/Navigation/NavBar"
 import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
 import { auth } from '../../firebase/firebaseConfig';
+import ImageUpload from "../../components/image/imageUpload";
+import { imageAtom, showImageUploadAtom } from '../../atoms';
+import { useAtom } from 'jotai';
+import Image from 'next/image';
+import { addImageToDB } from '../../firebase/dbServices';
+import { updateUserPhoto } from '../../firebase/authServices';
+
+
 
 
 const Edit = () => {
@@ -12,15 +20,24 @@ const Edit = () => {
     const { handleSubmit, reset, register, setFocus, formState: { errors } } = useForm()
     const router = useRouter()
     const user = auth.currentUser
+    const [showImageUpload, setShowImageUpload] = useAtom(showImageUploadAtom)
+    const [image, setImage] = useAtom(imageAtom);
+
+    const bilde = "/dummy-profile-pic.png"
+
 
     useEffect(() => {
-        setFocus("name");
+        setFocus("name")
+        console.log(user?.photoURL)
     }, [setFocus]);
 
 
     const onSubmit = async (data: any) => {
         try {
             if (data.name) { await updateUserName(user, data.name) }
+            if (image && user) {
+                updateUserPhoto(user, image)
+            }
             reset()
         } catch (error) {
             console.log(error)
@@ -31,6 +48,7 @@ const Edit = () => {
     return (
         <>
             <NavBar />
+            <ImageUpload />
 
             <form
                 className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900"
@@ -65,6 +83,22 @@ const Edit = () => {
                 </Link>
 
             </form>
+
+
+            <div className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
+                <button
+                    className='p-2 px-5 m-2 text-white bg-red-500 rounded-md'
+                    onClick={() => setShowImageUpload(true)}
+                >
+                    Upload Image
+                </button>
+                {image
+                    ? <Image src={image} width={96} height={96} className="rounded-full " />
+                    : <Image src={bilde} width={96} height={96} className="rounded-full " />
+                }
+
+            </div>
+
         </>
     )
 }

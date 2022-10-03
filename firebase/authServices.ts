@@ -81,7 +81,9 @@ export const updateUserName = async (user: any, newName: string) => {
     }
 }
 
-export const updateUserPhoto = (user: any, image: string) => {
+export const updateUserPhoto = (image: string) => {
+    const user = auth.currentUser
+    if (!user) { return }
     try {
         updateProfile(user, {
             photoURL: image

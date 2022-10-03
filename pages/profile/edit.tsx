@@ -36,7 +36,7 @@ const Edit = () => {
         try {
             if (data.name) { await updateUserName(user, data.name) }
             if (image && user) {
-                updateUserPhoto(user, image)
+                updateUserPhoto(image)
             }
             reset()
         } catch (error) {

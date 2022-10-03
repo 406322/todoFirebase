@@ -5,6 +5,7 @@ import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
 import Link from "next/link"
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 
 const ProfilePage = () => {

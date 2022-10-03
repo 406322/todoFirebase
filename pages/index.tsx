@@ -24,6 +24,7 @@ export default function Home() {
     });
   }, [])
 
+
   const getAllTodos = async (currentUser: string) => {
     setLoading(true)
     const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));

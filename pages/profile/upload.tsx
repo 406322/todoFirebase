@@ -5,39 +5,7 @@ import { useAtom } from 'jotai'
 import { userAtom } from '../../atoms'
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
-import { format } from 'path'
-
-
-
-const uploadToStorage = (file: File) => {
-    console.log('uploading to storage')
-    const storageRef = ref(storage, `files/${file.name}`)
-    const uploadTask = uploadBytesResumable(storageRef, file)
-
-    uploadTask.on('state_changed',
-        (snapshot) => { },
-        (error) => {
-            switch (error.code) {
-                case 'storage/unauthorized':
-                    console.log('Permission error')
-                    break;
-                case 'storage/canceled':
-                    console.log('upload canceled')
-                    break;
-                case 'storage/unknown':
-                    console.log('unknown error')
-                    break;
-            }
-        },
-        () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                console.log('Uploaded to storage')
-                updateUserPhoto(downloadURL)
-            });
-        }
-    );
-}
-
+import Image from 'next/image'
 
 const Upload = () => {
 
@@ -46,15 +14,44 @@ const Upload = () => {
         event.preventDefault()
         const file = event.target.files[0]
         console.log(file)
-        setImage(file)
         if (!file) return
         else uploadToStorage(file)
-        setisUploaded(true)
+    }
+
+    const uploadToStorage = (file: File) => {
+        console.log('uploading to storage')
+        const storageRef = ref(storage, `files/${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+
+        uploadTask.on('state_changed',
+            (snapshot) => { },
+            (error) => {
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        console.log('Permission error')
+                        break;
+                    case 'storage/canceled':
+                        console.log('upload canceled')
+                        break;
+                    case 'storage/unknown':
+                        console.log('unknown error')
+                        break;
+                }
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImage(downloadURL)
+                    console.log('Uploaded to storage')
+                    updateUserPhoto(downloadURL)
+                    setisUploaded(true)
+                });
+            }
+        );
     }
 
     const [user, setUser] = useAtom(userAtom)
     const [isUploaded, setisUploaded] = useState(false)
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState('')
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -69,19 +66,8 @@ const Upload = () => {
             {isUploaded
 
                 ? <div className="mb-6">
-                    <label htmlFor="nameField"
-                        className="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-300">
-                        Profile Photo
-                    </label>
                     <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
-                        <a href="https://cdn.hashnode.com/res/hashnode/image/upload/v1665132913031/dlRvZIZ-j.jpeg"
-                            target="_blank"
-                            className="block overflow-hidden rounded-full">
-                            <img
-                                className="block"
-                                src={image!}
-                            />
-                        </a>
+                        <Image src={image} layout="fill" className="rounded-full " />
                         <button
                             className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
                             onClick={() => setisUploaded(false)}

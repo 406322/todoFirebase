@@ -9,9 +9,21 @@ import Image from 'next/image'
 
 const Upload = () => {
 
+
+    const [user, setUser] = useAtom(userAtom)
+    const [isUploaded, setisUploaded] = useState(false)
+    const [image, setImage] = useState('')
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        });
+    }, [])
+
+
     const submitImage = (event: any) => {
-        console.log('form submitted')
         event.preventDefault()
+        console.log('form submitted')
         const file = event.target.files[0]
         console.log(file)
         if (!file) return
@@ -49,46 +61,28 @@ const Upload = () => {
         );
     }
 
-    const [user, setUser] = useAtom(userAtom)
-    const [isUploaded, setisUploaded] = useState(false)
-    const [image, setImage] = useState('')
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        });
-    }, [])
-
-
 
     return (
         <>
             {isUploaded
 
-                ? <div className="mb-6">
-                    <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
-                        <Image src={image} layout="fill" className="rounded-full " />
-                        <button
-                            className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
-                            onClick={() => setisUploaded(false)}
-                        >
-                            <svg
-                                className="w-4 h-4 fill-current"
-                                viewBox="0 0 448 512">
-                                <path
-                                    d="M296 432h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zm-160 0h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zM440 64H336l-33.6-44.8A48 48 0 00264 0h-80a48 48 0 00-38.4 19.2L112 64H8a8 8 0 00-8 8v16a8 8 0 008 8h24v368a48 48 0 0048 48h288a48 48 0 0048-48V96h24a8 8 0 008-8V72a8 8 0 00-8-8zM171.2 38.4A16.1 16.1 0 01184 32h80a16.1 16.1 0 0112.8 6.4L296 64H152zM384 464a16 16 0 01-16 16H80a16 16 0 01-16-16V96h320zm-168-32h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
+                ? <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
+                    <Image src={image} layout="fill" className="rounded-full " />
+                    <button
+                        className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
+                        onClick={() => setisUploaded(false)}
+                    >
+                        <svg
+                            className="w-4 h-4 fill-current"
+                            viewBox="0 0 448 512">
+                            <path
+                                d="M296 432h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zm-160 0h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8zM440 64H336l-33.6-44.8A48 48 0 00264 0h-80a48 48 0 00-38.4 19.2L112 64H8a8 8 0 00-8 8v16a8 8 0 008 8h24v368a48 48 0 0048 48h288a48 48 0 0048-48V96h24a8 8 0 008-8V72a8 8 0 00-8-8zM171.2 38.4A16.1 16.1 0 01184 32h80a16.1 16.1 0 0112.8 6.4L296 64H152zM384 464a16 16 0 01-16 16H80a16 16 0 01-16-16V96h320zm-168-32h16a8 8 0 008-8V152a8 8 0 00-8-8h-16a8 8 0 00-8 8v272a8 8 0 008 8z">
+                            </path>
+                        </svg>
+                    </button>
                 </div>
 
-                : <form
-                    className="mb-6">
-                    <label htmlFor="nameField"
-                        className="block mb-2 text-sm font-semibold text-gray-900 dark:text-gray-300">
-                        Profile Photo
-                    </label>
+                : <div>
                     <label
                         className="flex flex-col items-center justify-center w-40 h-40 tracking-wide text-gray-700 uppercase bg-white border rounded-full shadow cursor-pointer dark:text-gray-200 custom-file dark:bg-gray-800 dark:border-gray-800">
                         <svg className="w-10 h-10 fill-current"
@@ -102,18 +96,14 @@ const Upload = () => {
                         </span>
                         <input
                             type="file"
-                            name="file"
                             accept=".png, .jpg, .jpeg, .gif"
                             className="hidden"
-                            id="customFile"
                             onChange={submitImage}
                         />
                     </label>
-                </form>
+                </div>
             }
-
         </>
-
     )
 }
 

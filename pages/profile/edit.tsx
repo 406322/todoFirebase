@@ -1,17 +1,16 @@
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { NavBar } from "../../components/Navigation/NavBar"
 import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
 import { auth } from '../../firebase/firebaseConfig';
-import ImageUpload from "../../components/image/imageUpload";
+import ImageUpload from "../../components/imageUpload"
 import { imageAtom, showImageUploadAtom, userAtom } from '../../atoms';
 import { useAtom } from 'jotai';
-import Image from 'next/image';
-import { addImageToDB } from '../../firebase/dbServices';
 import { updateUserPhoto } from '../../firebase/authServices';
 import { onAuthStateChanged } from 'firebase/auth';
+import { uploadToStorage } from '../../firebase/storageServices';
 
 
 const Edit = () => {
@@ -21,9 +20,8 @@ const Edit = () => {
     const [showImageUpload, setShowImageUpload] = useAtom(showImageUploadAtom)
     const [image, setImage] = useAtom(imageAtom);
     const [user, setUser] = useAtom(userAtom)
-
-    const bilde = "/dummy-profile-pic.png"
-
+    const [isUploaded, setisUploaded] = useState(false)
+    const [preview, setPreview] = useState<string | null>(null)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -32,14 +30,27 @@ const Edit = () => {
     }, [])
 
     useEffect(() => {
-        console.log(user.photoURL)
-    }, []);
-
-
-    useEffect(() => {
         setFocus("name")
     }, [setFocus]);
 
+
+    const getPreview = (file: File) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
+        const file = event.target.files![0]
+        console.log(file)
+        getPreview(file)
+        if (!file) return
+        else uploadToStorage(file)
+        setisUploaded(true)
+    }
 
     const onSubmit = async (data: any) => {
         try {
@@ -57,7 +68,6 @@ const Edit = () => {
     return (
         <>
             <NavBar />
-            <ImageUpload />
 
             <form
                 className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900"
@@ -77,6 +87,8 @@ const Edit = () => {
                     />
                 </div>
 
+                <ImageUpload handleChange={handleChange} preview={preview} isUploaded={isUploaded} setisUploaded={setisUploaded} />
+
                 <button
                     className='p-2 px-5 my-2 text-white bg-blue-600 rounded-md'
                 >
@@ -92,22 +104,6 @@ const Edit = () => {
                 </Link>
 
             </form>
-
-
-            <div className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
-                <button
-                    className='p-2 px-5 m-2 text-white bg-red-500 rounded-md'
-                    onClick={() => setShowImageUpload(true)}
-                >
-                    Upload Image
-                </button>
-                {user.photoURL
-                    ? <Image src={user.photoURL} width={96} height={96} className="rounded-full " />
-                    : <Image src={bilde} width={96} height={96} className="rounded-full " />
-                }
-
-            </div>
-
         </>
     )
 }

@@ -1,73 +1,14 @@
-import { auth, storage } from '../../firebase/firebaseConfig'
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
-import { updateUserPhoto } from '../../firebase/authServices'
-import { useAtom } from 'jotai'
-import { userAtom } from '../../atoms'
-import { useEffect, useState } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { useEffect } from 'react'
 import Image from 'next/image'
 
-const Upload = () => {
-
-
-    const [user, setUser] = useAtom(userAtom)
-    const [isUploaded, setisUploaded] = useState(false)
-    const [image, setImage] = useState('')
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        });
-    }, [])
-
-
-    const submitImage = (event: any) => {
-        event.preventDefault()
-        console.log('form submitted')
-        const file = event.target.files[0]
-        console.log(file)
-        if (!file) return
-        else uploadToStorage(file)
-    }
-
-    const uploadToStorage = (file: File) => {
-        console.log('uploading to storage')
-        const storageRef = ref(storage, `files/${file.name}`)
-        const uploadTask = uploadBytesResumable(storageRef, file)
-
-        uploadTask.on('state_changed',
-            (snapshot) => { },
-            (error) => {
-                switch (error.code) {
-                    case 'storage/unauthorized':
-                        console.log('Permission error')
-                        break;
-                    case 'storage/canceled':
-                        console.log('upload canceled')
-                        break;
-                    case 'storage/unknown':
-                        console.log('unknown error')
-                        break;
-                }
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setImage(downloadURL)
-                    console.log('Uploaded to storage')
-                    updateUserPhoto(downloadURL)
-                    setisUploaded(true)
-                });
-            }
-        );
-    }
-
+const Upload = ({ handleChange, preview, isUploaded, setisUploaded }: { handleChange: any, preview: string | null, isUploaded: boolean, setisUploaded: any }) => {
 
     return (
         <>
-            {isUploaded
+            {isUploaded && preview
 
                 ? <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
-                    <Image src={image} layout="fill" className="rounded-full " />
+                    <Image src={preview} layout="fill" className="rounded-full " />
                     <button
                         className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
                         onClick={() => setisUploaded(false)}
@@ -98,7 +39,7 @@ const Upload = () => {
                             type="file"
                             accept=".png, .jpg, .jpeg, .gif"
                             className="hidden"
-                            onChange={submitImage}
+                            onChange={handleChange}
                         />
                     </label>
                 </div>

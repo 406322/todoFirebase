@@ -22,7 +22,10 @@ const ProfilePage = () => {
 
                 <div className="flex justify-between mb-3">
 
-                    <Image src="/dummy-profile-pic.png" width={96} height={96} className="rounded-full " />
+                    {user.photoURL
+                        ? <Image src={user.photoURL} width={96} height={96} className="rounded-full " />
+                        : <Image src={'/dummy-profile-pic.png'} width={96} height={96} className="rounded-full " />
+                    }
 
                     <Link href="/profile/edit">
                         <button

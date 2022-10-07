@@ -11,6 +11,7 @@ import { NavBar } from '../components/Navigation/NavBar'
 import { LoginModal } from "../components/Login/LoginModal";
 import { RegisterModal } from "../components/Register/RegisterModal";
 import { ResetPasswordModal } from "../components/ResetPassword/ResetPasswordModal";
+import { Todo } from "../models/todo";
 
 
 export default function Home() {

@@ -6,29 +6,38 @@ import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
 import { auth } from '../../firebase/firebaseConfig';
 import ImageUpload from "../../components/image/imageUpload";
-import { imageAtom, showImageUploadAtom } from '../../atoms';
+import { imageAtom, showImageUploadAtom, userAtom } from '../../atoms';
 import { useAtom } from 'jotai';
 import Image from 'next/image';
 import { addImageToDB } from '../../firebase/dbServices';
 import { updateUserPhoto } from '../../firebase/authServices';
-
-
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 const Edit = () => {
 
     const { handleSubmit, reset, register, setFocus, formState: { errors } } = useForm()
     const router = useRouter()
-    const user = auth.currentUser
     const [showImageUpload, setShowImageUpload] = useAtom(showImageUploadAtom)
     const [image, setImage] = useAtom(imageAtom);
+    const [user, setUser] = useAtom(userAtom)
 
     const bilde = "/dummy-profile-pic.png"
 
 
     useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        });
+    }, [])
+
+    useEffect(() => {
+        console.log(user.photoURL)
+    }, []);
+
+
+    useEffect(() => {
         setFocus("name")
-        console.log(user?.photoURL)
     }, [setFocus]);
 
 
@@ -92,8 +101,8 @@ const Edit = () => {
                 >
                     Upload Image
                 </button>
-                {image
-                    ? <Image src={image} width={96} height={96} className="rounded-full " />
+                {user.photoURL
+                    ? <Image src={user.photoURL} width={96} height={96} className="rounded-full " />
                     : <Image src={bilde} width={96} height={96} className="rounded-full " />
                 }
 

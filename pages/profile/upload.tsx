@@ -7,14 +7,7 @@ import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { format } from 'path'
 
-const submitImage = (event: any) => {
-    console.log('form submitted')
-    event.preventDefault()
-    const file = event.target.files[0]
-    console.log(file)
-    if (!file) return
-    else uploadToStorage(file)
-}
+
 
 const uploadToStorage = (file: File) => {
     console.log('uploading to storage')
@@ -48,8 +41,20 @@ const uploadToStorage = (file: File) => {
 
 const Upload = () => {
 
+    const submitImage = (event: any) => {
+        console.log('form submitted')
+        event.preventDefault()
+        const file = event.target.files[0]
+        console.log(file)
+        setImage(file)
+        if (!file) return
+        else uploadToStorage(file)
+        setisUploaded(true)
+    }
+
     const [user, setUser] = useAtom(userAtom)
     const [isUploaded, setisUploaded] = useState(false)
+    const [image, setImage] = useState(null)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -74,11 +79,13 @@ const Upload = () => {
                             className="block overflow-hidden rounded-full">
                             <img
                                 className="block"
-                                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1665132913031/dlRvZIZ-j.jpeg?w=600&amp;h=600&amp;fit=crop&amp;crop=faces&amp;auto=compress"
+                                src={image!}
                             />
                         </a>
                         <button
-                            className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full">
+                            className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
+                            onClick={() => setisUploaded(false)}
+                        >
                             <svg
                                 className="w-4 h-4 fill-current"
                                 viewBox="0 0 448 512">
@@ -119,18 +126,6 @@ const Upload = () => {
                 </form>
             }
 
-
-            {/* <form
-                onSubmit={submitImage}
-                className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900">
-                <input type='file' />
-                <button type='submit'>Upload</button>
-            </form> */}
-
-            {
-                user?.photoURL &&
-                <img src={user?.photoURL} alt='uploaded file' height={200} />
-            }
         </>
 
     )

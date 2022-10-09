@@ -9,6 +9,7 @@ import { useAtom } from "jotai";
 import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
 import Link from "next/link"
+import { useRouter } from "next/router";
 
 
 export const DropdownMenu = () => {
@@ -19,6 +20,9 @@ export const DropdownMenu = () => {
     const [todos, setTodos] = useAtom(todosAtom);
     const [open, setOpen] = useAtom(openAtom)
 
+    const router = useRouter()
+
+
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -26,8 +30,9 @@ export const DropdownMenu = () => {
     }, [])
 
     const handleLogout = () => {
+        router.push("/")
         logout()
-        setShowLoginModal(false)
+        setShowLoginModal(true)
         setTodos([])
         setOpen(false)
     }
@@ -42,20 +47,22 @@ export const DropdownMenu = () => {
             className=" absolute right-1 top-[58px] w-[300px] bg-white dark:bg-gray-900 border border-gray-800 rounded-md p-1  z-10 "
             ref={dropdownRef}>
             <div className="w-full">
-
-                <Link href="/profile">
-                    <a>
-                        <div
-                            onClick={() => setOpen(false)}
-                            className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
-                            {user.photoURL
+                {user &&
+                    <Link href="/profile">
+                        <a>
+                            <div
+                                onClick={() => setOpen(false)}
+                                className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
+                                {/* {user.photoURL
                                 ? <Image src={user.photoURL} width={32} height={32} className="rounded-full " />
                                 : <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
-                            }
-                            My Profile
-                        </div>
-                    </a>
-                </Link>
+                            } */}
+                                <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
+                                My Profile
+                            </div>
+                        </a>
+                    </Link>
+                }
 
                 {user
                     ? <div

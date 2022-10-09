@@ -4,6 +4,11 @@
 [![React][React.js]][React-url]
 [![TypeScript][TypeScript]][TypeScript-url]
 [![Tailwind][Tailwind]][Tailwind-url]
+[![Jotai][Jotai]][Jotai-url]
+[![Firebase][Firebase]][Firebase-url]
+[![Vercel][Vercel]][Vercel-url]
+[![React-hook-form][React-hook-form]][React-hook-form-url]
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -15,4 +20,14 @@
 [TypeScript-url]: https://www.typescriptlang.org/
 [Tailwind]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
 [Tailwind-url]: https://tailwindui.com/
+[Firebase]: https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black
+[Firebase-url]: https://firebase.google.com/
+[Vercel]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
+[Jotai]: https://img.shields.io/badge/Jotai-000000?style=for-the-badge&logo=Atom&logoColor=white
+[Jotai-url]: https://jotai.org/
+[React-hook-form]: https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=React-Hook-Form&logoColor=white
+[React-hook-form-url]: https://react-hook-form.com/
+
+
 

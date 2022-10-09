@@ -6,7 +6,7 @@ import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
 import { auth } from '../../firebase/firebaseConfig';
 import { ImageUpload } from "../../components/imageUpload"
-import { userAtom } from '../../atoms';
+import { loadingAtom, userAtom } from '../../atoms';
 import { useAtom } from 'jotai';
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { uploadToStorage } from '../../firebase/storageServices';
@@ -19,6 +19,8 @@ const Edit = () => {
     const [user, setUser] = useAtom(userAtom)
     const [preview, setPreview] = useState<string | null>(null)
     const [file, setFile] = useState<File | null>(null)
+    const [loading, setLoading] = useAtom(loadingAtom)
+
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -52,11 +54,13 @@ const Edit = () => {
 
     const onSubmit = async (data: FieldValues) => {
         try {
+            setLoading(true)
             if (data.name) { await updateUserName(user, data.name) }
             if (file) {
                 const downloadURL = await uploadToStorage(file)
                 await updateProfile(user, { photoURL: downloadURL as string })
             }
+            setLoading(false)
             router.push("/profile")
             reset()
         } catch (error) { console.log(error) }

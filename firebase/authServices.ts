@@ -80,18 +80,3 @@ export const updateUserName = async (user: any, newName: string) => {
         return 'error'
     }
 }
-
-export const updateUserPhoto = (image: string) => {
-    console.log('updating photo')
-    const user = auth.currentUser
-    if (!user) { return }
-    try {
-        updateProfile(user, {
-            photoURL: image
-        })
-        console.log('updated photo')
-        return 'ok'
-    } catch (error) {
-        return 'error'
-    }
-}

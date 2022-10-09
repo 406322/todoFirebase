@@ -4,7 +4,7 @@ import { onAuthStateChanged, sendPasswordResetEmail, User } from "firebase/auth"
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
 import { userAtom, showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 
 
 export const ResetPasswordForm = () => {
@@ -24,7 +24,7 @@ export const ResetPasswordForm = () => {
 
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: FieldValues) => {
         await sendPasswordResetEmail(auth, data.email)
             .then(() => {
                 reset()

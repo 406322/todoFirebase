@@ -1,17 +1,16 @@
-import { useEffect } from 'react'
 import Image from 'next/image'
 
-const Upload = ({ handleChange, preview, isUploaded, setisUploaded }: { handleChange: any, preview: string | null, isUploaded: boolean, setisUploaded: any }) => {
+export const ImageUpload = ({ handleChange, preview, setPreview }: { handleChange: any, preview: string | null, setPreview: any }) => {
 
     return (
         <>
-            {isUploaded && preview
+            {preview
 
                 ? <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
                     <Image src={preview} layout="fill" className="rounded-full " />
                     <button
                         className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
-                        onClick={() => setisUploaded(false)}
+                        onClick={() => setPreview(null)}
                     >
                         <svg
                             className="w-4 h-4 fill-current"
@@ -47,5 +46,3 @@ const Upload = ({ handleChange, preview, isUploaded, setisUploaded }: { handleCh
         </>
     )
 }
-
-export default Upload

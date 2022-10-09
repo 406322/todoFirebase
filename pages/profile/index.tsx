@@ -39,10 +39,10 @@ const ProfilePage = () => {
 
                 <div className="flex flex-col">
 
-                    <p
-                        className="text-xs font-semibold text-gray-600">
+                    <p className="text-xs font-semibold text-gray-600">
                         Name
                     </p>
+
                     <p
                         id="name"
                         className="text-black bg-gray-100 text-md dark:text-white dark:bg-gray-900">

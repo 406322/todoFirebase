@@ -1,15 +1,14 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { NavBar } from "../../components/Navigation/NavBar"
 import { updateUserName } from '../../firebase/authServices';
 import { useRouter } from "next/router";
 import { auth } from '../../firebase/firebaseConfig';
-import ImageUpload from "../../components/imageUpload"
-import { imageAtom, showImageUploadAtom, userAtom } from '../../atoms';
+import { ImageUpload } from "../../components/imageUpload"
+import { userAtom } from '../../atoms';
 import { useAtom } from 'jotai';
-import { updateUserPhoto } from '../../firebase/authServices';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { uploadToStorage } from '../../firebase/storageServices';
 
 
@@ -17,11 +16,9 @@ const Edit = () => {
 
     const { handleSubmit, reset, register, setFocus, formState: { errors } } = useForm()
     const router = useRouter()
-    const [showImageUpload, setShowImageUpload] = useAtom(showImageUploadAtom)
-    const [image, setImage] = useAtom(imageAtom);
     const [user, setUser] = useAtom(userAtom)
-    const [isUploaded, setisUploaded] = useState(false)
     const [preview, setPreview] = useState<string | null>(null)
+    const [file, setFile] = useState<File | null>(null)
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -34,41 +31,40 @@ const Edit = () => {
     }, [setFocus]);
 
 
-    const getPreview = (file: File) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setPreview(reader.result as string);
-        };
-        reader.readAsDataURL(file);
+    const getBase64 = (file: File) => {
+        return new Promise(function (resolve, reject) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                resolve(reader.result)
+            };
+            reader.readAsDataURL(file);
+        })
     }
 
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
         const file = event.target.files![0]
-        console.log(file)
-        getPreview(file)
         if (!file) return
-        else uploadToStorage(file)
-        setisUploaded(true)
+        const base64 = await getBase64(file)
+        setPreview(base64 as string);
+        setFile(file)
     }
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: FieldValues) => {
         try {
             if (data.name) { await updateUserName(user, data.name) }
-            if (image && user) {
-                updateUserPhoto(image)
+            if (file) {
+                const downloadURL = await uploadToStorage(file)
+                await updateProfile(user, { photoURL: downloadURL as string })
             }
+            router.push("/profile")
             reset()
-        } catch (error) {
-            console.log(error)
-        }
-        router.push("/profile")
+        } catch (error) { console.log(error) }
     }
 
     return (
         <>
             <NavBar />
-
             <form
                 className="p-4 mx-5 mt-4 bg-gray-100 rounded dark:bg-gray-900"
                 onSubmit={handleSubmit(onSubmit)}
@@ -87,18 +83,17 @@ const Edit = () => {
                     />
                 </div>
 
-                <ImageUpload handleChange={handleChange} preview={preview} isUploaded={isUploaded} setisUploaded={setisUploaded} />
+                <div className='flex flex-col mb-2'>
+                    <label className='my-2 text-sm font-semibold text-gray-600 dark:text-gray-300'>Profile Photo</label>
+                    <ImageUpload handleChange={handleChange} preview={preview} setPreview={setPreview} />
+                </div>
 
-                <button
-                    className='p-2 px-5 my-2 text-white bg-blue-600 rounded-md'
-                >
+                <button className='p-2 px-5 my-2 text-white bg-blue-600 rounded-md'>
                     Update
                 </button>
 
                 <Link href="/profile">
-                    <button
-                        className='p-2 px-5 m-2 text-white bg-red-500 rounded-md'
-                    >
+                    <button className='p-2 px-5 m-2 text-white bg-red-500 rounded-md'>
                         Cancel
                     </button>
                 </Link>

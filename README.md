@@ -1,8 +1,5 @@
-### Built With
-
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
+[![Next][Next.js]][Next-url]
+[![React][React.js]][React-url]
 
 
 

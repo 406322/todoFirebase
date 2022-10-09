@@ -5,6 +5,7 @@ import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
 import Link from "next/link"
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 
 const ProfilePage = () => {
@@ -21,7 +22,10 @@ const ProfilePage = () => {
 
                 <div className="flex justify-between mb-3">
 
-                    <Image src="/dummy-profile-pic.png" width={96} height={96} className="rounded-full " />
+                    {user.photoURL
+                        ? <Image src={user.photoURL} width={96} height={96} className="rounded-full " />
+                        : <Image src={'/dummy-profile-pic.png'} width={96} height={96} className="rounded-full " />
+                    }
 
                     <Link href="/profile/edit">
                         <button
@@ -35,10 +39,10 @@ const ProfilePage = () => {
 
                 <div className="flex flex-col">
 
-                    <p
-                        className="text-xs font-semibold text-gray-600">
+                    <p className="text-xs font-semibold text-gray-600">
                         Name
                     </p>
+
                     <p
                         id="name"
                         className="text-black bg-gray-100 text-md dark:text-white dark:bg-gray-900">

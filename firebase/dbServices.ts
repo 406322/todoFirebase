@@ -13,6 +13,13 @@ export const addTodo = async (event: React.FormEvent, newTodo: Todo) => {
     })
 }
 
+export const addImageToDB = async (image: string, id: string) => {
+    await setDoc(doc(db, 'UserImages', id), {
+        image: image,
+        UserId: id,
+    })
+}
+
 export const updateTodo = async (id: Todo["id"], todo: Todo["todo"]) => {
     const docRef = doc(db, 'TodoList', id)
     await updateDoc(docRef, {

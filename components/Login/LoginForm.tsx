@@ -1,8 +1,8 @@
-import { browserSessionPersistence, onAuthStateChanged, setPersistence } from "firebase/auth";
+import { browserSessionPersistence, onAuthStateChanged, setPersistence, User } from "firebase/auth";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../../atoms";
 import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
@@ -16,7 +16,7 @@ export const LoginForm = () => {
     const [authPersistence, setAuthPersistence] = useState(false)
 
     useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: any) => {
+        onAuthStateChanged(auth, (currentUser: User | null) => {
             setUser(currentUser);
         });
     }, [])
@@ -24,7 +24,7 @@ export const LoginForm = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: FieldValues) => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
         const response = await login(data.email, data.password)
         if (response === 'Firebase: Error (auth/invalid-email).') { alert('Wrong Email') }

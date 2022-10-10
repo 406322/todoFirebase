@@ -15,6 +15,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 
 export const NavBar = () => {
@@ -23,8 +24,11 @@ export const NavBar = () => {
     const [user, setUser] = useAtom(userAtom);
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
-    const [loading, setLoading] = useAtom(loadingAtom)
+    const [isLoading, setIsLoading] = useAtom(loadingAtom)
 
+    const router = useRouter()
+
+    const isHomepage = () => { return router.pathname === '/' }
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -61,21 +65,25 @@ export const NavBar = () => {
 
             <div className="flex justify-end w-full h-full gap-3">
 
-                {loading &&
-                    <div className='flex items-center'>
+                {isLoading
+                    ? <div className='flex items-center'>
                         <Spinner />
                     </div>
+                    : null
                 }
 
-                <div
-                    id='PlusIcon'
-                    className="flex items-center justify-center">
-                    <div
-                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
-                        onClick={newTodo}>
-                        <GoPlus />
+                {isHomepage()
+                    ? <div
+                        id='PlusIcon'
+                        className="flex items-center justify-center">
+                        <div
+                            className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
+                            onClick={newTodo}>
+                            <GoPlus />
+                        </div>
                     </div>
-                </div>
+                    : null
+                }
 
 
                 <div

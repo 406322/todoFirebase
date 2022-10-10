@@ -20,7 +20,6 @@ export const DropdownMenu = () => {
 
     const router = useRouter()
 
-
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -51,11 +50,10 @@ export const DropdownMenu = () => {
                             <div
                                 onClick={() => setOpen(false)}
                                 className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer">
-                                {/* {user.photoURL
-                                ? <Image src={user.photoURL} width={32} height={32} className="rounded-full " />
-                                : <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
-                            } */}
-                                <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
+                                {user.photoURL
+                                    ? <Image src={user.photoURL} width={32} height={32} className="rounded-full " />
+                                    : <Image src="/dummy-profile-pic.png" width={32} height={32} className="rounded-full" />
+                                }
                                 My Profile
                             </div>
                         </a>

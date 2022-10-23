@@ -9,18 +9,10 @@ import { FieldValues, useForm } from "react-hook-form";
 
 export const ResetPasswordForm = () => {
 
-    const [user, setUser] = useAtom(userAtom);
     const [loginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
     const [message, setMessage] = useState(false)
     const [showResetpassword, setShowResetPassword] = useAtom(showResetPasswordAtom)
-
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: User | null) => {
-            if (currentUser) { setUser(currentUser) }
-        });
-    }, [])
 
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 

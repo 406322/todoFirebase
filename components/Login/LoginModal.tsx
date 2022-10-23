@@ -6,7 +6,7 @@ import { LoginForm } from "./LoginForm";
 
 export const LoginModal = () => {
 
-    const [user, setUser] = useAtom(userAtom);
+    const [user] = useAtom(userAtom);
     const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
 
     return (

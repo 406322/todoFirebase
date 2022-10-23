@@ -1,7 +1,7 @@
 import { browserSessionPersistence, onAuthStateChanged, setPersistence, User } from "firebase/auth";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../../atoms";
 import { login } from "../../firebase/authServices";
@@ -9,17 +9,10 @@ import { auth } from "../../firebase/firebaseConfig";
 
 export const LoginForm = () => {
 
-    const [, setUser] = useAtom(userAtom);
     const [, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [, setShowRegisterModal] = useAtom(showRegisterModalAtom)
     const [showResetpassword, setShowResetPassword] = useAtom(showResetPasswordAtom)
     const [authPersistence, setAuthPersistence] = useState(false)
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: User | null) => {
-            setUser(currentUser);
-        });
-    }, [])
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 

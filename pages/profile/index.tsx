@@ -1,18 +1,14 @@
 import { useAtom } from "jotai"
-import { loadingAtom, userAtom } from "../../atoms"
+import { userAtom } from "../../atoms"
 import { NavBar } from "../../components/Navigation/NavBar"
 import Image from "next/image"
 import { BiPencil } from 'react-icons/bi';
 import Link from "next/link"
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 
 const ProfilePage = () => {
 
-    const [loading, setLoading] = useAtom(loadingAtom)
-    const [user, setUser] = useAtom(userAtom)
-    const router = useRouter()
+    const [user] = useAtom(userAtom)
 
     return (
         <>

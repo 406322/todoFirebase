@@ -8,14 +8,8 @@ import { RegisterForm } from "./RegisterForm";
 
 export const RegisterModal = () => {
 
-    const [user, setUser] = useAtom(userAtom);
+    const [user] = useAtom(userAtom);
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: User | null) => {
-            if (currentUser) { setUser(currentUser) }
-        });
-    }, [])
 
     return (
         <>

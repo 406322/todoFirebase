@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { BiLogIn } from 'react-icons/bi';
 import { BiLogOut } from 'react-icons/bi';
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
 import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
@@ -20,16 +18,10 @@ export const DropdownMenu = () => {
 
     const router = useRouter()
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-    }, [])
-
     const handleLogout = (event: any) => {
+        router.push("/")
         event.stopPropagation();
         setOpen(false)
-        router.push("/")
         logout()
         setShowLoginModal(true)
         setTodos([])

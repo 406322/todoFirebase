@@ -10,15 +10,9 @@ import { register as registerUser } from "../../firebase/authServices";
 
 export const RegisterForm = () => {
 
-    const [user, setUser] = useAtom(userAtom);
     const [loginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [registerModal, setShowRegisterModal] = useAtom(showRegisterModalAtom)
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: User | null) => {
-            if (currentUser) { setUser(currentUser) }
-        });
-    }, [])
 
     const { register, handleSubmit, reset, watch, getValues, formState: { errors } } = useForm();
 

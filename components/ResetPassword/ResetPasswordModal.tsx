@@ -11,12 +11,6 @@ export const ResetPasswordModal = () => {
     const [user, setUser] = useAtom(userAtom);
     const [resetPasswordModal, setShowResetPasswordModal] = useAtom(showResetPasswordAtom)
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser: User | null) => {
-            if (currentUser) { setUser(currentUser) }
-        });
-    }, [])
-
     return (
         <>
             <Modal

@@ -21,13 +21,6 @@ const Edit = () => {
     const [file, setFile] = useState<File | null>(null)
     const [loading, setLoading] = useAtom(loadingAtom)
 
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        });
-    }, [])
-
     useEffect(() => {
         setFocus("name")
     }, [setFocus]);

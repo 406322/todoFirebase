@@ -9,9 +9,6 @@ import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
@@ -21,21 +18,14 @@ import { useOutsideClick } from './customHooks';
 export const NavBar = () => {
 
     const [open, setOpen] = useAtom(openAtom)
-    const [user, setUser] = useAtom(userAtom);
-    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [user, ] = useAtom(userAtom);
+    const [, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
     const [isLoading, setIsLoading] = useAtom(loadingAtom)
 
     const router = useRouter()
 
     const isHomepage = () => { return router.pathname === '/' }
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-    }, [])
-
 
     const newTodo = (event: React.FormEvent) => {
         if (!user) { setShowLoginModal(true) }

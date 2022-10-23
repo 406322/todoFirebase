@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Navigation/use", "components/Navigation/useOutsideClick.js", "OutsideClick.js"  ],
   "exclude": [
     "node_modules"
   ]

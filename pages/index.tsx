@@ -5,7 +5,7 @@ import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
-import { todosAtom } from "../atoms";
+import { todosAtom, userAtom } from "../atoms";
 import { loadingAtom } from "../atoms";
 import { NavBar } from '../components/Navigation/NavBar'
 import { LoginModal } from "../components/Login/LoginModal";
@@ -27,15 +27,16 @@ export default function Home() {
 
 
   const getAllTodos = async (currentUser: string) => {
+    if (todos) return false
     setLoading(true)
     const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));
     const querySnapshot = await getDocs(q);
-    const todos: any = [];
+    const arr: any = [];
     querySnapshot.forEach((doc) => {
-      todos.push({ ...doc.data(), id: doc.id })
+      arr.push({ ...doc.data(), id: doc.id })
     });
     setTimeout(() => setLoading(false), 1000);
-    setTodos(todos)
+    setTodos(arr)
   }
 
   return (

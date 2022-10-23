@@ -9,12 +9,13 @@ import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import { useOutsideClick } from './customHooks';
 
 
 export const NavBar = () => {
@@ -53,29 +54,9 @@ export const NavBar = () => {
         }
     }
 
-    const useOutsideClick = (callback: any) => {
-        const ref = useRef<HTMLDivElement | null>(null);
-      
-        useEffect(() => {
-          const handleClick = (event: any) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-              callback();
-            }
-          };
-          document.addEventListener('click', handleClick, true);
-          return () => {
-            document.removeEventListener('click', handleClick, true);
-          };
-        }, [ref]);
-      
-        return ref;
-      };
+    const handleClickOutside = () => setOpen(false)
 
-    const handleClickOutside = () => {
-        setOpen(false);
-      };
-    
-      const ref = useOutsideClick(handleClickOutside);
+    const ref = useOutsideClick(handleClickOutside)
 
     return (
         <div className="flex h-16 bg-gray-100 border-gray-300 border-b-1 px-9 dark:bg-gray-900">
@@ -127,19 +108,19 @@ export const NavBar = () => {
                     </div>
                 </div>
 
+                <div
+                    id='Dropdown'
+                    className="flex items-center justify-center "
+                    ref={ref}>
                     <div
-                        id='Dropdown'
-                        className="flex items-center justify-center "
-                        ref={ref}>
-                        <div
-                            className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
-                            onClick={() => setOpen(!open)}
-                            
-                        >
-                            <BsFillCaretDownFill />
-                        </div>
-                        {open && <DropdownMenu></DropdownMenu>}
+                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
+                        onClick={() => setOpen(!open)}
+
+                    >
+                        <BsFillCaretDownFill />
                     </div>
+                    {open && <DropdownMenu></DropdownMenu>}
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
-import OutsideClickHandler from 'react-outside-click-handler';
 import { GoPlus } from 'react-icons/go';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { ThemeSwitch } from '../themeSwitch';
@@ -15,7 +14,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import { useOutsideClick } from './customHooks';
 
 
 export const NavBar = () => {
@@ -54,12 +54,16 @@ export const NavBar = () => {
         }
     }
 
+    const handleClickOutside = () => setOpen(false)
+
+    const ref = useOutsideClick(handleClickOutside)
+
     return (
         <div className="flex h-16 bg-gray-100 border-gray-300 border-b-1 px-9 dark:bg-gray-900">
 
             <Link href="/">
                 <a className='flex flex-col justify-center'>
-                    <h1 className='text-2xl font-bold bg-gray-100 dark:bg-gray-900'>Hjem</h1>
+                    <h1 className='text-2xl font-bold bg-gray-100 dark:bg-gray-900'>Home</h1>
                 </a>
             </Link>
 
@@ -85,7 +89,6 @@ export const NavBar = () => {
                     : null
                 }
 
-
                 <div
                     id='ThemeSwitch'
                     className="flex items-center justify-center">
@@ -105,24 +108,20 @@ export const NavBar = () => {
                     </div>
                 </div>
 
-                <OutsideClickHandler
-                    display="contents"
-                    onOutsideClick={() => { setOpen(false) }}>
+                <div
+                    id='Dropdown'
+                    className="flex items-center justify-center "
+                    ref={ref}>
                     <div
-                        id='Dropdown'
-                        className="flex items-center justify-center ">
-                        <div
-                            className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
-                            onClick={() => setOpen(!open)}
-                        >
-                            <BsFillCaretDownFill />
-                        </div>
-                        {open && <DropdownMenu></DropdownMenu>}
+                        className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
+                        onClick={() => setOpen(!open)}
+
+                    >
+                        <BsFillCaretDownFill />
                     </div>
-                </OutsideClickHandler>
-
+                    {open && <DropdownMenu></DropdownMenu>}
+                </div>
             </div>
-
         </div>
     )
 }

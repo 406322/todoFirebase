@@ -26,15 +26,18 @@ export const DropdownMenu = () => {
         });
     }, [])
 
-    const handleLogout = () => {
+    const handleLogout = (event: any) => {
+        event.stopPropagation();
+        setOpen(false)
         router.push("/")
         logout()
         setShowLoginModal(true)
         setTodos([])
-        setOpen(false)
+        
     }
 
-    const handleLogin = () => {
+    const handleLogin = (event: any) => {
+        event.stopPropagation();
         setShowLoginModal(true)
         setOpen(false)
     }

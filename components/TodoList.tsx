@@ -2,7 +2,6 @@ import { Todo } from "../models/todo";
 import { TodoListItem } from "./TodoListItem"
 import { todosAtom } from "../atoms";
 import { useAtom } from 'jotai'
-import { useEffect } from "react";
 
 export const TodoList = () => {
 

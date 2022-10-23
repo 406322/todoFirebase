@@ -1,7 +1,6 @@
 import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
-// import OutsideClickHandler from 'react-outside-click-handler';
 import { GoPlus } from 'react-icons/go';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { ThemeSwitch } from '../themeSwitch';
@@ -10,13 +9,12 @@ import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { LegacyRef, MutableRefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import { Spinner } from './Spinner';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
 
 
 export const NavBar = () => {
@@ -84,7 +82,7 @@ export const NavBar = () => {
 
             <Link href="/">
                 <a className='flex flex-col justify-center'>
-                    <h1 className='text-2xl font-bold bg-gray-100 dark:bg-gray-900'>Hjem</h1>
+                    <h1 className='text-2xl font-bold bg-gray-100 dark:bg-gray-900'>Home</h1>
                 </a>
             </Link>
 
@@ -110,7 +108,6 @@ export const NavBar = () => {
                     : null
                 }
 
-
                 <div
                     id='ThemeSwitch'
                     className="flex items-center justify-center">
@@ -130,9 +127,6 @@ export const NavBar = () => {
                     </div>
                 </div>
 
-                {/* <OutsideClickHandler */}
-                    {/* display="contents"
-                    onOutsideClick={() => { setOpen(false) }}> */}
                     <div
                         id='Dropdown'
                         className="flex items-center justify-center "
@@ -146,11 +140,7 @@ export const NavBar = () => {
                         </div>
                         {open && <DropdownMenu></DropdownMenu>}
                     </div>
-                {/* </OutsideClickHandler> */}
-
-
             </div>
-
         </div>
     )
 }

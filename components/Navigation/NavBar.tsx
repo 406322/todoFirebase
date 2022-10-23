@@ -19,7 +19,7 @@ export const NavBar = () => {
 
     const [open, setOpen] = useAtom(openAtom)
     const [user, ] = useAtom(userAtom);
-    const [, setShowLoginModal] = useAtom(showLoginModalAtom)
+    const [showLoginModal, setShowLoginModal] = useAtom(showLoginModalAtom)
     const [todos, setTodos] = useAtom(todosAtom);
     const [isLoading, setIsLoading] = useAtom(loadingAtom)
 

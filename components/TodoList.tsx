@@ -7,7 +7,7 @@ export const TodoList = () => {
 
     const [todos] = useAtom(todosAtom)
 
-    if (todos) { let sorted = todos.sort((a, b) => Number(a.date) - Number(b.date))}
+    let sorted = todos.sort((a, b) => Number(a.date) - Number(b.date))
 
     return (
         <div className="min-h-screen p-5 bg-white dark:bg-slate-900 divide-cyan-100">

@@ -27,7 +27,7 @@ export default function Home() {
 
 
   const getAllTodos = async (currentUser: string) => {
-    if (todos) return false
+    if (todos.length !== 0) return false
     setLoading(true)
     const q = query(collection(db, 'TodoList'), where('user', '==', currentUser), orderBy('date', 'desc'));
     const querySnapshot = await getDocs(q);

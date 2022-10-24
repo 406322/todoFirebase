@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import { LoginIcon, LogoutIcon } from "../icons";
+import { LoginIcon, LogoutIcon } from "../icons"
 import { useAtom } from "jotai";
 import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';

@@ -1,7 +1,7 @@
 import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
-import { PlusIcon, CarretDownIcon, AppsIcon } from '../icons';
+import { PlusIcon, CarretDownIcon, AppsIcon } from "../icons"
 import { Spinner } from './Spinner';
 import { ThemeSwitch } from '../themeSwitch';
 import { Todo } from '../../models/todo';

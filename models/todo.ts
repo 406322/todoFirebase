@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore"
 
-export type Todo = {
+export interface Todo {
     todo: string,
     id: string,
     isComplete: boolean,

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-import { onAuthStateChanged, sendPasswordResetEmail, User } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from 'jotai'
-import { userAtom, showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
+import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { FieldValues, useForm } from "react-hook-form";
 
 

@@ -1,7 +1,6 @@
 import { useTheme } from 'next-themes'
 import { useState, useEffect } from 'react'
-import { IoMdMoon } from 'react-icons/io';
-import { IoMdSunny } from 'react-icons/io';
+import { MoonIcon, SunIcon } from './icons';
 
 
 export const ThemeSwitch = () => {
@@ -23,8 +22,8 @@ export const ThemeSwitch = () => {
             type="button"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark'
-                ? <IoMdMoon />
-                : <IoMdSunny />
+                ? <MoonIcon className="" />
+                : <SunIcon className="" />
             }
         </button>
     )

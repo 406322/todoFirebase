@@ -1,5 +1,5 @@
 import { Todo } from "../models/todo";
-import { TiDeleteOutline } from 'react-icons/ti';
+import { DeleteIcon } from "./icons";
 import { useState, useEffect } from "react";
 import { toggleEditBlur } from "../firebase/dbServices";
 import * as api from "../firebase/dbServices";
@@ -85,9 +85,8 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
                         </div>
 
                         <div className="absolute pr-5 ">
-                            <TiDeleteOutline
-                                title="Delete Todo"
-                                className="text-black cursor-pointer dark:text-white w-7 h-7"
+                            <DeleteIcon
+                                className="w-8 h-8 text-black cursor-pointer dark:text-white"
                                 onClick={handleDelete}
                             />
                         </div>

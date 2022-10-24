@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { BiLogIn } from 'react-icons/bi';
-import { BiLogOut } from 'react-icons/bi';
+import { LoginIcon, LogoutIcon } from "../icons";
 import { useAtom } from "jotai";
 import { openAtom, showLoginModalAtom, todosAtom, userAtom } from "../../atoms";
 import { logout } from '../../firebase/authServices';
@@ -59,13 +58,13 @@ export const DropdownMenu = () => {
                     ? <div
                         className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
                         onClick={handleLogout}>
-                        <BiLogOut className="w-8 h-8" />
+                        <LogoutIcon className="w-8 h-8" />
                         Log Out
                     </div>
                     : <div
                         className="h-[50px] flex items-center rounded-sm p-1 gap-1 hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer"
                         onClick={handleLogin}>
-                        <BiLogIn className="w-8 h-8" />
+                        <LoginIcon className="w-8 h-8" />
                         Log In
                     </div>
                 }

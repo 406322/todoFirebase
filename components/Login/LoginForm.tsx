@@ -1,9 +1,9 @@
-import { browserSessionPersistence, onAuthStateChanged, setPersistence, User } from "firebase/auth";
+import { browserSessionPersistence, setPersistence } from "firebase/auth";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom, userAtom } from "../../atoms";
+import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
 

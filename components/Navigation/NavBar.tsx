@@ -1,15 +1,13 @@
 import { loadingAtom, openAtom, showLoginModalAtom, todosAtom, userAtom } from '../../atoms'
 import { useAtom } from 'jotai'
 import { DropdownMenu } from './DropdownMenu';
-import { GoPlus } from 'react-icons/go';
-import { BsFillCaretDownFill } from 'react-icons/bs';
+import { PlusIcon, CarretDownIcon, AppsIcon } from '../icons';
+import { Spinner } from './Spinner';
 import { ThemeSwitch } from '../themeSwitch';
-import { MdApps } from 'react-icons/md';
 import { Todo } from '../../models/todo';
 import { addTodo } from '../../firebase/dbServices';
 import { v4 as uuidv4 } from 'uuid';
 import { Timestamp } from 'firebase/firestore';
-import { Spinner } from './Spinner';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useOutsideClick } from './customHooks';
@@ -73,7 +71,7 @@ export const NavBar = () => {
                         <div
                             className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
                             onClick={newTodo}>
-                            <GoPlus />
+                            <PlusIcon className=""/>
                         </div>
                     </div>
                     : null
@@ -94,7 +92,7 @@ export const NavBar = () => {
                     <div
                         className="flex items-center justify-center w-10 h-10 border border-black rounded-full dark:border-white"
                         onClick={() => console.log('Not implemented')}>
-                        <MdApps />
+                        <AppsIcon className="" />
                     </div>
                 </div>
 
@@ -107,7 +105,7 @@ export const NavBar = () => {
                         onClick={() => setOpen(!open)}
 
                     >
-                        <BsFillCaretDownFill />
+                        <CarretDownIcon className="" />
                     </div>
                     {open && <DropdownMenu></DropdownMenu>}
                 </div>

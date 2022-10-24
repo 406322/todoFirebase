@@ -8,7 +8,7 @@ import { useAtom } from 'jotai'
 import { userAtom } from '../atoms'
 
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps }, }: AppProps) => {
+const MyApp = ({ Component, pageProps: { ...pageProps }, }: AppProps) => {
 
   const [user, setUser] = useAtom(userAtom)
 

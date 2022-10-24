@@ -5,7 +5,7 @@ import { collection } from "@firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDocs, orderBy, query, where } from "firebase/firestore";
 import { useAtom } from 'jotai'
-import { todosAtom, userAtom } from "../atoms";
+import { showLoginModalAtom, todosAtom, userAtom } from "../atoms";
 import { loadingAtom } from "../atoms";
 import { NavBar } from '../components/Navigation/NavBar'
 import { LoginModal } from "../components/Login/LoginModal";
@@ -18,10 +18,13 @@ export default function Home() {
 
   const [todos, setTodos] = useAtom(todosAtom);
   const [loading, setLoading] = useAtom(loadingAtom)
+  const [, setShowLoginModal] = useAtom(showLoginModalAtom)
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) { getAllTodos(currentUser.email!) }
+      else setShowLoginModal(true)
     });
   }, [])
 

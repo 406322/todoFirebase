@@ -86,7 +86,6 @@ export const TodoListItem = ({ todo }: { todo: Todo }) => {
 
                         <div className="absolute pr-5 ">
                             <DeleteIcon
-                                title="Delete Todo"
                                 className="w-8 h-8 text-black cursor-pointer dark:text-white"
                                 onClick={handleDelete}
                             />

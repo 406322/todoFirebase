@@ -1,5 +1,4 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -40,13 +39,17 @@ export const LoginForm = () => {
                 <div className="block mb-2">
                     <label className="text-sm text-gray-200" htmlFor="email">Your email</label>
                 </div>
-                <TextInput
-                    id="email"
+
+                <input
                     type="email"
+                    id="email"
                     placeholder="name@company.com"
                     autoComplete="on"
                     {...register("email", { required: true })}
+                    className="w-full p-3 text-sm text-gray-900 placeholder-gray-500 border border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
+
+
             </div>
 
             <div>
@@ -59,12 +62,16 @@ export const LoginForm = () => {
                     </label>
 
                 </div>
-                <TextInput
-                    id="password"
+
+
+                <input
                     type="password"
-                    required={true}
+                    id="password"
                     {...register("password", { required: true })}
+                    className="w-full p-3 text-sm text-gray-900 placeholder-gray-500 border border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
                 />
+
+
             </div>
 
             <div className="flex items-center gap-2">

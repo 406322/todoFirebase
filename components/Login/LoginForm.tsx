@@ -1,5 +1,5 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, Label, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -77,10 +77,12 @@ export const LoginForm = () => {
             </div>
 
             <div className="w-full">
-                <Button
-                    type="submit">
+                <button
+                    type="submit"
+                    className="w-48 py-2 text-sm font-medium text-white bg-blue-600 rounded-md h-11 px-46 hover:bg-blue-700"
+                    >
                     Log in to your account
-                </Button>
+                </button>
             </div>
 
             <div className="flex justify-between">

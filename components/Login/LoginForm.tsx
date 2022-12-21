@@ -6,6 +6,10 @@ import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from
 import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
 
+import { Label } from "../FormComponents/Label";
+
+
+
 export const LoginForm = () => {
 
     const [, setShowLoginModal] = useAtom(showLoginModalAtom)
@@ -54,13 +58,7 @@ export const LoginForm = () => {
 
             <div>
                 <div className="block mb-2">
-
-                    <label
-                        className="text-sm text-gray-200"
-                        htmlFor="password">
-                        Your password
-                    </label>
-
+                <Label htmlFor="password" label="Your password" />
                 </div>
 
 

@@ -1,5 +1,5 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { Checkbox, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -57,7 +57,7 @@ export const LoginForm = () => {
                         htmlFor="password">
                         Your password
                     </label>
-                    
+
                 </div>
                 <TextInput
                     id="password"
@@ -68,16 +68,21 @@ export const LoginForm = () => {
             </div>
 
             <div className="flex items-center gap-2">
-                <Checkbox
+
+                <input
+                    type="checkbox"
                     id="remember"
-                    onClick={() => setAuthPersistence(!authPersistence)} />
+                    onClick={() => setAuthPersistence(!authPersistence)}
+                    className="text-blue-600 bg-gray-700 border-gray-300 rounded-sm"
+
+                />
 
                 <label
                     className="text-sm text-gray-200"
                     htmlFor="remember">
                     Remember me
                 </label>
-                
+
             </div>
 
             <div className="w-full">

@@ -1,5 +1,5 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { Checkbox, Label, TextInput } from "flowbite-react";
+import { Checkbox, TextInput } from "flowbite-react";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -38,10 +38,7 @@ export const LoginForm = () => {
 
             <div>
                 <div className="block mb-2">
-                    <Label
-                        htmlFor="email"
-                        value="Your email"
-                    />
+                    <label className="text-sm text-gray-200" htmlFor="email">Your email</label>
                 </div>
                 <TextInput
                     id="email"
@@ -54,10 +51,13 @@ export const LoginForm = () => {
 
             <div>
                 <div className="block mb-2">
-                    <Label
-                        htmlFor="password"
-                        value="Your password"
-                    />
+
+                    <label
+                        className="text-sm text-gray-200"
+                        htmlFor="password">
+                        Your password
+                    </label>
+                    
                 </div>
                 <TextInput
                     id="password"
@@ -71,16 +71,20 @@ export const LoginForm = () => {
                 <Checkbox
                     id="remember"
                     onClick={() => setAuthPersistence(!authPersistence)} />
-                <Label htmlFor="remember">
+
+                <label
+                    className="text-sm text-gray-200"
+                    htmlFor="remember">
                     Remember me
-                </Label>
+                </label>
+                
             </div>
 
             <div className="w-full">
                 <button
                     type="submit"
                     className="w-48 py-2 text-sm font-medium text-white bg-blue-600 rounded-md h-11 px-46 hover:bg-blue-700"
-                    >
+                >
                     Log in to your account
                 </button>
             </div>

@@ -7,6 +7,7 @@ import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
 
 import { Label } from "../FormComponents/Label";
+import { Button } from "../FormComponents/Button"
 
 
 
@@ -41,7 +42,7 @@ export const LoginForm = () => {
 
             <div>
                 <div className="block mb-2">
-                <Label htmlFor="email" label="Your email" />
+                    <Label htmlFor="email" label="Your email" />
                 </div>
 
                 <input
@@ -58,7 +59,7 @@ export const LoginForm = () => {
 
             <div>
                 <div className="block mb-2">
-                <Label htmlFor="password" label="Your password" />
+                    <Label htmlFor="password" label="Your password" />
                 </div>
 
 
@@ -91,36 +92,37 @@ export const LoginForm = () => {
             </div>
 
             <div className="w-full">
-                <button
+                <Button
                     type="submit"
-                    className="w-48 py-2 text-sm font-medium text-white bg-blue-600 rounded-md h-11 px-46 hover:bg-blue-700"
-                >
-                    Log in to your account
-                </button>
+                    variant="primary"
+                    children={'Log in to your account'}
+                />
             </div>
 
             <div className="flex justify-between">
-                <button
+                <Button
+                    children={'Lost Password?'}
+                    variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
-                        setShowResetPassword(true)
+                        setShowRegisterModal(true)
                     }}
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500">
-                    Lost Password?
-                </button>
+                />
+
             </div>
 
             <div className="flex justify-between">
-                <button
+                <Button
+                    children={'Login with testuser'}
+                    variant="secondary"
                     onClick={(event) => {
                         event.preventDefault()
                         login("test@test.no", "abc123")
                         reset()
                         setShowLoginModal(false)
                     }}
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500">
-                    Login with testuser
-                </button>
+                />
+
             </div>
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">

@@ -9,6 +9,7 @@ import { auth } from "../../firebase/firebaseConfig";
 import { Label } from "../FormComponents/Label";
 import { Button } from "../FormComponents/Button";
 import { TextInput } from "../FormComponents/TextInput";
+import { Checkbox } from "../FormComponents/Checkbox";
 
 export const LoginForm = () => {
 
@@ -69,12 +70,9 @@ export const LoginForm = () => {
 
             <div className="flex items-center gap-2">
                 <Label htmlFor={"remember"} label={"Remember me"} />
-                <input
-                    type="checkbox"
-                    id="remember"
-                    onClick={() => setAuthPersistence(!authPersistence)}
-                    className="text-blue-600 bg-gray-700 border-gray-300 rounded-sm"
-
+                <Checkbox 
+                id={""} 
+                onClick={() => setAuthPersistence(!authPersistence)} 
                 />
             </div>
 

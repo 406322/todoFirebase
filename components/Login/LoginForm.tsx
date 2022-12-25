@@ -1,14 +1,14 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm, UseFormRegisterReturn, Validate, ValidationRule } from "react-hook-form";
 import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
 
 import { Label } from "../FormComponents/Label";
-import { Button } from "../FormComponents/Button"
-
+import { Button } from "../FormComponents/Button";
+import { TextInput } from "../FormComponents/TextInput";
 
 
 export const LoginForm = () => {
@@ -19,7 +19,6 @@ export const LoginForm = () => {
     const [authPersistence, setAuthPersistence] = useState(false)
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
 
     const onSubmit = async (data: FieldValues) => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
@@ -44,17 +43,17 @@ export const LoginForm = () => {
                 <div className="block mb-2">
                     <Label htmlFor="email" label="Your email" />
                 </div>
-
-                <input
-                    type="email"
+                <TextInput
+                    fieldName="email"
                     id="email"
-                    placeholder="name@company.com"
-                    autoComplete="on"
-                    {...register("email", { required: true })}
-                    className="w-full p-3 text-sm text-gray-900 placeholder-gray-500 border border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    placeHolder="name@company.com"
+                    isRequired={true}
+                    maximLength={20}
+                    minimLength={2}
                 />
-
-
             </div>
 
             <div>
@@ -62,12 +61,15 @@ export const LoginForm = () => {
                     <Label htmlFor="password" label="Your password" />
                 </div>
 
-
-                <input
-                    type="password"
+                <TextInput
+                    fieldName="password"
                     id="password"
-                    {...register("password", { required: true })}
-                    className="w-full p-3 text-sm text-gray-900 placeholder-gray-500 border border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400"
+                    type="password"
+                    register={register}
+                    errors={errors}
+                    isRequired={true}
+                    maximLength={20}
+                    minimLength={2}
                 />
 
 
@@ -83,19 +85,15 @@ export const LoginForm = () => {
 
                 />
 
-                <label
-                    className="text-sm text-gray-200"
-                    htmlFor="remember">
-                    Remember me
-                </label>
+                <Label htmlFor={"remember"} label={"Remember me"} />
 
             </div>
 
             <div className="w-full">
                 <Button
+                    children={'Log in to your account'}
                     type="submit"
                     variant="primary"
-                    children={'Log in to your account'}
                 />
             </div>
 
@@ -122,20 +120,18 @@ export const LoginForm = () => {
                         setShowLoginModal(false)
                     }}
                 />
-
             </div>
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{' '}
-                <a
-                    href="#"
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                <Button
+                    children={'Create account'}
+                    variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
                         setShowRegisterModal(true)
-                    }}>
-                    Create account
-                </a>
+                    }}
+                />
             </div>
         </form>
     )

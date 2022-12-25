@@ -24,7 +24,6 @@ export const ResetPasswordForm = () => {
             .then(() => {
                 reset()
                 setMessage(true)
-
             })
             .catch((error) => {
                 const errorCode = error.code;

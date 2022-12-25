@@ -26,7 +26,8 @@ export const TextInput = (
                 id={id}
                 type={type}
                 className={`w-full p-3 text-sm text-gray-900 placeholder-gray-500 border border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-blue-400 dark:focus:border-blue-400`}
-                placeholder={placeHolder} {...register(fieldName, {
+                placeholder={placeHolder} 
+                {...register(fieldName, {
                     required: {
                         value: isRequired,
                         message: "This field is required",

@@ -5,7 +5,7 @@ interface LabelProps {
   label: string;
 }
 
-export const Label: React.FC<LabelProps> = ({ htmlFor, label }) => {
+export const Label = ({ htmlFor, label }: LabelProps) => {
   return (
     <label className="text-sm text-gray-200" htmlFor={htmlFor}>{label}</label>
   );

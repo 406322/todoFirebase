@@ -10,6 +10,7 @@ import { Label } from "../FormComponents/Label";
 import { Button } from "../FormComponents/Button";
 import { TextInput } from "../FormComponents/TextInput";
 import { Checkbox } from "../FormComponents/Checkbox";
+import { Header } from "../FormComponents/Header";
 
 export const LoginForm = () => {
 
@@ -35,9 +36,8 @@ export const LoginForm = () => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
-            <h1 className="text-xl font-medium text-gray-900 dark:text-white">
-                Sign in to our platform
-            </h1>
+                
+            <Header children={'Sign in to our platform'} />
 
             <div className="flex flex-col gap-2">
                 <Label htmlFor="email" label="Your email" />
@@ -71,7 +71,7 @@ export const LoginForm = () => {
             <div className="flex items-center gap-2">
                 <Label htmlFor={"remember"} label={"Remember me"} />
                 <Checkbox 
-                id={""} 
+                id={"remember"} 
                 onClick={() => setAuthPersistence(!authPersistence)} 
                 />
             </div>
@@ -90,7 +90,7 @@ export const LoginForm = () => {
                     variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
-                        setShowRegisterModal(true)
+                        setShowResetPassword(true)
                     }}
                 />
 

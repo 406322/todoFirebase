@@ -1,7 +1,7 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { FieldValues, useForm, UseFormRegisterReturn, Validate, ValidationRule } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { login } from "../../firebase/authServices";
 import { auth } from "../../firebase/firebaseConfig";
@@ -9,7 +9,6 @@ import { auth } from "../../firebase/firebaseConfig";
 import { Label } from "../FormComponents/Label";
 import { Button } from "../FormComponents/Button";
 import { TextInput } from "../FormComponents/TextInput";
-
 
 export const LoginForm = () => {
 
@@ -39,10 +38,8 @@ export const LoginForm = () => {
                 Sign in to our platform
             </h1>
 
-            <div>
-                <div className="block mb-2">
-                    <Label htmlFor="email" label="Your email" />
-                </div>
+            <div className="flex flex-col gap-2">
+                <Label htmlFor="email" label="Your email" />
                 <TextInput
                     fieldName="email"
                     id="email"
@@ -56,11 +53,8 @@ export const LoginForm = () => {
                 />
             </div>
 
-            <div>
-                <div className="block mb-2">
-                    <Label htmlFor="password" label="Your password" />
-                </div>
-
+            <div className="flex flex-col gap-2">
+                <Label htmlFor="password" label="Your password" />
                 <TextInput
                     fieldName="password"
                     id="password"
@@ -71,12 +65,10 @@ export const LoginForm = () => {
                     maximLength={20}
                     minimLength={2}
                 />
-
-
             </div>
 
             <div className="flex items-center gap-2">
-
+                <Label htmlFor={"remember"} label={"Remember me"} />
                 <input
                     type="checkbox"
                     id="remember"
@@ -84,9 +76,6 @@ export const LoginForm = () => {
                     className="text-blue-600 bg-gray-700 border-gray-300 rounded-sm"
 
                 />
-
-                <Label htmlFor={"remember"} label={"Remember me"} />
-
             </div>
 
             <div className="w-full">

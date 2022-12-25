@@ -1,11 +1,11 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
+import { login } from "../../firebase/authServices";
+import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
-import { login } from "../../firebase/authServices";
-import { auth } from "../../firebase/firebaseConfig";
 
+import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
 import { Label } from "../FormComponents/Label";
 import { Button } from "../FormComponents/Button";
 import { TextInput } from "../FormComponents/TextInput";

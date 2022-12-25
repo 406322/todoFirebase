@@ -5,8 +5,6 @@ import { useAtom } from 'jotai'
 import { showLoginModalAtom, showResetPasswordAtom } from "../../atoms";
 import { FieldValues, useForm } from "react-hook-form";
 
-// import { TextInput } from "flowbite-react";
-
 import { Header } from "../FormComponents/Header";
 import { Label } from "../FormComponents/Label";
 import { TextInput } from "../FormComponents/TextInput";
@@ -35,7 +33,6 @@ export const ResetPasswordForm = () => {
                     alert('Email not found')
                 }
                 reset()
-
             });
     }
 
@@ -46,42 +43,37 @@ export const ResetPasswordForm = () => {
 
             <Header children={'Lost Password'} />
 
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="email"
-                        label={"Email"}
-                    />
-                </div>
-
-                {/* <TextInput
-                    id="email"
-                    placeholder="name@company.com"
-                    type="email"
-                    {...register("email", { required: true })}
+            <div className="flex flex-col gap-2">
+                <Label
+                    htmlFor="email"
+                    label={"Email"}
                 />
-                {errors?.email?.type === "required" && <p>This field is required</p>} */}
-                
-                <TextInput />   
-
-
-
-                
+                <TextInput
+                    fieldName="email"
+                    id="email"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    placeHolder="name@company.com"
+                    isRequired={true}
+                    maximLength={40}
+                    minimLength={2}
+                />
             </div>
 
             {message && <p>E-Mail sent. Please check your inbox</p>}
 
             <Button type="submit" children={'Reset Password'} variant="primary" />
 
-            <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                <Button 
-                children={'Login to account'} 
-                variant="secondary"
-                onClick={() => {
-                    setShowResetPassword(false)
-                    setShowLoginModal(true)
-                    setMessage(false)
-                }}
+            <div>
+                <Button
+                    children={'Login to account'}
+                    variant="secondary"
+                    onClick={() => {
+                        setShowResetPassword(false)
+                        setShowLoginModal(true)
+                        setMessage(false)
+                    }}
                 />
             </div>
         </form>

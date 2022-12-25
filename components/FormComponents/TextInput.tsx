@@ -29,7 +29,7 @@ export const TextInput = (
                 placeholder={placeHolder} {...register(fieldName, {
                     required: {
                         value: isRequired,
-                        message: "This is required",
+                        message: "This field is required",
                     },
                     maxLength: {
                         value: maximLength,

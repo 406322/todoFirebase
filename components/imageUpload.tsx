@@ -7,7 +7,7 @@ export const ImageUpload = ({ handleChange, preview, setPreview }: { handleChang
             {preview
 
                 ? <div className="relative block w-40 h-40 bg-gray-100 rounded-full shadow-xl">
-                    <Image src={preview} layout="fill" className="rounded-full " />
+                    <Image src={preview} layout="fill" className="rounded-full" alt={preview} />
                     <button
                         className="absolute top-0 right-0 z-10 p-2 text-gray-700 bg-white border rounded-full"
                         onClick={() => setPreview(null)}

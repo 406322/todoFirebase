@@ -36,8 +36,9 @@ export const LoginForm = () => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
-                
-            <Header children={'Sign in to our platform'} />
+
+            <Header>Sign in to our platform</Header>
+            {/* </Header><Header children={'Sign in to our platform'} /> */}
 
             <div className="flex flex-col gap-2">
                 <Label htmlFor="email" label="Your email" />
@@ -70,35 +71,36 @@ export const LoginForm = () => {
 
             <div className="flex items-center gap-2">
                 <Label htmlFor={"remember"} label={"Remember me"} />
-                <Checkbox 
-                id={"remember"} 
-                onClick={() => setAuthPersistence(!authPersistence)} 
+                <Checkbox
+                    id={"remember"}
+                    onClick={() => setAuthPersistence(!authPersistence)}
                 />
             </div>
 
             <div className="w-full">
                 <Button
-                    children={'Log in to your account'}
                     type="submit"
                     variant="primary"
-                />
+                >
+                    Log in to your account
+                </Button>
             </div>
 
             <div className="flex justify-between">
                 <Button
-                    children={'Lost Password?'}
                     variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
                         setShowResetPassword(true)
                     }}
-                />
+                >
+                    Lost Password?
+                </Button>
 
             </div>
 
             <div className="flex justify-between">
                 <Button
-                    children={'Login with testuser'}
                     variant="secondary"
                     onClick={(event) => {
                         event.preventDefault()
@@ -106,19 +108,22 @@ export const LoginForm = () => {
                         reset()
                         setShowLoginModal(false)
                     }}
-                />
+                >
+                    Login with testuser
+                </Button>
             </div>
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{' '}
                 <Button
-                    children={'Create account'}
                     variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
                         setShowRegisterModal(true)
                     }}
-                />
+                >
+                    Create account
+                </Button>
             </div>
         </form>
     )

@@ -40,7 +40,7 @@ export const ResetPasswordForm = () => {
             className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8"
             onSubmit={handleSubmit(onSubmit)}>
 
-            <Header children={'Lost Password'} />
+            <Header>Lost Password</Header>
 
             <div className="flex flex-col gap-2">
                 <Label
@@ -62,18 +62,20 @@ export const ResetPasswordForm = () => {
 
             {message && <p>E-Mail sent. Please check your inbox</p>}
 
-            <Button type="submit" children={'Reset Password'} variant="primary" />
+            <Button type="submit" variant="primary">Reset Password</Button>
 
             <div>
                 <Button
-                    children={'Login to account'}
                     variant="secondary"
                     onClick={() => {
                         setShowResetPassword(false)
                         setShowLoginModal(true)
                         setMessage(false)
                     }}
-                />
+                >
+                    Login to account
+                </Button>
+
             </div>
         </form>
     )

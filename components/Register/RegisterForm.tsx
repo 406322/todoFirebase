@@ -28,7 +28,7 @@ export const RegisterForm = () => {
             className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8"
             onSubmit={handleSubmit(onSubmit)}>
 
-            <Header children={'Create an account'} />
+            <Header>Create an account</Header>
 
             <div className='flex flex-col gap-2'>
                 <Label
@@ -84,24 +84,26 @@ export const RegisterForm = () => {
                 ) : null}
             </div>
 
-
-
             <Button
                 type="submit"
                 variant="primary"
-                children="Create an account"
-            />
+            >
+                Create an account
+            </Button>
+
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Already registered?{' '}
                 <Button
                     variant="secondary"
-                    children="Login to account"
                     onClick={() => {
                         setShowRegisterModal(false)
                         setShowLoginModal(true)
                     }}
-                />
+                >
+                    Login to account
+                </Button>
+
             </div>
         </form>
     )

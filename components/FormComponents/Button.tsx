@@ -13,7 +13,6 @@ export const Button = ({
   type, 
   variant,
   onClick, 
-  children, 
   ...rest 
 }: ButtonProps) => {
 
@@ -32,7 +31,6 @@ export const Button = ({
       onClick={onClick}
       {...rest}
     >
-      {children}
     </button>
   );
 };

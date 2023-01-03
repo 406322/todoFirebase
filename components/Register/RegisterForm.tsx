@@ -1,9 +1,13 @@
-import { Button, Label, TextInput } from "flowbite-react";
 import { useAtom } from 'jotai'
 import { showLoginModalAtom, showRegisterModalAtom } from "../../atoms";
 import { FieldValues, useForm } from "react-hook-form";
 import { register as registerUser } from "../../firebase/authServices";
 
+import { TextInput } from "flowbite-react";
+
+import { Header } from "../FormComponents/Header";
+import { Label } from "../FormComponents/Label";
+import { Button } from "../FormComponents/Button";
 
 export const RegisterForm = () => {
 
@@ -23,16 +27,14 @@ export const RegisterForm = () => {
         <form
             className="px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8"
             onSubmit={handleSubmit(onSubmit)}>
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                Create and account
-            </h3>
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="email"
-                        value="Your email"
-                    />
-                </div>
+
+            <Header>Create an account</Header>
+
+            <div className='flex flex-col gap-2'>
+                <Label
+                    htmlFor="email"
+                    label="Your email"
+                />
                 <TextInput
                     id="email"
                     placeholder="name@company.com"
@@ -42,13 +44,12 @@ export const RegisterForm = () => {
                 {errors?.email?.type === "required" && <p>This field is required</p>}
             </div>
 
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="registerPassword"
-                        value="Password"
-                    />
-                </div>
+
+            <div className='flex flex-col gap-2'>
+                <Label
+                    htmlFor="registerPassword"
+                    label="Password"
+                />
                 <TextInput
                     id="registerPassword"
                     type="password"
@@ -58,13 +59,13 @@ export const RegisterForm = () => {
                 {errors?.password?.type === "minLength" && (<p>password cannot be less than 6 characters</p>)}
             </div>
 
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="confirmPassword"
-                        value="Confirm Password"
-                    />
-                </div>
+
+
+            <div className='flex flex-col gap-2'>
+                <Label
+                    htmlFor="confirmPassword"
+                    label="Confirm Password"
+                />
                 <TextInput
                     id="confirmPassword"
                     type="password"
@@ -83,22 +84,26 @@ export const RegisterForm = () => {
                 ) : null}
             </div>
 
-            <Button type="submit">
+            <Button
+                type="submit"
+                variant="primary"
+            >
                 Create an account
             </Button>
 
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Already registered?{' '}
-                <a
-                    href="#"
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                <Button
+                    variant="secondary"
                     onClick={() => {
                         setShowRegisterModal(false)
                         setShowLoginModal(true)
-                    }}>
+                    }}
+                >
                     Login to account
-                </a>
+                </Button>
+
             </div>
         </form>
     )

@@ -1,11 +1,16 @@
 import { browserSessionPersistence, setPersistence } from "firebase/auth";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { login } from "../../firebase/authServices";
+import { auth } from "../../firebase/firebaseConfig";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+
 import { showLoginModalAtom, showRegisterModalAtom, showResetPasswordAtom } from "../../atoms";
-import { login } from "../../firebase/authServices";
-import { auth } from "../../firebase/firebaseConfig";
+import { Label } from "../FormComponents/Label";
+import { Button } from "../FormComponents/Button";
+import { TextInput } from "../FormComponents/TextInput";
+import { Checkbox } from "../FormComponents/Checkbox";
+import { Header } from "../FormComponents/Header";
 
 export const LoginForm = () => {
 
@@ -15,7 +20,6 @@ export const LoginForm = () => {
     const [authPersistence, setAuthPersistence] = useState(false)
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
 
     const onSubmit = async (data: FieldValues) => {
         if (!authPersistence) { setPersistence(auth, browserSessionPersistence) }
@@ -32,92 +36,94 @@ export const LoginForm = () => {
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full px-6 pb-4 space-y-6 sm:pb-6 lg:px-8 xl:pb-8">
-            <h1 className="text-xl font-medium text-gray-900 dark:text-white">
-                Sign in to our platform
-            </h1>
 
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="email"
-                        value="Your email"
-                    />
-                </div>
+            <Header>Sign in to our platform</Header>
+            {/* </Header><Header children={'Sign in to our platform'} /> */}
+
+            <div className="flex flex-col gap-2">
+                <Label htmlFor="email" label="Your email" />
                 <TextInput
+                    fieldName="email"
                     id="email"
-                    type="email"
-                    placeholder="name@company.com"
-                    autoComplete="on"
-                    {...register("email", { required: true })}
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    placeHolder="name@company.com"
+                    isRequired={true}
+                    maximLength={20}
+                    minimLength={2}
                 />
             </div>
 
-            <div>
-                <div className="block mb-2">
-                    <Label
-                        htmlFor="password"
-                        value="Your password"
-                    />
-                </div>
+            <div className="flex flex-col gap-2">
+                <Label htmlFor="password" label="Your password" />
                 <TextInput
+                    fieldName="password"
                     id="password"
                     type="password"
-                    required={true}
-                    {...register("password", { required: true })}
+                    register={register}
+                    errors={errors}
+                    isRequired={true}
+                    maximLength={20}
+                    minimLength={2}
                 />
             </div>
 
             <div className="flex items-center gap-2">
+                <Label htmlFor={"remember"} label={"Remember me"} />
                 <Checkbox
-                    id="remember"
-                    onClick={() => setAuthPersistence(!authPersistence)} />
-                <Label htmlFor="remember">
-                    Remember me
-                </Label>
+                    id={"remember"}
+                    onClick={() => setAuthPersistence(!authPersistence)}
+                />
             </div>
 
             <div className="w-full">
                 <Button
-                    type="submit">
+                    type="submit"
+                    variant="primary"
+                >
                     Log in to your account
                 </Button>
             </div>
 
             <div className="flex justify-between">
-                <button
+                <Button
+                    variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
                         setShowResetPassword(true)
                     }}
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500">
+                >
                     Lost Password?
-                </button>
+                </Button>
+
             </div>
 
             <div className="flex justify-between">
-                <button
+                <Button
+                    variant="secondary"
                     onClick={(event) => {
                         event.preventDefault()
                         login("test@test.no", "abc123")
                         reset()
                         setShowLoginModal(false)
                     }}
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500">
+                >
                     Login with testuser
-                </button>
+                </Button>
             </div>
 
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 Not registered?{' '}
-                <a
-                    href="#"
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                <Button
+                    variant="secondary"
                     onClick={() => {
                         setShowLoginModal(false)
                         setShowRegisterModal(true)
-                    }}>
+                    }}
+                >
                     Create account
-                </a>
+                </Button>
             </div>
         </form>
     )

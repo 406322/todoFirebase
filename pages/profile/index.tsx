@@ -19,8 +19,8 @@ const ProfilePage = () => {
                 <div className="flex justify-between mb-3">
 
                     {user.photoURL
-                        ? <Image src={user.photoURL} width={96} height={96} className="rounded-full " />
-                        : <Image src={'/dummy-profile-pic.png'} width={96} height={96} className="rounded-full " />
+                        ? <Image src={user.photoURL} width={96} height={96} className="rounded-full" alt="UserImage" />
+                        : <Image src={'/dummy-profile-pic.png'} width={96} height={96} className="rounded-full" alt="UserImage" />
                     }
 
                     <Link href="/profile/edit">
